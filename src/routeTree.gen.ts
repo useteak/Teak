@@ -9,50 +9,287 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedNewOrganizationRouteImport } from './routes/_authenticated/new-organization'
+import { Route as AuthenticatedOrganizationIdRouteRouteImport } from './routes/_authenticated/$organizationId/route'
+import { Route as AuthenticatedOrganizationIdIndexRouteImport } from './routes/_authenticated/$organizationId/index'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AuthenticatedOrganizationIdProjectsNewRouteImport } from './routes/_authenticated/$organizationId/projects/new'
+import { Route as AuthenticatedOrganizationIdProjectsProjectIdIndexRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/index'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNewOrganizationRoute =
+  AuthenticatedNewOrganizationRouteImport.update({
+    id: '/new-organization',
+    path: '/new-organization',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOrganizationIdRouteRoute =
+  AuthenticatedOrganizationIdRouteRouteImport.update({
+    id: '/$organizationId',
+    path: '/$organizationId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOrganizationIdIndexRoute =
+  AuthenticatedOrganizationIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedOrganizationIdRouteRoute,
+  } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOrganizationIdProjectsNewRoute =
+  AuthenticatedOrganizationIdProjectsNewRouteImport.update({
+    id: '/projects/new',
+    path: '/projects/new',
+    getParentRoute: () => AuthenticatedOrganizationIdRouteRoute,
+  } as any)
+const AuthenticatedOrganizationIdProjectsProjectIdIndexRoute =
+  AuthenticatedOrganizationIdProjectsProjectIdIndexRouteImport.update({
+    id: '/projects/$projectId/',
+    path: '/projects/$projectId/',
+    getParentRoute: () => AuthenticatedOrganizationIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/new-organization': typeof AuthenticatedNewOrganizationRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
+  '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/new-organization': typeof AuthenticatedNewOrganizationRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/$organizationId': typeof AuthenticatedOrganizationIdIndexRoute
+  '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/_authenticated/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/_authenticated/new-organization': typeof AuthenticatedNewOrganizationRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_authenticated/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
+  '/_authenticated/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/_authenticated/$organizationId/projects/$projectId/': typeof AuthenticatedOrganizationIdProjectsProjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/login'
+    | '/signup'
+    | '/$organizationId'
+    | '/new-organization'
+    | '/settings'
+    | '/'
+    | '/api/auth/$'
+    | '/$organizationId/'
+    | '/$organizationId/projects/new'
+    | '/$organizationId/projects/$projectId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/login'
+    | '/signup'
+    | '/new-organization'
+    | '/settings'
+    | '/'
+    | '/api/auth/$'
+    | '/$organizationId'
+    | '/$organizationId/projects/new'
+    | '/$organizationId/projects/$projectId'
+  id:
+    | '__root__'
+    | '/_authenticated'
+    | '/login'
+    | '/signup'
+    | '/_authenticated/$organizationId'
+    | '/_authenticated/new-organization'
+    | '/_authenticated/settings'
+    | '/_authenticated/'
+    | '/api/auth/$'
+    | '/_authenticated/$organizationId/'
+    | '/_authenticated/$organizationId/projects/new'
+    | '/_authenticated/$organizationId/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/new-organization': {
+      id: '/_authenticated/new-organization'
+      path: '/new-organization'
+      fullPath: '/new-organization'
+      preLoaderRoute: typeof AuthenticatedNewOrganizationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/$organizationId': {
+      id: '/_authenticated/$organizationId'
+      path: '/$organizationId'
+      fullPath: '/$organizationId'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/$organizationId/': {
+      id: '/_authenticated/$organizationId/'
+      path: '/'
+      fullPath: '/$organizationId/'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdIndexRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdRouteRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/$organizationId/projects/new': {
+      id: '/_authenticated/$organizationId/projects/new'
+      path: '/projects/new'
+      fullPath: '/$organizationId/projects/new'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdProjectsNewRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdRouteRoute
+    }
+    '/_authenticated/$organizationId/projects/$projectId/': {
+      id: '/_authenticated/$organizationId/projects/$projectId/'
+      path: '/projects/$projectId'
+      fullPath: '/$organizationId/projects/$projectId'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdProjectsProjectIdIndexRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdRouteRoute
     }
   }
 }
 
+interface AuthenticatedOrganizationIdRouteRouteChildren {
+  AuthenticatedOrganizationIdIndexRoute: typeof AuthenticatedOrganizationIdIndexRoute
+  AuthenticatedOrganizationIdProjectsNewRoute: typeof AuthenticatedOrganizationIdProjectsNewRoute
+  AuthenticatedOrganizationIdProjectsProjectIdIndexRoute: typeof AuthenticatedOrganizationIdProjectsProjectIdIndexRoute
+}
+
+const AuthenticatedOrganizationIdRouteRouteChildren: AuthenticatedOrganizationIdRouteRouteChildren =
+  {
+    AuthenticatedOrganizationIdIndexRoute:
+      AuthenticatedOrganizationIdIndexRoute,
+    AuthenticatedOrganizationIdProjectsNewRoute:
+      AuthenticatedOrganizationIdProjectsNewRoute,
+    AuthenticatedOrganizationIdProjectsProjectIdIndexRoute:
+      AuthenticatedOrganizationIdProjectsProjectIdIndexRoute,
+  }
+
+const AuthenticatedOrganizationIdRouteRouteWithChildren =
+  AuthenticatedOrganizationIdRouteRoute._addFileChildren(
+    AuthenticatedOrganizationIdRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOrganizationIdRouteRoute: typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  AuthenticatedNewOrganizationRoute: typeof AuthenticatedNewOrganizationRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOrganizationIdRouteRoute:
+    AuthenticatedOrganizationIdRouteRouteWithChildren,
+  AuthenticatedNewOrganizationRoute: AuthenticatedNewOrganizationRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
