@@ -94,7 +94,7 @@ function RouteComponent() {
         })
         toast.success('Org created')
         navigate({
-          to: '/$organizationId/projects/$projectId',
+          to: '/$organizationId/projects/$projectId/feedback',
           params: {
             organizationId: project.organizationId,
             projectId: project.id,
@@ -108,7 +108,7 @@ function RouteComponent() {
 
   return (
     <div className="flex min-h-svh items-center justify-center">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
             <p>New project</p>

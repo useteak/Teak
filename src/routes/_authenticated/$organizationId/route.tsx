@@ -3,7 +3,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import * as z from 'zod'
 import { AppSidebar } from '@/components/app-sidebar'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { prisma } from '@/db'
 import { auth } from '@/lib/auth'
 
@@ -13,6 +13,18 @@ const getData = createServerFn()
     const session = await auth.api.getSession({
       headers: getRequestHeaders(),
     })
+
+    const organizations = await prisma.organization.findMany({
+      where: {
+        users: {
+          some: {
+            id: session?.user.id,
+          },
+        },
+      },
+    })
+
+    const organization = organizations.find((o) => o.id === data.organizationId)
 
     const projects = await prisma.project.findMany({
       where: {
@@ -29,6 +41,8 @@ const getData = createServerFn()
 
     return {
       user: session?.user,
+      organizations,
+      organization,
       projects,
     }
   })
@@ -43,9 +57,9 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex-1">
+      <SidebarInset>
         <Outlet />
-      </main>
+      </SidebarInset>
     </SidebarProvider>
   )
 }

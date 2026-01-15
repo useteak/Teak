@@ -2,8 +2,10 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
+import { ThemeProvider } from 'next-themes'
 import appCss from '../styles.css?url'
 import { Toaster } from '@/components/ui/sonner'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -37,8 +39,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Toaster richColors />
-        {children}
+        <Toaster position="top-right" richColors />
+        <ThemeProvider>
+          <TooltipProvider delayDuration={700}>{children}</TooltipProvider>
+        </ThemeProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -50,6 +54,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
+
         <Scripts />
       </body>
     </html>

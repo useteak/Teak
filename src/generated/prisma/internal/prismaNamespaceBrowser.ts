@@ -57,7 +57,8 @@ export const ModelName = {
   Verification: 'Verification',
   Organization: 'Organization',
   Project: 'Project',
-  Feedback: 'Feedback'
+  Feedback: 'Feedback',
+  OrganizationInvitation: 'OrganizationInvitation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -159,12 +160,30 @@ export const FeedbackScalarFieldEnum = {
   id: 'id',
   description: 'description',
   type: 'type',
+  email: 'email',
   projectId: 'projectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
+export const OrganizationInvitationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  email: 'email',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdByUserId: 'createdByUserId',
+  acceptedAt: 'acceptedAt',
+  acceptedByUserId: 'acceptedByUserId',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrganizationInvitationScalarFieldEnum = (typeof OrganizationInvitationScalarFieldEnum)[keyof typeof OrganizationInvitationScalarFieldEnum]
 
 
 export const SortOrder = {

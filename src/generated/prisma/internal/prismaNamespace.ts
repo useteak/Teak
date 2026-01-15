@@ -390,7 +390,8 @@ export const ModelName = {
   Verification: 'Verification',
   Organization: 'Organization',
   Project: 'Project',
-  Feedback: 'Feedback'
+  Feedback: 'Feedback',
+  OrganizationInvitation: 'OrganizationInvitation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "organization" | "project" | "feedback"
+    modelProps: "user" | "session" | "account" | "verification" | "organization" | "project" | "feedback" | "organizationInvitation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -928,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrganizationInvitation: {
+      payload: Prisma.$OrganizationInvitationPayload<ExtArgs>
+      fields: Prisma.OrganizationInvitationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrganizationInvitationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrganizationInvitationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        findFirst: {
+          args: Prisma.OrganizationInvitationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrganizationInvitationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        findMany: {
+          args: Prisma.OrganizationInvitationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>[]
+        }
+        create: {
+          args: Prisma.OrganizationInvitationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        createMany: {
+          args: Prisma.OrganizationInvitationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrganizationInvitationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>[]
+        }
+        delete: {
+          args: Prisma.OrganizationInvitationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        update: {
+          args: Prisma.OrganizationInvitationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        deleteMany: {
+          args: Prisma.OrganizationInvitationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrganizationInvitationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrganizationInvitationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>[]
+        }
+        upsert: {
+          args: Prisma.OrganizationInvitationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrganizationInvitationPayload>
+        }
+        aggregate: {
+          args: Prisma.OrganizationInvitationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrganizationInvitation>
+        }
+        groupBy: {
+          args: Prisma.OrganizationInvitationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrganizationInvitationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrganizationInvitationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrganizationInvitationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1050,12 +1125,30 @@ export const FeedbackScalarFieldEnum = {
   id: 'id',
   description: 'description',
   type: 'type',
+  email: 'email',
   projectId: 'projectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
+
+
+export const OrganizationInvitationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  email: 'email',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdByUserId: 'createdByUserId',
+  acceptedAt: 'acceptedAt',
+  acceptedByUserId: 'acceptedByUserId',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrganizationInvitationScalarFieldEnum = (typeof OrganizationInvitationScalarFieldEnum)[keyof typeof OrganizationInvitationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1252,6 +1345,7 @@ export type GlobalOmitConfig = {
   organization?: Prisma.OrganizationOmit
   project?: Prisma.ProjectOmit
   feedback?: Prisma.FeedbackOmit
+  organizationInvitation?: Prisma.OrganizationInvitationOmit
 }
 
 /* Types for Logging */

@@ -1,0 +1,56 @@
+export function getJavaScriptIntegrationCode(
+  organizationId: string,
+  projectId: string,
+) {
+  return `fetch('${location.origin}/api/v1/${organizationId}/projects/${projectId}/feedback', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    // Required fields
+    description: 'Your feedback description here',
+    type: 'BUG', // Options: 'BUG' | 'FEATURE_REQUEST' | 'IMPROVEMENT' | 'QUESTION' | 'PRAISE' | 'OTHER'
+
+    // Optional fields
+    email: 'user@example.com', // Contact email for follow-up
+  }),
+})`
+}
+
+export function getCurlIntegrationCode(
+  organizationId: string,
+  projectId: string,
+) {
+  return `curl -X POST '${location.origin}/api/v1/${organizationId}/projects/${projectId}/feedback' \\
+  -H 'Content-Type: application/json' \\
+  -d '{
+    "description": "Your feedback description here",
+    "type": "BUG",
+    "email": "user@example.com"
+  }'
+
+# Type options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
+# Email is optional`
+}
+
+export function getPythonIntegrationCode(
+  organizationId: string,
+  projectId: string,
+) {
+  return `import requests
+
+response = requests.post(
+    '${location.origin}/api/v1/${organizationId}/projects/${projectId}/feedback',
+    json={
+        # Required fields
+        'description': 'Your feedback description here',
+        'type': 'BUG',  # Options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
+
+        # Optional fields
+        'email': 'user@example.com',  # Contact email for follow-up
+    }
+)
+
+print(response.json())`
+}

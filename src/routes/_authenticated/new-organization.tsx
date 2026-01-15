@@ -109,7 +109,7 @@ function RouteComponent() {
 
   return (
     <div className="flex min-h-svh items-center justify-center">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
             <p>Welcome, {user?.name}</p>
@@ -136,6 +136,7 @@ function RouteComponent() {
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Org name</FieldLabel>
                       <Input
+                        autoFocus
                         id={field.name}
                         name={field.name}
                         value={field.state.value}

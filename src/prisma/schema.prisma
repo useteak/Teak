@@ -9,22 +9,30 @@ generator client {
   output   = "../generated/prisma"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+  output   = "../generated/zod"
+}
+
 datasource db {
   provider = "postgresql"
 }
 
 model User {
-  id            String         @id
+  id            String    @id
   name          String
   email         String
-  emailVerified Boolean        @default(false)
+  emailVerified Boolean   @default(false)
   image         String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
 
   organizations Organization[]
+
+  organizationInvitationsCreated  OrganizationInvitation[] @relation("OrganizationInvitationCreatedBy")
+  organizationInvitationsAccepted OrganizationInvitation[] @relation("OrganizationInvitationAcceptedBy")
 
   @@unique([email])
   @@map("user")
@@ -88,12 +96,13 @@ enum FeedbackType {
 }
 
 model Organization {
-  id        String   @id @default(cuid())
-  name      String
-  users     User[]
-  projects  Project[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String                   @id @default(cuid())
+  name        String
+  users       User[]
+  projects    Project[]
+  invitations OrganizationInvitation[]
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @updatedAt
 
   @@map("organization")
 }
@@ -115,6 +124,7 @@ model Feedback {
   id          String       @id @default(cuid())
   description String
   type        FeedbackType
+  email       String?
   projectId   String
   project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createdAt   DateTime     @default(now())
@@ -122,4 +132,25 @@ model Feedback {
 
   @@index([projectId])
   @@map("feedback")
+}
+
+model OrganizationInvitation {
+  id               String       @id @default(cuid())
+  organizationId   String
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email            String
+  token            String       @unique
+  expiresAt        DateTime
+  createdByUserId  String
+  createdByUser    User         @relation("OrganizationInvitationCreatedBy", fields: [createdByUserId], references: [id], onDelete: Cascade)
+  acceptedAt       DateTime?
+  acceptedByUserId String?
+  acceptedByUser   User?        @relation("OrganizationInvitationAcceptedBy", fields: [acceptedByUserId], references: [id], onDelete: SetNull)
+  revokedAt        DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([organizationId])
+  @@index([email])
+  @@map("organization_invitation")
 }

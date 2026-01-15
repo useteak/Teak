@@ -1,0 +1,13 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { FeedbackWhereInputObjectSchema as FeedbackWhereInputObjectSchema } from './objects/FeedbackWhereInput.schema';
+import { FeedbackOrderByWithAggregationInputObjectSchema as FeedbackOrderByWithAggregationInputObjectSchema } from './objects/FeedbackOrderByWithAggregationInput.schema';
+import { FeedbackScalarWhereWithAggregatesInputObjectSchema as FeedbackScalarWhereWithAggregatesInputObjectSchema } from './objects/FeedbackScalarWhereWithAggregatesInput.schema';
+import { FeedbackScalarFieldEnumSchema } from './enums/FeedbackScalarFieldEnum.schema';
+import { FeedbackCountAggregateInputObjectSchema as FeedbackCountAggregateInputObjectSchema } from './objects/FeedbackCountAggregateInput.schema';
+import { FeedbackMinAggregateInputObjectSchema as FeedbackMinAggregateInputObjectSchema } from './objects/FeedbackMinAggregateInput.schema';
+import { FeedbackMaxAggregateInputObjectSchema as FeedbackMaxAggregateInputObjectSchema } from './objects/FeedbackMaxAggregateInput.schema';
+
+export const FeedbackGroupBySchema: z.ZodType<Prisma.FeedbackGroupByArgs> = z.object({ where: FeedbackWhereInputObjectSchema.optional(), orderBy: z.union([FeedbackOrderByWithAggregationInputObjectSchema, FeedbackOrderByWithAggregationInputObjectSchema.array()]).optional(), having: FeedbackScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(FeedbackScalarFieldEnumSchema), _count: z.union([ z.literal(true), FeedbackCountAggregateInputObjectSchema ]).optional(), _min: FeedbackMinAggregateInputObjectSchema.optional(), _max: FeedbackMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.FeedbackGroupByArgs>;
+
+export const FeedbackGroupByZodSchema = z.object({ where: FeedbackWhereInputObjectSchema.optional(), orderBy: z.union([FeedbackOrderByWithAggregationInputObjectSchema, FeedbackOrderByWithAggregationInputObjectSchema.array()]).optional(), having: FeedbackScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(FeedbackScalarFieldEnumSchema), _count: z.union([ z.literal(true), FeedbackCountAggregateInputObjectSchema ]).optional(), _min: FeedbackMinAggregateInputObjectSchema.optional(), _max: FeedbackMaxAggregateInputObjectSchema.optional() }).strict();

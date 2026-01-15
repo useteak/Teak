@@ -1,8 +1,11 @@
 import {
   BookmarkIcon,
+  HomeIcon,
+  IceCubesIcon,
   LogoutIcon,
-  MenuIcon,
   PlusSignIcon,
+  Settings05Icon,
+  UnfoldMoreIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link, useLocation } from '@tanstack/react-router'
@@ -12,6 +15,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import { Avatar, AvatarFallback } from './ui/avatar'
+import OrganizationSwitcher from './organization-switcher'
 import {
   Sidebar,
   SidebarContent,
@@ -20,12 +25,14 @@ import {
   SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Route } from '@/routes/_authenticated/$organizationId/route'
 import { authClient } from '@/lib/auth-client'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 export function AppSidebar() {
   // Server state
@@ -38,29 +45,68 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      {/* <SidebarHeader> */}
-      {/* </SidebarHeader> */}
+      <SidebarHeader>
+        <OrganizationSwitcher />
+
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/${params.organizationId}`}
+              asChild
+            >
+              <Link
+                to="/$organizationId"
+                params={{ organizationId: params.organizationId }}
+              >
+                <HugeiconsIcon icon={HomeIcon} />
+                Home
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname.startsWith(
+                `/${params.organizationId}/settings`,
+              )}
+              asChild
+            >
+              <Link
+                to="/$organizationId/settings/general"
+                params={{ organizationId: params.organizationId }}
+              >
+                <HugeiconsIcon icon={Settings05Icon} />
+                Settings
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <Tooltip>
+              <TooltipTrigger>
+                <SidebarMenuButton
+                  disabled
+                  isActive={
+                    location.pathname ===
+                    `/${params.organizationId}/integrations`
+                  }
+                  asChild
+                >
+                  <Link
+                    to="/$organizationId/integrations"
+                    params={{ organizationId: params.organizationId }}
+                  >
+                    <HugeiconsIcon icon={IceCubesIcon} />
+                    Integrations
+                  </Link>
+                </SidebarMenuButton>
+              </TooltipTrigger>
+              <TooltipContent>Coming soon</TooltipContent>
+            </Tooltip>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
-
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton>Settings</SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton>API Keys</SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton>Integrations</SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
 
@@ -85,7 +131,7 @@ export function AppSidebar() {
                     asChild
                   >
                     <Link
-                      to="/$organizationId/projects/$projectId"
+                      to="/$organizationId/projects/$projectId/feedback"
                       params={{
                         organizationId: params.organizationId,
                         projectId: project.id,
@@ -101,43 +147,53 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex flex-row justify-between items-center hover:bg-card p-2 pr-3 text-left focus:outline-none group/user-dropdown focus-visible:ring-1 focus-visible:ring-sidebar-ring">
-            <div className="space-y-1">
-              <p className="text-xs">{user?.name}</p>
-              <p className="text-xs text-muted-foreground">{user?.email}</p>
-            </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    <AvatarFallback className="rounded-lg">
+                      {user?.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium">{user?.name}</span>
+                    <span className="truncate text-xs">{user?.email}</span>
+                  </div>
+                  <HugeiconsIcon icon={UnfoldMoreIcon} />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
 
-            <HugeiconsIcon
-              className="text-muted-foreground size-3.5 group-hover/user-dropdown:text-foreground"
-              icon={MenuIcon}
-            />
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent sideOffset={8}>
-            <DropdownMenuItem>
-              <HugeiconsIcon icon={BookmarkIcon} />
-              Documentation
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              variant="destructive"
-              onSelect={() => {
-                authClient.signOut({
-                  fetchOptions: {
-                    onSuccess: () => {
-                      navigate({
-                        to: '/login',
-                      })
-                    },
-                  },
-                })
-              }}
-            >
-              <HugeiconsIcon icon={LogoutIcon} />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              <DropdownMenuContent sideOffset={8}>
+                <DropdownMenuItem>
+                  <HugeiconsIcon icon={BookmarkIcon} />
+                  Documentation
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  variant="destructive"
+                  onSelect={() => {
+                    authClient.signOut({
+                      fetchOptions: {
+                        onSuccess: () => {
+                          navigate({
+                            to: '/login',
+                          })
+                        },
+                      },
+                    })
+                  }}
+                >
+                  <HugeiconsIcon icon={LogoutIcon} />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )

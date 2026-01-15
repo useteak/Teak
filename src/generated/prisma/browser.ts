@@ -52,3 +52,8 @@ export type Project = Prisma.ProjectModel
  * 
  */
 export type Feedback = Prisma.FeedbackModel
+/**
+ * Model OrganizationInvitation
+ * 
+ */
+export type OrganizationInvitation = Prisma.OrganizationInvitationModel
