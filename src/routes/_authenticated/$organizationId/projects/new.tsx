@@ -108,7 +108,7 @@ function RouteComponent() {
 
   return (
     <div className="flex min-h-svh items-center justify-center">
-      <Card className="w-full max-w-md">
+      <Card size="sm" className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
             <p>New project</p>
@@ -133,9 +133,7 @@ function RouteComponent() {
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        Project title
-                      </FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Project name</FieldLabel>
                       <Input
                         autoFocus
                         id={field.name}
@@ -164,6 +162,7 @@ function RouteComponent() {
               <Button
                 disabled={isSubmitting || !canSubmit}
                 form="create-project-form"
+                size="sm"
               >
                 Create project <HugeiconsIcon icon={ArrowRight02Icon} />{' '}
               </Button>

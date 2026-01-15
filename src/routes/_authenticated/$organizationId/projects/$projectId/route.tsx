@@ -7,21 +7,13 @@ import {
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { z } from 'zod'
-import { MessageIcon, SettingsIcon } from '@hugeicons/core-free-icons'
+import { MessageIcon, Settings05Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { prisma } from '@/db'
 import { auth } from '@/lib/auth'
@@ -110,7 +102,7 @@ function RouteComponent() {
                   projectId: params.projectId,
                 }}
               >
-                <HugeiconsIcon icon={SettingsIcon} />
+                <HugeiconsIcon icon={Settings05Icon} />
                 Settings
               </Link>
             </SidebarMenuButton>

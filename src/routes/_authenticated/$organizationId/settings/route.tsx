@@ -7,16 +7,9 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react'
 import { BuildingIcon, UserGroup03Icon } from '@hugeicons/core-free-icons'
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from '@/components/ui/breadcrumb'
-import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 
@@ -32,26 +25,15 @@ function RouteComponent() {
   const location = useLocation()
 
   return (
-    <>
-      <header className="flex h-14 shrink-0 items-center gap-2 border-b">
-        <div className="flex items-center gap-2 px-3">
-          <SidebarTrigger />
-          <Separator
-            orientation="vertical"
-            className="mr-2 h-4 data-[orientation=vertical]:self-center"
-          />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbPage>Settings</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+    <div className="flex flex-col gap-8 flex-1 px-6 py-12 w-full max-w-6xl mx-auto">
+      <div className="space-y-5">
+        <h1 className="text-2xl flex-1 font-medium">Settings</h1>
 
-      <div className="flex items-start flex-1 gap-8 pt-6 pb-32 px-6 max-w-5xl">
-        <SidebarMenu className="max-w-64">
+        <Separator />
+      </div>
+
+      <div className="flex items-start gap-16">
+        <SidebarMenu className="flex-1 max-w-64 sticky top-4">
           <SidebarMenuItem>
             <SidebarMenuButton
               isActive={location.pathname.startsWith(
@@ -87,10 +69,10 @@ function RouteComponent() {
           </SidebarMenuItem>
         </SidebarMenu>
 
-        <div className="flex flex-1 flex-col gap-8">
+        <div className="flex flex-1 flex-col gap-8 min-w-0 pb-8">
           <Outlet />
         </div>
       </div>
-    </>
+    </div>
   )
 }

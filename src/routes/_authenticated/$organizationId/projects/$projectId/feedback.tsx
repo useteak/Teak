@@ -95,13 +95,13 @@ function RouteComponent() {
         ),
       ).map(([day, entries]) => (
         <div key={day} className="flex items-start gap-8">
-          <h2 className="text-sm text-muted-foreground w-32 text-right">
+          <h2 className="text-sm text-muted-foreground w-28 text-right">
             {day}
           </h2>
 
           <Card
             size="sm"
-            className="w-full divide-y data-[size=sm]:gap-0 data-[size=sm]:py-0"
+            className="w-full divide-y dark:divide-background data-[size=sm]:gap-0 data-[size=sm]:py-0"
           >
             {entries?.map((f) => (
               <FeedbackCard key={f.id} feedback={f} />

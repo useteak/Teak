@@ -4,20 +4,13 @@ import {
   ChartIncreaseIcon,
   ChatQuestionIcon,
   Lightbulb,
-  MessageIcon,
   PartyIcon,
   TriangleDashIcon,
   UserIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { format } from 'date-fns'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
+import { CardContent } from './ui/card'
 import type { Feedback } from '@/generated/prisma/client'
 import { FeedbackType } from '@/generated/prisma/enums'
 import { cn } from '@/lib/utils'
@@ -42,23 +35,46 @@ function getFeedbackTypeLabel(type: FeedbackType) {
 function getFeedbackTypeIcon(type: FeedbackType) {
   switch (type) {
     case FeedbackType.BUG:
-      return { component: BugIcon, className: 'text-destructive' }
+      return {
+        component: BugIcon,
+        className: 'text-destructive',
+        edgeClassName: 'border-l-destructive',
+        backgroundClassName: 'bg-destructive/2 dark:bg-destructive/3',
+      }
     case FeedbackType.FEATURE_REQUEST:
-      return { component: Lightbulb, className: 'text-amber-500' }
+      return {
+        component: Lightbulb,
+        className: 'text-amber-600 dark:text-amber-500',
+        edgeClassName: 'border-l-amber-500',
+        backgroundClassName: 'bg-amber-300/3 dark:bg-amber-700/7',
+      }
     case FeedbackType.IMPROVEMENT:
       return {
         component: ChartIncreaseIcon,
         className: 'text-indigo-500 dark:text-indigo-300',
+        edgeClassName: 'border-l-indigo-500 dark:border-l-indigo-300',
+        backgroundClassName: 'bg-indigo-300/3 dark:bg-indigo-500/6',
       }
     case FeedbackType.QUESTION:
       return {
         component: ChatQuestionIcon,
         className: 'text-lime-500 dark:text-lime-300',
+        edgeClassName: 'border-l-lime-500 dark:border-l-lime-300',
+        backgroundClassName: 'bg-lime-500/4 dark:bg-lime-700/5',
       }
     case FeedbackType.PRAISE:
-      return { component: PartyIcon, className: 'text-foreground-primary' }
+      return {
+        component: PartyIcon,
+        className: 'text-foreground-primary',
+        edgeClassName: 'border-l-foreground-primary',
+        backgroundClassName: 'bg-primary/2 dark:bg-primary/6',
+      }
     case FeedbackType.OTHER:
-      return { component: TriangleDashIcon, className: 'text-muted-foreground' }
+      return {
+        component: TriangleDashIcon,
+        className: 'text-muted-foreground',
+        edgeClassName: 'border-l-muted-foreground',
+      }
   }
 }
 
@@ -66,15 +82,28 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
   const icon = getFeedbackTypeIcon(feedback.type)
 
   return (
-    <CardContent className="p-3.5 flex flex-row gap-3">
+    <CardContent
+      className={cn(
+        'p-3.5 flex flex-row gap-2.5 relative overflow-hidden border-l',
+        icon.edgeClassName,
+        icon.backgroundClassName,
+      )}
+    >
       <HugeiconsIcon
         icon={icon.component}
-        className={cn('size-4 translate-y-0.5', icon.className)}
+        className={cn('size-4', icon.className)}
       />
 
-      <div className="space-y-1 flex-1">
+      <div className="space-y-2 flex-1">
         <div className="flex items-center gap-2 justify-between flex-wrap">
-          <CardTitle>{getFeedbackTypeLabel(feedback.type)}</CardTitle>
+          <p
+            className={cn(
+              'text-[11px] uppercase tracking-widest dark:font-light',
+              icon.className,
+            )}
+          >
+            {getFeedbackTypeLabel(feedback.type)}
+          </p>
 
           <p className="text-xs text-muted-foreground">
             {format(feedback.createdAt, 'HH:mm')}
@@ -82,9 +111,9 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
         </div>
 
         <div className="space-y-3">
-          <CardDescription className="whitespace-pre-line leading-relaxed">
+          <p className="whitespace-pre-line text-base">
             &ldquo;{feedback.description}&rdquo;
-          </CardDescription>
+          </p>
 
           <div className="flex items-center gap-1.5">
             <HugeiconsIcon
