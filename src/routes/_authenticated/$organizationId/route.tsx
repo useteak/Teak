@@ -6,6 +6,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { prisma } from '@/db'
 import { auth } from '@/lib/auth'
+import AppFooter from '@/components/app-footer'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))
@@ -58,7 +59,10 @@ function RouteComponent() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <Outlet />
+        <div className="min-h-svh">
+          <Outlet />
+        </div>
+        <AppFooter />
       </SidebarInset>
     </SidebarProvider>
   )

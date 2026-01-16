@@ -94,7 +94,7 @@ function RouteComponent() {
         })
         toast.success('Org created')
         navigate({
-          to: '/$organizationId/projects/$projectId/feedback',
+          to: '/$organizationId/projects/$projectId/settings',
           params: {
             organizationId: project.organizationId,
             projectId: project.id,

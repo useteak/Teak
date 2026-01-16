@@ -247,7 +247,7 @@ function RouteComponent() {
         </CardContent>
       </Card>
 
-      <Card className="ring-1 ring-destructive">
+      <Card>
         <CardHeader>
           <CardTitle>Danger Zone</CardTitle>
           <CardDescription>
@@ -263,7 +263,7 @@ function RouteComponent() {
                 projectId: params.projectId,
               }}
             >
-              Delete project...
+              Delete {project?.title || 'project'}...
             </Link>
           </Button>
         </CardContent>

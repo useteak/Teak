@@ -67,7 +67,7 @@ function RouteComponent() {
       </div>
 
       <div className="flex items-start gap-16">
-        <SidebarMenu className="flex-1 max-w-64 sticky top-4">
+        <SidebarMenu className="flex-1 max-w-64 sticky top-6">
           <SidebarMenuItem>
             <SidebarMenuButton
               isActive={location.pathname.startsWith(

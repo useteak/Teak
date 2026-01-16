@@ -39,35 +39,30 @@ function getFeedbackTypeIcon(type: FeedbackType) {
         component: BugIcon,
         className: 'text-destructive',
         edgeClassName: 'border-l-destructive',
-        backgroundClassName: 'bg-destructive/2 dark:bg-destructive/3',
       }
     case FeedbackType.FEATURE_REQUEST:
       return {
         component: Lightbulb,
         className: 'text-amber-600 dark:text-amber-500',
         edgeClassName: 'border-l-amber-500',
-        backgroundClassName: 'bg-amber-300/3 dark:bg-amber-700/7',
       }
     case FeedbackType.IMPROVEMENT:
       return {
         component: ChartIncreaseIcon,
         className: 'text-indigo-500 dark:text-indigo-300',
         edgeClassName: 'border-l-indigo-500 dark:border-l-indigo-300',
-        backgroundClassName: 'bg-indigo-300/3 dark:bg-indigo-500/6',
       }
     case FeedbackType.QUESTION:
       return {
         component: ChatQuestionIcon,
         className: 'text-lime-500 dark:text-lime-300',
         edgeClassName: 'border-l-lime-500 dark:border-l-lime-300',
-        backgroundClassName: 'bg-lime-500/4 dark:bg-lime-700/5',
       }
     case FeedbackType.PRAISE:
       return {
         component: PartyIcon,
         className: 'text-foreground-primary',
         edgeClassName: 'border-l-foreground-primary',
-        backgroundClassName: 'bg-primary/2 dark:bg-primary/6',
       }
     case FeedbackType.OTHER:
       return {
@@ -86,7 +81,6 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
       className={cn(
         'p-3.5 flex flex-row gap-2.5 relative overflow-hidden border-l',
         icon.edgeClassName,
-        icon.backgroundClassName,
       )}
     >
       <HugeiconsIcon
@@ -98,7 +92,7 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
         <div className="flex items-center gap-2 justify-between flex-wrap">
           <p
             className={cn(
-              'text-[11px] uppercase tracking-widest dark:font-light',
+              'text-xs font-medium uppercase tracking-widest font-condensed',
               icon.className,
             )}
           >

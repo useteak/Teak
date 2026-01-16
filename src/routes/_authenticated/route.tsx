@@ -4,6 +4,7 @@ import { getRequestHeaders } from '@tanstack/react-start/server'
 import { authMiddleware } from '@/middleware/auth'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/db'
+import AppFooter from '@/components/app-footer'
 
 const getData = createServerFn().handler(async () => {
   const session = await auth.api.getSession({

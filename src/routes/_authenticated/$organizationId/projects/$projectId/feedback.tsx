@@ -95,7 +95,7 @@ function RouteComponent() {
         ),
       ).map(([day, entries]) => (
         <div key={day} className="flex items-start gap-8">
-          <h2 className="text-sm text-muted-foreground w-28 text-right">
+          <h2 className="text-sm text-muted-foreground w-28 text-right font-condensed uppercase tracking-wider font-medium">
             {day}
           </h2>
 

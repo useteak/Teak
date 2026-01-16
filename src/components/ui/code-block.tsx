@@ -33,7 +33,7 @@ export default function CodeBlock({
           code: await codeToHtml(lang.code, {
             lang: lang.language,
             theme:
-              systemTheme === 'dark' ? 'vitesse-dark' : 'github-light-default',
+              systemTheme === 'dark' ? 'dark-plus' : 'github-light-default',
           }),
         })),
       )
@@ -58,15 +58,15 @@ export default function CodeBlock({
   return (
     <div>
       <Tabs value={activeTab} onValueChange={setActiveTab} className="gap-0">
-        <TabsList className="w-full justify-start rounded-b-none bg-white dark:bg-[#121212] p-2 group-data-horizontal/tabs:h-12 gap-1 border-t border-x dark:border-none">
+        <TabsList className="w-full justify-start rounded-b-none bg-white dark:bg-[#1e1e1e] p-2 group-data-horizontal/tabs:h-12 gap-1 border-t border-x dark:border-none">
           {languages.map(({ icon: Icon, label, language }) => (
             <TabsTrigger
               key={language}
               value={language}
-              className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none"
+              className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none font-condensed uppercase tracking-wider leading-none"
             >
               <HugeiconsIcon icon={Icon} className="size-4" />
-              {label}
+              <span className="translate-y-px">{label}</span>
             </TabsTrigger>
           ))}
           <Button
