@@ -6,6 +6,7 @@ export const ProjectUpsertResultSchema = z.object({
   organizationId: z.string(),
   organization: z.unknown(),
   feedbacks: z.array(z.unknown()),
+  members: z.array(z.unknown()),
   createdAt: z.date(),
   updatedAt: z.date()
 });

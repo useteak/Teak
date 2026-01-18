@@ -16,6 +16,7 @@ export const ProjectFindManySelectSchema: z.ZodType<Prisma.ProjectSelect> = z.ob
     organizationId: z.boolean().optional(),
     organization: z.boolean().optional(),
     feedbacks: z.boolean().optional(),
+    members: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -28,6 +29,7 @@ export const ProjectFindManySelectZodSchema = z.object({
     organizationId: z.boolean().optional(),
     organization: z.boolean().optional(),
     feedbacks: z.boolean().optional(),
+    members: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()

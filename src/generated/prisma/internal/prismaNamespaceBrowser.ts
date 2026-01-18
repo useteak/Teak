@@ -57,6 +57,7 @@ export const ModelName = {
   Verification: 'Verification',
   Organization: 'Organization',
   Project: 'Project',
+  ProjectMember: 'ProjectMember',
   Feedback: 'Feedback',
   OrganizationInvitation: 'OrganizationInvitation'
 } as const
@@ -155,6 +156,18 @@ export const ProjectScalarFieldEnum = {
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const ProjectMemberScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  notifyOnFeedback: 'notifyOnFeedback',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectMemberScalarFieldEnum = (typeof ProjectMemberScalarFieldEnum)[keyof typeof ProjectMemberScalarFieldEnum]
 
 
 export const FeedbackScalarFieldEnum = {

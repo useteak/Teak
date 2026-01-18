@@ -4,7 +4,10 @@ import type { Prisma } from '@/generated/prisma/client'
 import { prisma } from '@/lib/database'
 import { FeedbackInputSchema } from '@/generated/zod/schemas'
 import { checkRateLimit, getClientIp } from '@/utils/rate-limit'
-import { resend, resendFromEmail } from '@/lib/resend'
+import {
+  sendFeedbackConfirmationEmail,
+  sendFeedbackNotificationEmails,
+} from '@/lib/communication'
 
 /** Rate limit: 5 requests per 60 seconds per IP */
 const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
@@ -87,10 +90,26 @@ export const Route = createFileRoute(
           }
 
           // Verify project exists and belongs to the organization
+          // Include members who want feedback notifications
           const project = await prisma.project.findFirst({
             where: {
               id: projectId,
               organizationId: organizationId,
+            },
+            include: {
+              members: {
+                where: {
+                  notifyOnFeedback: true,
+                },
+                include: {
+                  user: {
+                    select: {
+                      email: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
             },
           })
 
@@ -145,30 +164,38 @@ export const Route = createFileRoute(
           // Create feedback
           const feedback = await prisma.feedback.create({
             data: {
+              metadata: parsedBody.data.metadata as Prisma.InputJsonValue,
               description: parsedBody.data.description,
-              type: parsedBody.data.type,
               email: parsedBody.data.email,
-              metadata: parsedBody.data.metadata,
+              type: parsedBody.data.type,
               projectId: project.id,
             },
           })
 
-          // Send confirmation email in production if email was provided
-          if (process.env.NODE_ENV === 'production' && parsedBody.data.email) {
-            try {
-              await resend.emails.send({
-                from: resendFromEmail,
-                to: parsedBody.data.email,
-                subject: `We received your feedback`,
-                html: `<p>Thank you for submitting your feedback!</p><p>We've received your ${parsedBody.data.type.toLowerCase()} and our team will review it shortly.</p><p>Your feedback helps us improve our product.</p>`,
-              })
-            } catch (emailError) {
-              // Log but don't fail the request if email fails
-              console.error(
-                'Failed to send feedback confirmation email:',
-                emailError,
-              )
-            }
+          // Send confirmation email to feedback submitter if email was provided
+          if (parsedBody.data.email) {
+            await sendFeedbackConfirmationEmail({
+              email: parsedBody.data.email,
+              feedbackType: parsedBody.data.type,
+            })
+          }
+
+          // Notify project members who opted in to feedback notifications
+          const recipients = project.members.map((member) => ({
+            email: member.user.email,
+            name: member.user.name,
+          }))
+
+          if (recipients.length > 0) {
+            await sendFeedbackNotificationEmails(recipients, {
+              project: { id: project.id, title: project.title },
+              feedback: {
+                id: feedback.id,
+                description: feedback.description,
+                type: feedback.type,
+                email: feedback.email,
+              },
+            })
           }
 
           return Response.json(

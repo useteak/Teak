@@ -66,8 +66,21 @@ const getData = createServerFn()
       },
     })
 
+    // Fetch the current user's membership for this project
+    const membership = session?.user.id
+      ? await prisma.projectMember.findUnique({
+          where: {
+            projectId_userId: {
+              projectId: data.projectId,
+              userId: session.user.id,
+            },
+          },
+        })
+      : null
+
     return {
       project,
+      membership,
     }
   })
 
@@ -109,6 +122,42 @@ const saveData = createServerFn({ method: 'POST' })
     return { success: true }
   })
 
+const updateSubscriptionSchema = z.object({
+  projectId: z.string(),
+  notifyOnFeedback: z.boolean(),
+})
+
+const updateSubscription = createServerFn({ method: 'POST' })
+  .inputValidator(updateSubscriptionSchema)
+  .handler(async ({ data }) => {
+    const session = await auth.api.getSession({
+      headers: getRequestHeaders(),
+    })
+
+    if (!session?.user.id) {
+      throw new Error('Unauthorized')
+    }
+
+    await prisma.projectMember.upsert({
+      where: {
+        projectId_userId: {
+          projectId: data.projectId,
+          userId: session.user.id,
+        },
+      },
+      update: {
+        notifyOnFeedback: data.notifyOnFeedback,
+      },
+      create: {
+        projectId: data.projectId,
+        userId: session.user.id,
+        notifyOnFeedback: data.notifyOnFeedback,
+      },
+    })
+
+    return { success: true }
+  })
+
 export const Route = createFileRoute(
   '/_authenticated/$organizationId/projects/$projectId/settings',
 )({
@@ -118,7 +167,7 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   // Server state
-  const { project } = Route.useLoaderData()
+  const { project, membership } = Route.useLoaderData()
 
   // URL state
   const params = Route.useParams()
@@ -126,6 +175,9 @@ function RouteComponent() {
 
   // Rate limiting toggle state
   const [isTogglingRateLimit, setIsTogglingRateLimit] = useState(false)
+
+  // Subscription toggle state
+  const [isTogglingSubscription, setIsTogglingSubscription] = useState(false)
 
   const handleRateLimitToggle = async (checked: boolean) => {
     setIsTogglingRateLimit(true)
@@ -144,6 +196,28 @@ function RouteComponent() {
       toast.error('Failed to update rate limiting setting')
     } finally {
       setIsTogglingRateLimit(false)
+    }
+  }
+
+  const handleSubscriptionToggle = async (checked: boolean) => {
+    setIsTogglingSubscription(true)
+    try {
+      await updateSubscription({
+        data: {
+          projectId: params.projectId,
+          notifyOnFeedback: checked,
+        },
+      })
+      toast.success(
+        checked
+          ? 'You will now receive notifications for new feedback'
+          : 'You will no longer receive notifications for new feedback',
+      )
+      await router.invalidate()
+    } catch {
+      toast.error('Failed to update subscription setting')
+    } finally {
+      setIsTogglingSubscription(false)
     }
   }
 
@@ -301,6 +375,31 @@ function RouteComponent() {
             />
             <Label htmlFor="rate-limiting" className="cursor-pointer">
               {(project?.rateLimitingEnabled ?? true) ? 'Enabled' : 'Disabled'}
+            </Label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>My subscription</CardTitle>
+          <CardDescription>
+            Do you want to get noficiations when new feedback comes into this
+            project?
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="subscription"
+              checked={membership?.notifyOnFeedback ?? false}
+              onCheckedChange={handleSubscriptionToggle}
+              disabled={isTogglingSubscription}
+            />
+            <Label htmlFor="subscription" className="cursor-pointer">
+              {(membership?.notifyOnFeedback ?? false)
+                ? 'Subscribed'
+                : 'Unsubscribed'}
             </Label>
           </div>
         </CardContent>

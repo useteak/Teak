@@ -4,6 +4,7 @@ import { SessionFindManySchema as SessionFindManySchema } from '../findManySessi
 import { AccountFindManySchema as AccountFindManySchema } from '../findManyAccount.schema';
 import { OrganizationFindManySchema as OrganizationFindManySchema } from '../findManyOrganization.schema';
 import { OrganizationInvitationFindManySchema as OrganizationInvitationFindManySchema } from '../findManyOrganizationInvitation.schema';
+import { ProjectMemberFindManySchema as ProjectMemberFindManySchema } from '../findManyProjectMember.schema';
 import { UserCountOutputTypeArgsObjectSchema as UserCountOutputTypeArgsObjectSchema } from './UserCountOutputTypeArgs.schema'
 
 const makeSchema = () => z.object({
@@ -19,6 +20,7 @@ const makeSchema = () => z.object({
   organizations: z.union([z.boolean(), z.lazy(() => OrganizationFindManySchema)]).optional(),
   organizationInvitationsCreated: z.union([z.boolean(), z.lazy(() => OrganizationInvitationFindManySchema)]).optional(),
   organizationInvitationsAccepted: z.union([z.boolean(), z.lazy(() => OrganizationInvitationFindManySchema)]).optional(),
+  projectMemberships: z.union([z.boolean(), z.lazy(() => ProjectMemberFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => UserCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const UserSelectObjectSchema: z.ZodType<Prisma.UserSelect> = makeSchema() as unknown as z.ZodType<Prisma.UserSelect>;

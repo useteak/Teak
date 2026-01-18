@@ -5,7 +5,8 @@ import { BoolFilterObjectSchema as BoolFilterObjectSchema } from './BoolFilter.s
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
 import { OrganizationScalarRelationFilterObjectSchema as OrganizationScalarRelationFilterObjectSchema } from './OrganizationScalarRelationFilter.schema';
 import { OrganizationWhereInputObjectSchema as OrganizationWhereInputObjectSchema } from './OrganizationWhereInput.schema';
-import { FeedbackListRelationFilterObjectSchema as FeedbackListRelationFilterObjectSchema } from './FeedbackListRelationFilter.schema'
+import { FeedbackListRelationFilterObjectSchema as FeedbackListRelationFilterObjectSchema } from './FeedbackListRelationFilter.schema';
+import { ProjectMemberListRelationFilterObjectSchema as ProjectMemberListRelationFilterObjectSchema } from './ProjectMemberListRelationFilter.schema'
 
 const projectwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => ProjectWhereInputObjectSchema), z.lazy(() => ProjectWhereInputObjectSchema).array()]).optional(),
@@ -18,7 +19,8 @@ const projectwhereinputSchema = z.object({
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   organization: z.union([z.lazy(() => OrganizationScalarRelationFilterObjectSchema), z.lazy(() => OrganizationWhereInputObjectSchema)]).optional(),
-  feedbacks: z.lazy(() => FeedbackListRelationFilterObjectSchema).optional()
+  feedbacks: z.lazy(() => FeedbackListRelationFilterObjectSchema).optional(),
+  members: z.lazy(() => ProjectMemberListRelationFilterObjectSchema).optional()
 }).strict();
 export const ProjectWhereInputObjectSchema: z.ZodType<Prisma.ProjectWhereInput> = projectwhereinputSchema as unknown as z.ZodType<Prisma.ProjectWhereInput>;
 export const ProjectWhereInputObjectZodSchema = projectwhereinputSchema;

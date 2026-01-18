@@ -1,0 +1,13 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ProjectMemberWhereInputObjectSchema as ProjectMemberWhereInputObjectSchema } from './objects/ProjectMemberWhereInput.schema';
+import { ProjectMemberOrderByWithAggregationInputObjectSchema as ProjectMemberOrderByWithAggregationInputObjectSchema } from './objects/ProjectMemberOrderByWithAggregationInput.schema';
+import { ProjectMemberScalarWhereWithAggregatesInputObjectSchema as ProjectMemberScalarWhereWithAggregatesInputObjectSchema } from './objects/ProjectMemberScalarWhereWithAggregatesInput.schema';
+import { ProjectMemberScalarFieldEnumSchema } from './enums/ProjectMemberScalarFieldEnum.schema';
+import { ProjectMemberCountAggregateInputObjectSchema as ProjectMemberCountAggregateInputObjectSchema } from './objects/ProjectMemberCountAggregateInput.schema';
+import { ProjectMemberMinAggregateInputObjectSchema as ProjectMemberMinAggregateInputObjectSchema } from './objects/ProjectMemberMinAggregateInput.schema';
+import { ProjectMemberMaxAggregateInputObjectSchema as ProjectMemberMaxAggregateInputObjectSchema } from './objects/ProjectMemberMaxAggregateInput.schema';
+
+export const ProjectMemberGroupBySchema: z.ZodType<Prisma.ProjectMemberGroupByArgs> = z.object({ where: ProjectMemberWhereInputObjectSchema.optional(), orderBy: z.union([ProjectMemberOrderByWithAggregationInputObjectSchema, ProjectMemberOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProjectMemberScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProjectMemberScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProjectMemberCountAggregateInputObjectSchema ]).optional(), _min: ProjectMemberMinAggregateInputObjectSchema.optional(), _max: ProjectMemberMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectMemberGroupByArgs>;
+
+export const ProjectMemberGroupByZodSchema = z.object({ where: ProjectMemberWhereInputObjectSchema.optional(), orderBy: z.union([ProjectMemberOrderByWithAggregationInputObjectSchema, ProjectMemberOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ProjectMemberScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ProjectMemberScalarFieldEnumSchema), _count: z.union([ z.literal(true), ProjectMemberCountAggregateInputObjectSchema ]).optional(), _min: ProjectMemberMinAggregateInputObjectSchema.optional(), _max: ProjectMemberMaxAggregateInputObjectSchema.optional() }).strict();

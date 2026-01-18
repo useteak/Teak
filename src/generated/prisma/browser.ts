@@ -48,6 +48,11 @@ export type Organization = Prisma.OrganizationModel
  */
 export type Project = Prisma.ProjectModel
 /**
+ * Model ProjectMember
+ * 
+ */
+export type ProjectMember = Prisma.ProjectMemberModel
+/**
  * Model Feedback
  * 
  */

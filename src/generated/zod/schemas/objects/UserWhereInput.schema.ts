@@ -7,7 +7,8 @@ import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './Date
 import { SessionListRelationFilterObjectSchema as SessionListRelationFilterObjectSchema } from './SessionListRelationFilter.schema';
 import { AccountListRelationFilterObjectSchema as AccountListRelationFilterObjectSchema } from './AccountListRelationFilter.schema';
 import { OrganizationListRelationFilterObjectSchema as OrganizationListRelationFilterObjectSchema } from './OrganizationListRelationFilter.schema';
-import { OrganizationInvitationListRelationFilterObjectSchema as OrganizationInvitationListRelationFilterObjectSchema } from './OrganizationInvitationListRelationFilter.schema'
+import { OrganizationInvitationListRelationFilterObjectSchema as OrganizationInvitationListRelationFilterObjectSchema } from './OrganizationInvitationListRelationFilter.schema';
+import { ProjectMemberListRelationFilterObjectSchema as ProjectMemberListRelationFilterObjectSchema } from './ProjectMemberListRelationFilter.schema'
 
 const userwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => UserWhereInputObjectSchema), z.lazy(() => UserWhereInputObjectSchema).array()]).optional(),
@@ -24,7 +25,8 @@ const userwhereinputSchema = z.object({
   accounts: z.lazy(() => AccountListRelationFilterObjectSchema).optional(),
   organizations: z.lazy(() => OrganizationListRelationFilterObjectSchema).optional(),
   organizationInvitationsCreated: z.lazy(() => OrganizationInvitationListRelationFilterObjectSchema).optional(),
-  organizationInvitationsAccepted: z.lazy(() => OrganizationInvitationListRelationFilterObjectSchema).optional()
+  organizationInvitationsAccepted: z.lazy(() => OrganizationInvitationListRelationFilterObjectSchema).optional(),
+  projectMemberships: z.lazy(() => ProjectMemberListRelationFilterObjectSchema).optional()
 }).strict();
 export const UserWhereInputObjectSchema: z.ZodType<Prisma.UserWhereInput> = userwhereinputSchema as unknown as z.ZodType<Prisma.UserWhereInput>;
 export const UserWhereInputObjectZodSchema = userwhereinputSchema;

@@ -9,5 +9,6 @@ export { AccountInputSchema } from './Account.input';
 export { VerificationInputSchema } from './Verification.input';
 export { OrganizationInputSchema } from './Organization.input';
 export { ProjectInputSchema } from './Project.input';
+export { ProjectMemberInputSchema } from './ProjectMember.input';
 export { FeedbackInputSchema } from './Feedback.input';
 export { OrganizationInvitationInputSchema } from './OrganizationInvitation.input';

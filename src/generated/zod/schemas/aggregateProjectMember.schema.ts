@@ -1,0 +1,12 @@
+import type { Prisma } from '../../prisma/client';
+import * as z from 'zod';
+import { ProjectMemberOrderByWithRelationInputObjectSchema as ProjectMemberOrderByWithRelationInputObjectSchema } from './objects/ProjectMemberOrderByWithRelationInput.schema';
+import { ProjectMemberWhereInputObjectSchema as ProjectMemberWhereInputObjectSchema } from './objects/ProjectMemberWhereInput.schema';
+import { ProjectMemberWhereUniqueInputObjectSchema as ProjectMemberWhereUniqueInputObjectSchema } from './objects/ProjectMemberWhereUniqueInput.schema';
+import { ProjectMemberCountAggregateInputObjectSchema as ProjectMemberCountAggregateInputObjectSchema } from './objects/ProjectMemberCountAggregateInput.schema';
+import { ProjectMemberMinAggregateInputObjectSchema as ProjectMemberMinAggregateInputObjectSchema } from './objects/ProjectMemberMinAggregateInput.schema';
+import { ProjectMemberMaxAggregateInputObjectSchema as ProjectMemberMaxAggregateInputObjectSchema } from './objects/ProjectMemberMaxAggregateInput.schema';
+
+export const ProjectMemberAggregateSchema: z.ZodType<Prisma.ProjectMemberAggregateArgs> = z.object({ orderBy: z.union([ProjectMemberOrderByWithRelationInputObjectSchema, ProjectMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectMemberWhereInputObjectSchema.optional(), cursor: ProjectMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProjectMemberCountAggregateInputObjectSchema ]).optional(), _min: ProjectMemberMinAggregateInputObjectSchema.optional(), _max: ProjectMemberMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ProjectMemberAggregateArgs>;
+
+export const ProjectMemberAggregateZodSchema = z.object({ orderBy: z.union([ProjectMemberOrderByWithRelationInputObjectSchema, ProjectMemberOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProjectMemberWhereInputObjectSchema.optional(), cursor: ProjectMemberWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ProjectMemberCountAggregateInputObjectSchema ]).optional(), _min: ProjectMemberMinAggregateInputObjectSchema.optional(), _max: ProjectMemberMaxAggregateInputObjectSchema.optional() }).strict();

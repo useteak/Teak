@@ -3,7 +3,8 @@ import type { Prisma } from '../../../prisma/client';
 import { SessionCreateNestedManyWithoutUserInputObjectSchema as SessionCreateNestedManyWithoutUserInputObjectSchema } from './SessionCreateNestedManyWithoutUserInput.schema';
 import { AccountCreateNestedManyWithoutUserInputObjectSchema as AccountCreateNestedManyWithoutUserInputObjectSchema } from './AccountCreateNestedManyWithoutUserInput.schema';
 import { OrganizationCreateNestedManyWithoutUsersInputObjectSchema as OrganizationCreateNestedManyWithoutUsersInputObjectSchema } from './OrganizationCreateNestedManyWithoutUsersInput.schema';
-import { OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema as OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema } from './OrganizationInvitationCreateNestedManyWithoutCreatedByUserInput.schema'
+import { OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema as OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema } from './OrganizationInvitationCreateNestedManyWithoutCreatedByUserInput.schema';
+import { ProjectMemberCreateNestedManyWithoutUserInputObjectSchema as ProjectMemberCreateNestedManyWithoutUserInputObjectSchema } from './ProjectMemberCreateNestedManyWithoutUserInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -16,7 +17,8 @@ const makeSchema = () => z.object({
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputObjectSchema).optional(),
   accounts: z.lazy(() => AccountCreateNestedManyWithoutUserInputObjectSchema).optional(),
   organizations: z.lazy(() => OrganizationCreateNestedManyWithoutUsersInputObjectSchema).optional(),
-  organizationInvitationsCreated: z.lazy(() => OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema).optional()
+  organizationInvitationsCreated: z.lazy(() => OrganizationInvitationCreateNestedManyWithoutCreatedByUserInputObjectSchema).optional(),
+  projectMemberships: z.lazy(() => ProjectMemberCreateNestedManyWithoutUserInputObjectSchema).optional()
 }).strict();
 export const UserCreateWithoutOrganizationInvitationsAcceptedInputObjectSchema: z.ZodType<Prisma.UserCreateWithoutOrganizationInvitationsAcceptedInput> = makeSchema() as unknown as z.ZodType<Prisma.UserCreateWithoutOrganizationInvitationsAcceptedInput>;
 export const UserCreateWithoutOrganizationInvitationsAcceptedInputObjectZodSchema = makeSchema();

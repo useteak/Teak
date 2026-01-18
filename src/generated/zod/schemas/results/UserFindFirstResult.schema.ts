@@ -11,5 +11,6 @@ export const UserFindFirstResultSchema = z.nullable(z.object({
   accounts: z.array(z.unknown()),
   organizations: z.array(z.unknown()),
   organizationInvitationsCreated: z.array(z.unknown()),
-  organizationInvitationsAccepted: z.array(z.unknown())
+  organizationInvitationsAccepted: z.array(z.unknown()),
+  projectMemberships: z.array(z.unknown())
 }));

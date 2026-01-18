@@ -49,15 +49,33 @@ const saveData = createServerFn({ method: 'POST' })
           },
         },
       },
+      include: {
+        users: {
+          select: {
+            id: true,
+          },
+        },
+      },
     })
+
+    if (!organization) {
+      throw new Error('Organization not found')
+    }
 
     const project = await prisma.project.create({
       data: {
         title: data.title,
         organization: {
           connect: {
-            id: organization?.id,
+            id: organization.id,
           },
+        },
+        members: {
+          create: organization.users.map((user) => ({
+            userId: user.id,
+            // Only the creator gets notified by default
+            notifyOnFeedback: user.id === session?.user.id,
+          })),
         },
       },
     })

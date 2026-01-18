@@ -6,6 +6,7 @@ export const ProjectAggregateResultSchema = z.object({  _count: z.object({
     organizationId: z.number(),
     organization: z.number(),
     feedbacks: z.number(),
+    members: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

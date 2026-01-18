@@ -34,6 +34,8 @@ model User {
   organizationInvitationsCreated  OrganizationInvitation[] @relation("OrganizationInvitationCreatedBy")
   organizationInvitationsAccepted OrganizationInvitation[] @relation("OrganizationInvitationAcceptedBy")
 
+  projectMemberships ProjectMember[]
+
   @@unique([email])
   @@map("user")
 }
@@ -108,17 +110,34 @@ model Organization {
 }
 
 model Project {
-  id                  String       @id @default(cuid())
+  id                  String          @id @default(cuid())
   title               String
-  rateLimitingEnabled Boolean      @default(true)
+  rateLimitingEnabled Boolean         @default(true)
   organizationId      String
-  organization        Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organization        Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   feedbacks           Feedback[]
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @updatedAt
+  members             ProjectMember[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
 
   @@index([organizationId])
   @@map("project")
+}
+
+model ProjectMember {
+  id               String   @id @default(cuid())
+  projectId        String
+  project          Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notifyOnFeedback Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_member")
 }
 
 model Feedback {

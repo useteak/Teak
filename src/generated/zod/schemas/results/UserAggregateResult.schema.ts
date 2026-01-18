@@ -11,7 +11,8 @@ export const UserAggregateResultSchema = z.object({  _count: z.object({
     accounts: z.number(),
     organizations: z.number(),
     organizationInvitationsCreated: z.number(),
-    organizationInvitationsAccepted: z.number()
+    organizationInvitationsAccepted: z.number(),
+    projectMemberships: z.number()
   }).optional(),
   _min: z.object({
     id: z.string().nullable(),

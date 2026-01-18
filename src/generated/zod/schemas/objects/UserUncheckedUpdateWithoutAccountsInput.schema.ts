@@ -7,7 +7,8 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOp
 import { SessionUncheckedUpdateManyWithoutUserNestedInputObjectSchema as SessionUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './SessionUncheckedUpdateManyWithoutUserNestedInput.schema';
 import { OrganizationUncheckedUpdateManyWithoutUsersNestedInputObjectSchema as OrganizationUncheckedUpdateManyWithoutUsersNestedInputObjectSchema } from './OrganizationUncheckedUpdateManyWithoutUsersNestedInput.schema';
 import { OrganizationInvitationUncheckedUpdateManyWithoutCreatedByUserNestedInputObjectSchema as OrganizationInvitationUncheckedUpdateManyWithoutCreatedByUserNestedInputObjectSchema } from './OrganizationInvitationUncheckedUpdateManyWithoutCreatedByUserNestedInput.schema';
-import { OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema as OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema } from './OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInput.schema'
+import { OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema as OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema } from './OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInput.schema';
+import { ProjectMemberUncheckedUpdateManyWithoutUserNestedInputObjectSchema as ProjectMemberUncheckedUpdateManyWithoutUserNestedInputObjectSchema } from './ProjectMemberUncheckedUpdateManyWithoutUserNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -20,7 +21,8 @@ const makeSchema = () => z.object({
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional(),
   organizations: z.lazy(() => OrganizationUncheckedUpdateManyWithoutUsersNestedInputObjectSchema).optional(),
   organizationInvitationsCreated: z.lazy(() => OrganizationInvitationUncheckedUpdateManyWithoutCreatedByUserNestedInputObjectSchema).optional(),
-  organizationInvitationsAccepted: z.lazy(() => OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema).optional()
+  organizationInvitationsAccepted: z.lazy(() => OrganizationInvitationUncheckedUpdateManyWithoutAcceptedByUserNestedInputObjectSchema).optional(),
+  projectMemberships: z.lazy(() => ProjectMemberUncheckedUpdateManyWithoutUserNestedInputObjectSchema).optional()
 }).strict();
 export const UserUncheckedUpdateWithoutAccountsInputObjectSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAccountsInput> = makeSchema() as unknown as z.ZodType<Prisma.UserUncheckedUpdateWithoutAccountsInput>;
 export const UserUncheckedUpdateWithoutAccountsInputObjectZodSchema = makeSchema();
