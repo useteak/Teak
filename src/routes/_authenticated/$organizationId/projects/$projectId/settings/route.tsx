@@ -9,7 +9,6 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { toast } from 'sonner'
 import { useForm } from '@tanstack/react-form'
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -32,6 +31,7 @@ import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { createSeoMeta } from '@/lib/seo'
+import { mergeClassNames } from '@/utils/classnames'
 
 const titleSchema = z.object({
   title: z.string().min(1, 'Project title must be at least 1 character.'),
@@ -171,14 +171,7 @@ function RouteComponent() {
   const params = Route.useParams()
   const router = useRouter()
 
-  // Rate limiting toggle state
-  const [isTogglingRateLimit, setIsTogglingRateLimit] = useState(false)
-
-  // Subscription toggle state
-  const [isTogglingSubscription, setIsTogglingSubscription] = useState(false)
-
   const handleRateLimitToggle = async (checked: boolean) => {
-    setIsTogglingRateLimit(true)
     try {
       await saveData({
         data: {
@@ -192,13 +185,10 @@ function RouteComponent() {
       await router.invalidate()
     } catch {
       toast.error('Failed to update rate limiting setting')
-    } finally {
-      setIsTogglingRateLimit(false)
     }
   }
 
   const handleSubscriptionToggle = async (checked: boolean) => {
-    setIsTogglingSubscription(true)
     try {
       await updateSubscription({
         data: {
@@ -214,8 +204,6 @@ function RouteComponent() {
       await router.invalidate()
     } catch {
       toast.error('Failed to update subscription setting')
-    } finally {
-      setIsTogglingSubscription(false)
     }
   }
 
@@ -328,8 +316,11 @@ function RouteComponent() {
           <CardTitle>Rate limiting</CardTitle>
           <CardDescription>
             Here you can toggle on or off rate limiting for ingress feedback
-            into this project. The default rate limit is 5 requests per minute
-            per IP address.
+            into this project. The default rate limit is{' '}
+            <span className="text-foreground">
+              5 requests per minute per IP address
+            </span>
+            .
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -338,9 +329,16 @@ function RouteComponent() {
               id="rate-limiting"
               checked={project?.rateLimitingEnabled ?? true}
               onCheckedChange={handleRateLimitToggle}
-              disabled={isTogglingRateLimit}
             />
-            <Label htmlFor="rate-limiting" className="cursor-pointer">
+            <Label
+              htmlFor="rate-limiting"
+              className={mergeClassNames(
+                'cursor-pointer',
+                (project?.rateLimitingEnabled ?? true)
+                  ? 'text-foreground'
+                  : 'text-muted-foreground',
+              )}
+            >
               {(project?.rateLimitingEnabled ?? true) ? 'Enabled' : 'Disabled'}
             </Label>
           </div>
@@ -361,9 +359,16 @@ function RouteComponent() {
               id="subscription"
               checked={membership?.notifyOnFeedback ?? false}
               onCheckedChange={handleSubscriptionToggle}
-              disabled={isTogglingSubscription}
             />
-            <Label htmlFor="subscription" className="cursor-pointer">
+            <Label
+              htmlFor="subscription"
+              className={mergeClassNames(
+                'cursor-pointer',
+                (membership?.notifyOnFeedback ?? false)
+                  ? 'text-foreground'
+                  : 'text-muted-foreground',
+              )}
+            >
               {(membership?.notifyOnFeedback ?? false)
                 ? 'Subscribed'
                 : 'Unsubscribed'}

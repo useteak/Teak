@@ -132,9 +132,7 @@ function RouteComponent() {
     <div className="flex min-h-svh items-center justify-center">
       <Card size="sm" className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>
-            <p>New project</p>
-          </CardTitle>
+          <CardTitle>New project</CardTitle>
           <CardDescription>
             Fill out the form to create a project
           </CardDescription>

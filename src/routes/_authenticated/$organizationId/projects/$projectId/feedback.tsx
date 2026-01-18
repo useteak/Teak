@@ -91,6 +91,7 @@ function RouteComponent() {
           organizationId={params.organizationId}
           projectId={params.projectId}
           defaultLanguage="shell"
+          hideComments
         />
       </div>
     )

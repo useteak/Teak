@@ -113,13 +113,12 @@ function RouteComponent() {
 
   return (
     <div className="flex min-h-svh items-center justify-center">
-      <Card className="w-full max-w-md">
+      <Card size="sm" className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>
-            <p>Welcome, {user?.name}</p>
-          </CardTitle>
+          <CardTitle>New organization</CardTitle>
           <CardDescription>
-            Please start with creating an organization
+            Create a new organization by giving it a name. You can invite other
+            users to join your organization later.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -162,11 +161,16 @@ function RouteComponent() {
         </CardContent>
         <CardFooter className="justify-end">
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isDirty,
+            ]}
+            children={([canSubmit, isSubmitting, isDirty]) => (
               <Button
-                disabled={isSubmitting || !canSubmit}
+                disabled={isSubmitting || !canSubmit || !isDirty}
                 form="create-org-form"
+                size="sm"
               >
                 Create organization{' '}
                 <HugeiconsIcon icon={ArrowRight02Icon} />{' '}
