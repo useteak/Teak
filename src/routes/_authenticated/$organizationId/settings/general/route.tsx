@@ -28,6 +28,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field'
+import { createSeoMeta } from '@/lib/seo'
 
 const formSchema = z.object({
   name: z.string().min(1, 'Organization name must be at least 1 character.'),
@@ -87,6 +88,13 @@ export const Route = createFileRoute(
   component: RouteComponent,
   loader: ({ params }) =>
     getData({ data: { organizationId: params.organizationId } }),
+  head: ({ loaderData }) => ({
+    meta: createSeoMeta({
+      title: loaderData?.organization?.name
+        ? `${loaderData.organization.name} Settings`
+        : 'Organization Settings',
+    }),
+  }),
 })
 
 function RouteComponent() {
@@ -171,10 +179,14 @@ function RouteComponent() {
         </CardContent>
         <CardFooter className="justify-end">
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isDirty,
+            ]}
+            children={([canSubmit, isSubmitting, isDirty]) => (
               <Button
-                disabled={isSubmitting || !canSubmit}
+                disabled={isSubmitting || !canSubmit || !isDirty}
                 form="update-org-form"
               >
                 Save

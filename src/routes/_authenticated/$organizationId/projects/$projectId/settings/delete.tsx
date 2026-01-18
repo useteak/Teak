@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
+import { createSeoMeta } from '@/lib/seo'
 
 const getData = createServerFn()
   .inputValidator(z.object({ projectId: z.string() }))
@@ -77,6 +78,13 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   loader: ({ params }) => getData({ data: { projectId: params.projectId } }),
+  head: ({ loaderData }) => ({
+    meta: createSeoMeta({
+      title: loaderData?.project?.title
+        ? `Delete ${loaderData.project.title}`
+        : 'Delete project',
+    }),
+  }),
 })
 
 function RouteComponent() {

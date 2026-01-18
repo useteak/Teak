@@ -1,41 +1,24 @@
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import z from 'zod'
 import { format, isToday, isYesterday } from 'date-fns'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { SearchIcon } from '@hugeicons/core-free-icons'
+import { MessageIcon } from '@hugeicons/core-free-icons'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
-import { Button } from '@/components/ui/button'
-import { FeedbackType } from '@/generated/prisma/enums'
 import { FeedbackCard } from '@/components/feedback-card'
-import { Card } from '@/components/ui/card'
-import { FeedbackInputSchema } from '@/generated/zod/schemas'
-import { Input } from '@/components/ui/input'
+import { Card, CardContent } from '@/components/ui/card'
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/input-group'
-import { Separator } from '@/components/ui/separator'
-
-const createFeedback = createServerFn({ method: 'POST' })
-  .inputValidator(
-    FeedbackInputSchema.pick({
-      projectId: true,
-      description: true,
-      type: true,
-      email: true,
-    }),
-  )
-  .handler(async ({ data }) => {
-    await prisma.feedback.create({ data })
-
-    return {
-      success: true,
-    }
-  })
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty'
+import { IntegrationCodeBlock } from '@/components/integration-code-block'
+import { Spinner } from '@/components/ui/spinner'
 
 const getData = createServerFn()
   .inputValidator(z.object({ projectId: z.string() }))
@@ -82,6 +65,36 @@ export const Route = createFileRoute(
 function RouteComponent() {
   // Server state
   const { feedback } = Route.useLoaderData()
+
+  // URL state
+  const params = Route.useParams()
+
+  if (feedback.length === 0) {
+    return (
+      <div className="flex flex-col">
+        <Empty className="p-6">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <HugeiconsIcon icon={MessageIcon} />
+            </EmptyMedia>
+            <EmptyTitle>No feedback yet</EmptyTitle>
+            <EmptyDescription>
+              Waiting for the first feedback entry...
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Spinner className="size-6 text-muted-foreground" />
+          </EmptyContent>
+        </Empty>
+
+        <IntegrationCodeBlock
+          organizationId={params.organizationId}
+          projectId={params.projectId}
+          defaultLanguage="shell"
+        />
+      </div>
+    )
+  }
 
   return (
     <>

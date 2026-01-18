@@ -1,8 +1,10 @@
+import { config } from '@/config'
+
 export default function AppFooter() {
   return (
     <footer className="p-6 h-32 flex items-center justify-center bg-muted/50 dark:bg-card border-t">
       <p className="text-sm text-muted-foreground">
-        Feedback · Built with ❤️ in 🇸🇪
+        © {config.productName} {new Date().getFullYear()} · Built with ❤️ in 🇸🇪
       </p>
     </footer>
   )

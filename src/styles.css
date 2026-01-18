@@ -44,7 +44,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(0.17 0 0);
+    --background: oklch(0.15 0 0);
     --foreground: oklch(0.985 0 0);
     --foreground-primary: oklch(0.792 0.209 151.711);
     --card: oklch(0.18 0 0);

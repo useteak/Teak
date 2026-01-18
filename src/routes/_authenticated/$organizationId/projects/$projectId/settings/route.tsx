@@ -9,12 +9,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { toast } from 'sonner'
 import { useForm } from '@tanstack/react-form'
-import {
-  ComputerTerminal01Icon,
-  PythonIcon,
-  Typescript01Icon,
-} from '@hugeicons/core-free-icons'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -33,14 +28,10 @@ import {
   FieldGroup,
   FieldLabel,
 } from '@/components/ui/field'
-import CodeBlock from '@/components/ui/code-block'
-import {
-  getCurlIntegrationCode,
-  getJavaScriptIntegrationCode,
-  getPythonIntegrationCode,
-} from '@/helpers/integration-code'
+import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
+import { createSeoMeta } from '@/lib/seo'
 
 const titleSchema = z.object({
   title: z.string().min(1, 'Project title must be at least 1 character.'),
@@ -163,6 +154,13 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   loader: ({ params }) => getData({ data: { projectId: params.projectId } }),
+  head: ({ loaderData }) => ({
+    meta: createSeoMeta({
+      title: loaderData?.project?.title
+        ? `${loaderData.project.title} Settings`
+        : 'Project Settings',
+    }),
+  }),
 })
 
 function RouteComponent() {
@@ -245,44 +243,6 @@ function RouteComponent() {
     },
   })
 
-  const languages = useMemo(() => {
-    const curlCode = getCurlIntegrationCode(
-      params.organizationId,
-      params.projectId,
-    )
-
-    const javascriptCode = getJavaScriptIntegrationCode(
-      params.organizationId,
-      params.projectId,
-    )
-
-    const pythonCode = getPythonIntegrationCode(
-      params.organizationId,
-      params.projectId,
-    )
-
-    return [
-      {
-        language: 'typescript',
-        icon: Typescript01Icon,
-        code: javascriptCode,
-        label: 'JS/TS',
-      },
-      {
-        language: 'python',
-        icon: PythonIcon,
-        code: pythonCode,
-        label: 'Python',
-      },
-      {
-        language: 'shell',
-        icon: ComputerTerminal01Icon,
-        code: curlCode,
-        label: 'Curl',
-      },
-    ]
-  }, [params.organizationId, params.projectId])
-
   return (
     <>
       <Card>
@@ -331,10 +291,14 @@ function RouteComponent() {
         </CardContent>
         <CardFooter className="justify-end">
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isDirty,
+            ]}
+            children={([canSubmit, isSubmitting, isDirty]) => (
               <Button
-                disabled={isSubmitting || !canSubmit}
+                disabled={isSubmitting || !canSubmit || !isDirty}
                 form="update-project-form"
               >
                 Save
@@ -352,7 +316,10 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CodeBlock languages={languages} />
+          <IntegrationCodeBlock
+            organizationId={params.organizationId}
+            projectId={params.projectId}
+          />
         </CardContent>
       </Card>
 

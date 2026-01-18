@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { createSeoMeta } from '@/lib/seo'
 
 const formSchema = z.object({
   title: z.string().min(1, 'Project title must be at least 1 character.'),
@@ -87,6 +88,9 @@ export const Route = createFileRoute(
   '/_authenticated/$organizationId/projects/new',
 )({
   component: RouteComponent,
+  head: () => ({
+    meta: createSeoMeta({ title: 'New project' }),
+  }),
 })
 
 function RouteComponent() {
@@ -175,10 +179,14 @@ function RouteComponent() {
         </CardContent>
         <CardFooter className="justify-end">
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isDirty,
+            ]}
+            children={([canSubmit, isSubmitting, isDirty]) => (
               <Button
-                disabled={isSubmitting || !canSubmit}
+                disabled={isSubmitting || !canSubmit || !isDirty}
                 form="create-project-form"
                 size="sm"
               >

@@ -4,7 +4,22 @@
 export function getJavaScriptIntegrationCode(
   organizationId: string,
   projectId: string,
+  hideComments = false,
 ) {
+  if (hideComments) {
+    return `fetch('${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    description: 'I would really love to be able to copy this page as markdown.',
+    type: 'FEATURE_REQUEST',
+    email: 'janedoe@myspace.com',
+    metadata: { page: 'Hosting · Docs' },
+  }),
+})`
+  }
   return `fetch('${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback', {
   method: 'POST',
   headers: {
@@ -12,12 +27,12 @@ export function getJavaScriptIntegrationCode(
   },
   body: JSON.stringify({
     // Required fields
-    description: 'Your feedback description here',
-    type: 'BUG', // Options: 'BUG' | 'FEATURE_REQUEST' | 'IMPROVEMENT' | 'QUESTION' | 'PRAISE' | 'OTHER'
+    description: 'I would really love to be able to copy this page as markdown.',
+    type: 'FEATURE_REQUEST', // Options: 'BUG' | 'FEATURE_REQUEST' | 'IMPROVEMENT' | 'QUESTION' | 'PRAISE' | 'OTHER'
 
     // Optional fields
-    email: 'user@example.com', // Contact email for follow-up
-    metadata: { key: 'value' }, // Any additional JSON data
+    email: 'janedoe@myspace.com', // Contact email for follow-up
+    metadata: { page: 'Hosting · Docs' }, // Any additional JSON data
   }),
 })`
 }
@@ -28,14 +43,25 @@ export function getJavaScriptIntegrationCode(
 export function getCurlIntegrationCode(
   organizationId: string,
   projectId: string,
+  hideComments = false,
 ) {
+  if (hideComments) {
+    return `curl -X POST '${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback' \\
+  -H 'Content-Type: application/json' \\
+  -d '{
+    "description": "I would really love to be able to copy this page as markdown.",
+    "type": "FEATURE_REQUEST",
+    "email": "janedoe@myspace.com",
+    "metadata": { "page": "Hosting · Docs" }
+  }'`
+  }
   return `curl -X POST '${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback' \\
   -H 'Content-Type: application/json' \\
   -d '{
-    "description": "Your feedback description here",
-    "type": "BUG",
-    "email": "user@example.com",
-    "metadata": { "key": "value" }
+    "description": "I would really love to be able to copy this page as markdown.",
+    "type": "FEATURE_REQUEST",
+    "email": "janedoe@myspace.com",
+    "metadata": { "page": "Hosting · Docs" }
   }'
 
 # Type options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
@@ -48,19 +74,35 @@ export function getCurlIntegrationCode(
 export function getPythonIntegrationCode(
   organizationId: string,
   projectId: string,
+  hideComments = false,
 ) {
+  if (hideComments) {
+    return `import requests
+
+response = requests.post(
+    '${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback',
+    json={
+        'description': 'I would really love to be able to copy this page as markdown.',
+        'type': 'FEATURE_REQUEST',
+        'email': 'janedoe@myspace.com',
+        'metadata': {'page': 'Hosting · Docs'},
+    }
+)
+
+print(response.json())`
+  }
   return `import requests
 
 response = requests.post(
     '${import.meta.env.VITE_APP_URL}/api/v1/${organizationId}/projects/${projectId}/feedback',
     json={
         # Required fields
-        'description': 'Your feedback description here',
-        'type': 'BUG',  # Options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
+        'description': 'I would really love to be able to copy this page as markdown.',
+        'type': 'FEATURE_REQUEST',  # Options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
 
         # Optional fields
-        'email': 'user@example.com',  # Contact email for follow-up
-        'metadata': {'key': 'value'},  # Any additional JSON data
+        'email': 'janedoe@myspace.com',  # Contact email for follow-up
+        'metadata': {'page': 'Hosting · Docs'},  # Any additional JSON data
     }
 )
 

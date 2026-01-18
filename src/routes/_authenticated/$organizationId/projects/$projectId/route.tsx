@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { MessageIcon, Settings05Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Separator } from '@/components/ui/separator'
+import { createSeoMeta } from '@/lib/seo'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -48,6 +49,11 @@ export const Route = createFileRoute(
 )({
   component: RouteComponent,
   loader: ({ params }) => getData({ data: { projectId: params.projectId } }),
+  head: ({ loaderData }) => ({
+    meta: createSeoMeta({
+      title: loaderData?.project?.title ?? 'Project',
+    }),
+  }),
 })
 
 function RouteComponent() {

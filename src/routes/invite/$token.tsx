@@ -261,7 +261,7 @@ function RouteComponent() {
                   to="/signup"
                   search={{ redirect: redirectPath, email: data.email }}
                 >
-                  Create account
+                  Sign up
                 </Link>
               </Button>
             </>

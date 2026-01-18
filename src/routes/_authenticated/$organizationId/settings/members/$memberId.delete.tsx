@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/database'
+import { createSeoMeta } from '@/lib/seo'
 
 const getData = createServerFn()
   .inputValidator(
@@ -100,6 +101,13 @@ export const Route = createFileRoute(
         memberId: params.memberId,
       },
     }),
+  head: ({ loaderData }) => ({
+    meta: createSeoMeta({
+      title: loaderData?.member?.name
+        ? `Remove ${loaderData.member.name}`
+        : 'Remove member',
+    }),
+  }),
 })
 
 function RouteComponent() {

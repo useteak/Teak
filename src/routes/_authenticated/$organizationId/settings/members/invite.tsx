@@ -27,6 +27,7 @@ import { auth } from '@/lib/auth'
 import { getBaseUrlFromHeaders } from '@/utils/server-url'
 import { resend, resendFromEmail } from '@/lib/resend'
 import { prisma } from '@/lib/database'
+import { createSeoMeta } from '@/lib/seo'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))
@@ -156,6 +157,9 @@ export const Route = createFileRoute(
         organizationId: params.organizationId,
       },
     }),
+  head: () => ({
+    meta: createSeoMeta({ title: 'Invite member' }),
+  }),
 })
 
 function RouteComponent() {
@@ -294,12 +298,16 @@ function RouteComponent() {
             Cancel
           </Button>
           <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
+            selector={(state) => [
+              state.canSubmit,
+              state.isSubmitting,
+              state.isDirty,
+            ]}
+            children={([canSubmit, isSubmitting, isDirty]) => (
               <Button
                 type="submit"
                 form="invite-member-form"
-                disabled={isInviting || isSubmitting || !canSubmit}
+                disabled={isInviting || isSubmitting || !canSubmit || !isDirty}
               >
                 {isSubmitting ? 'Inviting…' : 'Invite'}
               </Button>

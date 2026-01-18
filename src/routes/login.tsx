@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { GithubIcon } from '@hugeicons/core-free-icons'
+import { GithubIcon, ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,14 +21,22 @@ import {
   FieldLabel,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
 import { authClient } from '@/lib/auth-client'
 import { authMiddleware } from '@/middleware/auth'
 import { Separator } from '@/components/ui/separator'
 import { useErrorCallbackURL } from '@/hooks/use-error-callback-url'
+import { createSeoMeta } from '@/lib/seo'
+import { config } from '@/config'
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email').trim(),
-  password: z.string().min(1, 'Password is required'),
+  password: z.string().min(1, 'Please enter your password'),
 })
 
 export const Route = createFileRoute('/login')({
@@ -37,6 +46,9 @@ export const Route = createFileRoute('/login')({
     email: z.string().optional(),
     error: z.string().optional(),
   }),
+  head: () => ({
+    meta: createSeoMeta({ title: 'Log in' }),
+  }),
   server: {
     middleware: [authMiddleware(false)],
   },
@@ -45,8 +57,9 @@ export const Route = createFileRoute('/login')({
 function RouteComponent() {
   const navigate = useNavigate()
   const search = Route.useSearch()
+  const [showPassword, setShowPassword] = useState(false)
 
-  const redirectTo = search.redirect ?? '/'
+  const redirectTo = search.redirect ?? '/home'
   const error = search.error ?? null
   const errorCallbackURL = useErrorCallbackURL('/login', {
     redirect: search.redirect,
@@ -87,9 +100,9 @@ function RouteComponent() {
     <div className="flex items-center justify-center h-svh">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Log in</CardTitle>
+          <CardTitle>Log in to {config.productName}</CardTitle>
           <CardDescription>
-            Log in to the app using your email and password.
+            Log in to {config.productName} using a social provider
           </CardDescription>
         </CardHeader>
 
@@ -177,17 +190,32 @@ function RouteComponent() {
                   return (
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                      <Input
-                        id={field.name}
-                        name={field.name}
-                        placeholder="•••••••••••"
-                        type="password"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        aria-invalid={isInvalid}
-                        autoComplete="current-password"
-                      />
+                      <InputGroup>
+                        <InputGroupInput
+                          id={field.name}
+                          name={field.name}
+                          placeholder="•••••••••••"
+                          type={showPassword ? 'text' : 'password'}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          aria-invalid={isInvalid}
+                          autoComplete="current-password"
+                        />
+                        <InputGroupAddon align="inline-end">
+                          <InputGroupButton
+                            size="icon-xs"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={
+                              showPassword ? 'Hide password' : 'Show password'
+                            }
+                          >
+                            <HugeiconsIcon
+                              icon={showPassword ? ViewOffIcon : ViewIcon}
+                            />
+                          </InputGroupButton>
+                        </InputGroupAddon>
+                      </InputGroup>
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}

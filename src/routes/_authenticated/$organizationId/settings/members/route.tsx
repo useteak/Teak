@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { mergeClassNames } from '@/utils/classnames'
+import { createSeoMeta } from '@/lib/seo'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))
@@ -71,6 +72,9 @@ export const Route = createFileRoute(
   component: RouteComponent,
   loader: ({ params }) =>
     getData({ data: { organizationId: params.organizationId } }),
+  head: () => ({
+    meta: createSeoMeta({ title: 'Members' }),
+  }),
 })
 
 function RouteComponent() {

@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { GithubIcon } from '@hugeicons/core-free-icons'
+import { GithubIcon, ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,20 +21,28 @@ import {
   FieldLabel,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
 import { authClient } from '@/lib/auth-client'
 import { authMiddleware } from '@/middleware/auth'
 import { Separator } from '@/components/ui/separator'
 import { useErrorCallbackURL } from '@/hooks/use-error-callback-url'
+import { createSeoMeta } from '@/lib/seo'
+import { config } from '@/config'
 
 const signupSchema = z
   .object({
-    name: z.string().trim().min(1, 'Name is required'),
+    name: z.string().trim().min(1, 'Please enter your name'),
     email: z.email('Please enter a valid email').trim(),
     password: z
       .string()
       .min(8, 'Password must be at least 8 characters')
       .max(72, 'Password must be at most 72 characters'),
-    confirmPassword: z.string().min(1, 'Please confirm your password'),
+    confirmPassword: z.string().min(1, 'Please enter your password again'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -46,6 +55,9 @@ export const Route = createFileRoute('/signup')({
     redirect: z.string().optional(),
     email: z.string().optional(),
   }),
+  head: () => ({
+    meta: createSeoMeta({ title: 'Sign up' }),
+  }),
   server: {
     middleware: [authMiddleware(false)],
   },
@@ -54,8 +66,10 @@ export const Route = createFileRoute('/signup')({
 function RouteComponent() {
   const navigate = useNavigate()
   const search = Route.useSearch()
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const redirectTo = search.redirect ?? '/'
+  const redirectTo = search.redirect ?? '/home'
   const errorCallbackURL = useErrorCallbackURL('/signup', {
     redirect: search.redirect,
     email: search.email,
@@ -90,7 +104,7 @@ function RouteComponent() {
           to: redirectTo,
         })
       } catch {
-        toast.error('Failed to create account')
+        toast.error('Failed to sign up')
       }
     },
   })
@@ -99,9 +113,9 @@ function RouteComponent() {
     <div className="flex items-center justify-center h-svh">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Create account</CardTitle>
+          <CardTitle>Sign up to {config.productName}</CardTitle>
           <CardDescription>
-            Create an account using your email and password.
+            Sign up to {config.productName} using a social provider
           </CardDescription>
         </CardHeader>
 
@@ -150,7 +164,7 @@ function RouteComponent() {
                       <Input
                         id={field.name}
                         name={field.name}
-                        placeholder="First Last"
+                        placeholder="Jane Doe"
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
@@ -202,17 +216,32 @@ function RouteComponent() {
                   return (
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                      <Input
-                        id={field.name}
-                        name={field.name}
-                        placeholder="•••••••••••"
-                        type="password"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        aria-invalid={isInvalid}
-                        autoComplete="new-password"
-                      />
+                      <InputGroup>
+                        <InputGroupInput
+                          id={field.name}
+                          name={field.name}
+                          placeholder="•••••••••••"
+                          type={showPassword ? 'text' : 'password'}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          aria-invalid={isInvalid}
+                          autoComplete="new-password"
+                        />
+                        <InputGroupAddon align="inline-end">
+                          <InputGroupButton
+                            size="icon-xs"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={
+                              showPassword ? 'Hide password' : 'Show password'
+                            }
+                          >
+                            <HugeiconsIcon
+                              icon={showPassword ? ViewOffIcon : ViewIcon}
+                            />
+                          </InputGroupButton>
+                        </InputGroupAddon>
+                      </InputGroup>
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}
@@ -232,17 +261,38 @@ function RouteComponent() {
                       <FieldLabel htmlFor={field.name}>
                         Confirm Password
                       </FieldLabel>
-                      <Input
-                        id={field.name}
-                        name={field.name}
-                        placeholder="•••••••••••"
-                        type="password"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        aria-invalid={isInvalid}
-                        autoComplete="new-password"
-                      />
+                      <InputGroup>
+                        <InputGroupInput
+                          id={field.name}
+                          name={field.name}
+                          placeholder="•••••••••••"
+                          type={showConfirmPassword ? 'text' : 'password'}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          aria-invalid={isInvalid}
+                          autoComplete="new-password"
+                        />
+                        <InputGroupAddon align="inline-end">
+                          <InputGroupButton
+                            size="icon-xs"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            aria-label={
+                              showConfirmPassword
+                                ? 'Hide password'
+                                : 'Show password'
+                            }
+                          >
+                            <HugeiconsIcon
+                              icon={
+                                showConfirmPassword ? ViewOffIcon : ViewIcon
+                              }
+                            />
+                          </InputGroupButton>
+                        </InputGroupAddon>
+                      </InputGroup>
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}
@@ -264,12 +314,12 @@ function RouteComponent() {
                 form="signup-form"
                 type="submit"
               >
-                {isSubmitting ? 'Creating…' : 'Create account'}
+                {isSubmitting ? 'Signing up…' : 'Sign up'}
               </Button>
             )}
           />
           <p className="text-sm text-muted-foreground">
-            Already have an account?{' '}
+            Already have a {config.productName} account?{' '}
             <Link
               to="/login"
               search={{ redirect: search.redirect, email: search.email }}

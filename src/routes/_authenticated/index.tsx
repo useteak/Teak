@@ -1,52 +1,20 @@
-import { Link, createFileRoute, redirect } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { getRequestHeaders } from '@tanstack/react-start/server'
-import { ArrowRight02Icon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { createServerFn } from '@tanstack/react-start'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { ArrowRightIcon } from '@hugeicons/core-free-icons'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/database'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { config } from '@/config'
+import { IntegrationCodeBlock } from '@/components/integration-code-block'
 
 const getData = createServerFn().handler(async () => {
   const session = await auth.api.getSession({
     headers: getRequestHeaders(),
   })
 
-  const organizations = await prisma.organization.findMany({
-    where: {
-      users: {
-        some: {
-          id: session?.user.id,
-        },
-      },
-    },
-  })
-
-  if (!organizations.length) {
-    throw redirect({
-      to: '/new-organization',
-    })
-  }
-
-  if (organizations.length === 1) {
-    throw redirect({
-      to: '/$organizationId',
-      params: { organizationId: organizations[0].id },
-    })
-  }
-
   return {
     user: session?.user,
-    organizations,
   }
 })
 
@@ -57,50 +25,73 @@ export const Route = createFileRoute('/_authenticated/')({
 
 function App() {
   // Server state
-  const { organizations } = Route.useLoaderData()
+  const { user } = Route.useLoaderData()
 
   return (
-    <div className="flex min-h-svh items-center justify-center">
-      {organizations.length ? (
-        <Card className="w-full max-w-sm gap-0">
-          <CardHeader className="pb-3">
-            <CardTitle>Pick a organization</CardTitle>
-            <CardDescription>
-              Go ahead an pick one of you're organizations to continue
-            </CardDescription>
-          </CardHeader>
-          <div className="pb-3">
-            {organizations.map((org) => (
-              <Link
-                key={org.id}
-                className="group"
-                to="/$organizationId"
-                params={{ organizationId: org.id }}
-              >
-                <CardContent className="flex items-center justify-between hover:bg-muted px-6 py-2.5">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarFallback className="group-hover:bg-primary group-hover:text-primary-foreground">
-                        {org.name[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                    <p>{org.name}</p>
-                  </div>
-                  <HugeiconsIcon
-                    className="size-4 text-muted-foreground group-hover:text-foreground"
-                    icon={ArrowRight02Icon}
-                  />
-                </CardContent>
-              </Link>
-            ))}
-          </div>
-          <CardFooter className="justify-end">
-            <Button asChild>
-              <Link to="/new-organization">New organization</Link>
+    <div className="flex flex-col gap-10 w-full max-w-6xl mx-auto p-8 xl:py-12 px-8 min-h-svh">
+      <nav className="flex items-center justify-between">
+        <Link
+          to="/"
+          className="text-muted-foreground text-lg font-bold lowercase"
+        >
+          {config.productName}
+        </Link>
+
+        <div className="flex items-center gap-2">
+          {user ? (
+            <Button variant="link" asChild>
+              <Link to="/home">Go to dashboard</Link>
             </Button>
-          </CardFooter>
-        </Card>
-      ) : null}
+          ) : (
+            <>
+              <Button variant="link" asChild>
+                <Link to="/login">Log in</Link>
+              </Button>
+              <Button asChild className="font-semibold">
+                <Link to="/signup">
+                  Create an account
+                  <HugeiconsIcon icon={ArrowRightIcon} />
+                </Link>
+              </Button>
+            </>
+          )}
+        </div>
+      </nav>
+
+      <div className="flex flex-col xl:flex-row xl:items-center gap-12 flex-1 pb-[20vh]">
+        <div className="space-y-6 flex-1 max-w-lg">
+          <h1 className="text-5xl/tight font-bold text-balance">
+            The Headless Feedback API
+          </h1>
+          <div className="space-y-3">
+            <p className="text-balance text-lg/relaxed">
+              <span className="bg-primary/10 -ml-1.5 text-primary px-1 py-0.5 rounded-sm font-medium">
+                Own your customer feedback experience
+              </span>
+              <br />
+              <span className="underline decoration-2 underline-offset-4 decoration-primary/50">
+                without building the infrastructure
+              </span>
+              .
+            </p>
+            <p className="text-balance text-lg/relaxed">
+              {config.productName} gives you a simple API endpoint to send
+              feedback from your app.
+            </p>
+            <p className="text-balance text-lg/relaxed">
+              And a dashboard to manage it.
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 min-w-0 h-80">
+          <IntegrationCodeBlock
+            organizationId="1"
+            projectId="1"
+            hideComments
+            className="h-full"
+          />
+        </div>
+      </div>
     </div>
   )
 }

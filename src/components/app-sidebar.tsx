@@ -1,6 +1,5 @@
 import {
   BookmarkIcon,
-  HomeIcon,
   IceCubesIcon,
   Layers01Icon,
   LogoutIcon,
@@ -50,21 +49,6 @@ export function AppSidebar() {
         <OrganizationSwitcher />
 
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              isActive={location.pathname === `/${params.organizationId}`}
-              asChild
-            >
-              <Link
-                to="/$organizationId"
-                params={{ organizationId: params.organizationId }}
-              >
-                <HugeiconsIcon icon={HomeIcon} />
-                Home
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
           <SidebarMenuItem>
             <SidebarMenuButton
               isActive={location.pathname.startsWith(
@@ -171,10 +155,6 @@ export function AppSidebar() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent sideOffset={8}>
-                <DropdownMenuItem>
-                  <HugeiconsIcon icon={BookmarkIcon} />
-                  Documentation
-                </DropdownMenuItem>
                 <DropdownMenuItem
                   variant="destructive"
                   onSelect={() => {

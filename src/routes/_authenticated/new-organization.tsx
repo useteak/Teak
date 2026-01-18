@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { createSeoMeta } from '@/lib/seo'
 
 const formSchema = z.object({
   name: z.string().min(1, 'Organization name must be at least 1 character.'),
@@ -74,6 +75,9 @@ const saveData = createServerFn({ method: 'POST' })
 export const Route = createFileRoute('/_authenticated/new-organization')({
   component: RouteComponent,
   loader: () => getData(),
+  head: () => ({
+    meta: createSeoMeta({ title: 'New organization' }),
+  }),
 })
 
 function RouteComponent() {

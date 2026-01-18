@@ -16,6 +16,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as InviteTokenRouteImport } from './routes/invite/$token'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedNewOrganizationRouteImport } from './routes/_authenticated/new-organization'
+import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedOrganizationIdRouteRouteImport } from './routes/_authenticated/$organizationId/route'
 import { Route as AuthenticatedOrganizationIdIndexRouteImport } from './routes/_authenticated/$organizationId/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -69,6 +70,11 @@ const AuthenticatedNewOrganizationRoute =
     path: '/new-organization',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedHomeRoute = AuthenticatedHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOrganizationIdRouteRoute =
   AuthenticatedOrganizationIdRouteRouteImport.update({
     id: '/$organizationId',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/home': typeof AuthenticatedHomeRoute
   '/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/home': typeof AuthenticatedHomeRoute
   '/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
@@ -228,6 +236,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/_authenticated/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
@@ -255,6 +264,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/$organizationId'
+    | '/home'
     | '/new-organization'
     | '/settings'
     | '/invite/$token'
@@ -279,6 +289,7 @@ export interface FileRouteTypes {
   to:
     | '/login'
     | '/signup'
+    | '/home'
     | '/new-organization'
     | '/settings'
     | '/invite/$token'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/_authenticated/$organizationId'
+    | '/_authenticated/home'
     | '/_authenticated/new-organization'
     | '/_authenticated/settings'
     | '/invite/$token'
@@ -384,6 +396,13 @@ declare module '@tanstack/react-router' {
       path: '/new-organization'
       fullPath: '/new-organization'
       preLoaderRoute: typeof AuthenticatedNewOrganizationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/home': {
+      id: '/_authenticated/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof AuthenticatedHomeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/$organizationId': {
@@ -636,6 +655,7 @@ const AuthenticatedOrganizationIdRouteRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedOrganizationIdRouteRoute: typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedNewOrganizationRoute: typeof AuthenticatedNewOrganizationRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -644,6 +664,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOrganizationIdRouteRoute:
     AuthenticatedOrganizationIdRouteRouteWithChildren,
+  AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedNewOrganizationRoute: AuthenticatedNewOrganizationRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,

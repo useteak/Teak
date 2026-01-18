@@ -6,20 +6,14 @@ import { ThemeProvider } from 'next-themes'
 import appCss from '../styles.css?url'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { createSeoMeta } from '@/lib/seo'
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'TanStack Start Starter',
-      },
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ...createSeoMeta(),
     ],
     links: [
       {
@@ -39,7 +33,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Toaster position="top-right" richColors />
+        <Toaster position="top-center" richColors />
         <ThemeProvider>
           <TooltipProvider delayDuration={700}>{children}</TooltipProvider>
         </ThemeProvider>
