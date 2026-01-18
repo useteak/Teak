@@ -17,6 +17,7 @@ export function getJavaScriptIntegrationCode(
 
     // Optional fields
     email: 'user@example.com', // Contact email for follow-up
+    metadata: { key: 'value' }, // Any additional JSON data
   }),
 })`
 }
@@ -33,11 +34,12 @@ export function getCurlIntegrationCode(
   -d '{
     "description": "Your feedback description here",
     "type": "BUG",
-    "email": "user@example.com"
+    "email": "user@example.com",
+    "metadata": { "key": "value" }
   }'
 
 # Type options: BUG, FEATURE_REQUEST, IMPROVEMENT, QUESTION, PRAISE, OTHER
-# Email is optional`
+# email and metadata are optional`
 }
 
 /**
@@ -58,6 +60,7 @@ response = requests.post(
 
         # Optional fields
         'email': 'user@example.com',  # Contact email for follow-up
+        'metadata': {'key': 'value'},  # Any additional JSON data
     }
 )
 

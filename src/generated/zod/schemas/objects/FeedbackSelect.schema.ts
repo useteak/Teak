@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   description: z.boolean().optional(),
   type: z.boolean().optional(),
   email: z.boolean().optional(),
+  metadata: z.boolean().optional(),
   projectId: z.boolean().optional(),
   project: z.union([z.boolean(), z.lazy(() => ProjectArgsObjectSchema)]).optional(),
   createdAt: z.boolean().optional(),

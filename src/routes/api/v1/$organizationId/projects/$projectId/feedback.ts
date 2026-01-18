@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import * as z from 'zod'
+import type { Prisma } from '@/generated/prisma/client'
 import { prisma } from '@/lib/database'
 import { FeedbackInputSchema } from '@/generated/zod/schemas'
 import { checkRateLimit, getClientIp } from '@/utils/rate-limit'
@@ -16,11 +18,14 @@ const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
 
 /**
  * Request body schema - only the fields customers should provide.
+ * We override the metadata field to ensure it's a plain object.
  */
 const FeedbackRequestSchema = FeedbackInputSchema.pick({
   description: true,
   type: true,
   email: true,
+}).extend({
+  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
 })
 
 export const Route = createFileRoute(
@@ -142,6 +147,7 @@ export const Route = createFileRoute(
               description: parsedBody.data.description,
               type: parsedBody.data.type,
               email: parsedBody.data.email,
+              metadata: parsedBody.data.metadata,
               projectId: project.id,
             },
           })
@@ -149,13 +155,7 @@ export const Route = createFileRoute(
           return Response.json(
             {
               success: true,
-              feedback: {
-                id: feedback.id,
-                description: feedback.description,
-                type: feedback.type,
-                email: feedback.email,
-                createdAt: feedback.createdAt,
-              },
+              feedback,
             },
             { status: 201 },
           )

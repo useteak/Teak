@@ -49,6 +49,7 @@ export type FeedbackCountAggregateOutputType = {
   description: number
   type: number
   email: number
+  metadata: number
   projectId: number
   createdAt: number
   updatedAt: number
@@ -81,6 +82,7 @@ export type FeedbackCountAggregateInputType = {
   description?: true
   type?: true
   email?: true
+  metadata?: true
   projectId?: true
   createdAt?: true
   updatedAt?: true
@@ -164,6 +166,7 @@ export type FeedbackGroupByOutputType = {
   description: string
   type: $Enums.FeedbackType
   email: string | null
+  metadata: runtime.JsonValue | null
   projectId: string
   createdAt: Date
   updatedAt: Date
@@ -195,6 +198,7 @@ export type FeedbackWhereInput = {
   description?: Prisma.StringFilter<"Feedback"> | string
   type?: Prisma.EnumFeedbackTypeFilter<"Feedback"> | $Enums.FeedbackType
   email?: Prisma.StringNullableFilter<"Feedback"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Feedback">
   projectId?: Prisma.StringFilter<"Feedback"> | string
   createdAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
@@ -206,6 +210,7 @@ export type FeedbackOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   projectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -220,6 +225,7 @@ export type FeedbackWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Feedback"> | string
   type?: Prisma.EnumFeedbackTypeFilter<"Feedback"> | $Enums.FeedbackType
   email?: Prisma.StringNullableFilter<"Feedback"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Feedback">
   projectId?: Prisma.StringFilter<"Feedback"> | string
   createdAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
@@ -231,6 +237,7 @@ export type FeedbackOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   projectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -247,6 +254,7 @@ export type FeedbackScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Feedback"> | string
   type?: Prisma.EnumFeedbackTypeWithAggregatesFilter<"Feedback"> | $Enums.FeedbackType
   email?: Prisma.StringNullableWithAggregatesFilter<"Feedback"> | string | null
+  metadata?: Prisma.JsonNullableWithAggregatesFilter<"Feedback">
   projectId?: Prisma.StringWithAggregatesFilter<"Feedback"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Feedback"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Feedback"> | Date | string
@@ -257,6 +265,7 @@ export type FeedbackCreateInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutFeedbacksInput
@@ -267,6 +276,7 @@ export type FeedbackUncheckedCreateInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   projectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -277,6 +287,7 @@ export type FeedbackUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutFeedbacksNestedInput
@@ -287,6 +298,7 @@ export type FeedbackUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -297,6 +309,7 @@ export type FeedbackCreateManyInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   projectId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -307,6 +320,7 @@ export type FeedbackUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -316,6 +330,7 @@ export type FeedbackUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,6 +351,7 @@ export type FeedbackCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  metadata?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -412,6 +428,7 @@ export type FeedbackCreateWithoutProjectInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -421,6 +438,7 @@ export type FeedbackUncheckedCreateWithoutProjectInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -459,6 +477,7 @@ export type FeedbackScalarWhereInput = {
   description?: Prisma.StringFilter<"Feedback"> | string
   type?: Prisma.EnumFeedbackTypeFilter<"Feedback"> | $Enums.FeedbackType
   email?: Prisma.StringNullableFilter<"Feedback"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"Feedback">
   projectId?: Prisma.StringFilter<"Feedback"> | string
   createdAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Feedback"> | Date | string
@@ -469,6 +488,7 @@ export type FeedbackCreateManyProjectInput = {
   description: string
   type: $Enums.FeedbackType
   email?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -478,6 +498,7 @@ export type FeedbackUpdateWithoutProjectInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -487,6 +508,7 @@ export type FeedbackUncheckedUpdateWithoutProjectInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -496,6 +518,7 @@ export type FeedbackUncheckedUpdateManyWithoutProjectInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumFeedbackTypeFieldUpdateOperationsInput | $Enums.FeedbackType
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -507,6 +530,7 @@ export type FeedbackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   description?: boolean
   type?: boolean
   email?: boolean
+  metadata?: boolean
   projectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -518,6 +542,7 @@ export type FeedbackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   type?: boolean
   email?: boolean
+  metadata?: boolean
   projectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -529,6 +554,7 @@ export type FeedbackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   type?: boolean
   email?: boolean
+  metadata?: boolean
   projectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -540,12 +566,13 @@ export type FeedbackSelectScalar = {
   description?: boolean
   type?: boolean
   email?: boolean
+  metadata?: boolean
   projectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "type" | "email" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["feedback"]>
+export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "type" | "email" | "metadata" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["feedback"]>
 export type FeedbackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }
@@ -566,6 +593,7 @@ export type $FeedbackPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     description: string
     type: $Enums.FeedbackType
     email: string | null
+    metadata: runtime.JsonValue | null
     projectId: string
     createdAt: Date
     updatedAt: Date
@@ -997,6 +1025,7 @@ export interface FeedbackFieldRefs {
   readonly description: Prisma.FieldRef<"Feedback", 'String'>
   readonly type: Prisma.FieldRef<"Feedback", 'FeedbackType'>
   readonly email: Prisma.FieldRef<"Feedback", 'String'>
+  readonly metadata: Prisma.FieldRef<"Feedback", 'Json'>
   readonly projectId: Prisma.FieldRef<"Feedback", 'String'>
   readonly createdAt: Prisma.FieldRef<"Feedback", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Feedback", 'DateTime'>

@@ -11,6 +11,7 @@ const makeSchema = () => z.object({
   description: SortOrderSchema.optional(),
   type: SortOrderSchema.optional(),
   email: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  metadata: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   projectId: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),

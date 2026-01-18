@@ -4,6 +4,7 @@ import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFi
 import { EnumFeedbackTypeFilterObjectSchema as EnumFeedbackTypeFilterObjectSchema } from './EnumFeedbackTypeFilter.schema';
 import { FeedbackTypeSchema } from '../enums/FeedbackType.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
+import { JsonNullableFilterObjectSchema as JsonNullableFilterObjectSchema } from './JsonNullableFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 
 const feedbackscalarwhereinputSchema = z.object({
@@ -14,6 +15,7 @@ const feedbackscalarwhereinputSchema = z.object({
   description: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   type: z.union([z.lazy(() => EnumFeedbackTypeFilterObjectSchema), FeedbackTypeSchema]).optional(),
   email: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  metadata: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
   projectId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()

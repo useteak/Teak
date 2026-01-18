@@ -4,6 +4,7 @@ export const FeedbackAggregateResultSchema = z.object({  _count: z.object({
     description: z.number(),
     type: z.number(),
     email: z.number(),
+    metadata: z.number(),
     projectId: z.number(),
     project: z.number(),
     createdAt: z.number(),

@@ -4,6 +4,7 @@ import { StringWithAggregatesFilterObjectSchema as StringWithAggregatesFilterObj
 import { EnumFeedbackTypeWithAggregatesFilterObjectSchema as EnumFeedbackTypeWithAggregatesFilterObjectSchema } from './EnumFeedbackTypeWithAggregatesFilter.schema';
 import { FeedbackTypeSchema } from '../enums/FeedbackType.schema';
 import { StringNullableWithAggregatesFilterObjectSchema as StringNullableWithAggregatesFilterObjectSchema } from './StringNullableWithAggregatesFilter.schema';
+import { JsonNullableWithAggregatesFilterObjectSchema as JsonNullableWithAggregatesFilterObjectSchema } from './JsonNullableWithAggregatesFilter.schema';
 import { DateTimeWithAggregatesFilterObjectSchema as DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema'
 
 const feedbackscalarwherewithaggregatesinputSchema = z.object({
@@ -14,6 +15,7 @@ const feedbackscalarwherewithaggregatesinputSchema = z.object({
   description: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   type: z.union([z.lazy(() => EnumFeedbackTypeWithAggregatesFilterObjectSchema), FeedbackTypeSchema]).optional(),
   email: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
+  metadata: z.lazy(() => JsonNullableWithAggregatesFilterObjectSchema).optional(),
   projectId: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.coerce.date()]).optional()

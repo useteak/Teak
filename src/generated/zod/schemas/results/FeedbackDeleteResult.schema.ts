@@ -4,6 +4,7 @@ export const FeedbackDeleteResultSchema = z.nullable(z.object({
   description: z.string(),
   type: z.unknown(),
   email: z.string().optional(),
+  metadata: z.unknown().optional(),
   projectId: z.string(),
   project: z.unknown(),
   createdAt: z.date(),

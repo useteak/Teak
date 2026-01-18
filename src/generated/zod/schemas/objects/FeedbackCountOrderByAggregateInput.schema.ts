@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   description: SortOrderSchema.optional(),
   type: SortOrderSchema.optional(),
   email: SortOrderSchema.optional(),
+  metadata: SortOrderSchema.optional(),
   projectId: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional()

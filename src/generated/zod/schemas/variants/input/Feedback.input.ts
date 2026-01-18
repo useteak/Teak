@@ -6,6 +6,7 @@ export const FeedbackInputSchema = z.object({
     description: z.string(),
     type: FeedbackTypeSchema,
     email: z.string().optional().nullable(),
+    metadata: z.unknown().optional().nullable(),
     projectId: z.string(),
     project: z.unknown(),
     createdAt: z.date(),

@@ -10,6 +10,7 @@ import {
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { format } from 'date-fns'
+import { Badge } from './ui/badge'
 import { CardContent } from './ui/card'
 import type { Feedback } from '@/generated/prisma/client'
 import { FeedbackType } from '@/generated/prisma/enums'
@@ -118,6 +119,10 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
             <p className="text-xs text-muted-foreground">
               {feedback.email ?? 'Anonymous'}
             </p>
+
+            {feedback.metadata && (
+              <Badge className='ml-auto' variant="secondary">Metadata available</Badge>
+            )}
           </div>
         </div>
       </div>
