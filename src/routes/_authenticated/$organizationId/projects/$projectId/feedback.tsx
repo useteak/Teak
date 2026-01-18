@@ -3,7 +3,9 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import z from 'zod'
 import { format, isToday, isYesterday } from 'date-fns'
-import { prisma } from '@/db'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { SearchIcon } from '@hugeicons/core-free-icons'
+import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { FeedbackType } from '@/generated/prisma/enums'
@@ -16,8 +18,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/ui/input-group'
-import { HugeiconsIcon } from '@hugeicons/react'
-import { SearchIcon } from '@hugeicons/core-free-icons'
 import { Separator } from '@/components/ui/separator'
 
 const createFeedback = createServerFn({ method: 'POST' })

@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 
 const getData = createServerFn()
   .inputValidator(

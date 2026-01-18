@@ -9,7 +9,7 @@ import {
   UserMinusIcon,
 } from '@hugeicons/core-free-icons'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import {
   Table,
   TableBody,
@@ -33,7 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { cn } from '@/lib/utils'
+import { mergeClassNames } from '@/utils/classnames'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))
@@ -106,7 +106,9 @@ function RouteComponent() {
 
                 return (
                   <TableRow key={member.id}>
-                    <TableCell className={cn({ 'font-medium': isSelf })}>
+                    <TableCell
+                      className={mergeClassNames({ 'font-medium': isSelf })}
+                    >
                       {isSelf ? 'You' : member.name}
                     </TableCell>
                     <TableCell className="text-muted-foreground">

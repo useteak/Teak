@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 
 const getData = createServerFn()

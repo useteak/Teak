@@ -2,4 +2,14 @@
 
 import { tanstackConfig } from '@tanstack/eslint-config'
 
-export default [...tanstackConfig]
+export default [
+  {
+    ignores: [
+      'src/generated/**',
+      '.output/**',
+      'node_modules/**',
+      '*.config.js',
+    ],
+  },
+  ...tanstackConfig,
+]

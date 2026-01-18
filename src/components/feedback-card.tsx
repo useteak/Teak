@@ -13,7 +13,7 @@ import { format } from 'date-fns'
 import { CardContent } from './ui/card'
 import type { Feedback } from '@/generated/prisma/client'
 import { FeedbackType } from '@/generated/prisma/enums'
-import { cn } from '@/lib/utils'
+import { mergeClassNames } from '@/utils/classnames'
 
 function getFeedbackTypeLabel(type: FeedbackType) {
   switch (type) {
@@ -78,20 +78,20 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
 
   return (
     <CardContent
-      className={cn(
+      className={mergeClassNames(
         'p-3.5 flex flex-row gap-2.5 relative overflow-hidden border-l',
         icon.edgeClassName,
       )}
     >
       <HugeiconsIcon
         icon={icon.component}
-        className={cn('size-4', icon.className)}
+        className={mergeClassNames('size-4', icon.className)}
       />
 
       <div className="space-y-2 flex-1">
         <div className="flex items-center gap-2 justify-between flex-wrap">
           <p
-            className={cn(
+            className={mergeClassNames(
               'text-xs font-medium uppercase tracking-widest font-condensed',
               icon.className,
             )}

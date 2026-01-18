@@ -1,3 +1,6 @@
+/**
+ * Generates a JavaScript fetch example for submitting feedback.
+ */
 export function getJavaScriptIntegrationCode(
   organizationId: string,
   projectId: string,
@@ -18,6 +21,9 @@ export function getJavaScriptIntegrationCode(
 })`
 }
 
+/**
+ * Generates a curl example for submitting feedback.
+ */
 export function getCurlIntegrationCode(
   organizationId: string,
   projectId: string,
@@ -34,6 +40,9 @@ export function getCurlIntegrationCode(
 # Email is optional`
 }
 
+/**
+ * Generates a Python requests example for submitting feedback.
+ */
 export function getPythonIntegrationCode(
   organizationId: string,
   projectId: string,

@@ -1,7 +1,9 @@
 import { useForm } from '@tanstack/react-form'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { GithubIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,15 +22,23 @@ import {
 import { Input } from '@/components/ui/input'
 import { authClient } from '@/lib/auth-client'
 import { authMiddleware } from '@/middleware/auth'
+import { Separator } from '@/components/ui/separator'
+import { useErrorCallbackURL } from '@/hooks/use-error-callback-url'
 
-const signupSchema = z.object({
-  name: z.string().trim().min(1, 'Name is required'),
-  email: z.email('Please enter a valid email').trim(),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(72, 'Password must be at most 72 characters'),
-})
+const signupSchema = z
+  .object({
+    name: z.string().trim().min(1, 'Name is required'),
+    email: z.email('Please enter a valid email').trim(),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters')
+      .max(72, 'Password must be at most 72 characters'),
+    confirmPassword: z.string().min(1, 'Please confirm your password'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
 
 export const Route = createFileRoute('/signup')({
   component: RouteComponent,
@@ -46,12 +56,17 @@ function RouteComponent() {
   const search = Route.useSearch()
 
   const redirectTo = search.redirect ?? '/'
+  const errorCallbackURL = useErrorCallbackURL('/signup', {
+    redirect: search.redirect,
+    email: search.email,
+  })
 
   const form = useForm({
     defaultValues: {
       name: '',
       email: search.email ?? '',
       password: '',
+      confirmPassword: '',
     },
     validators: {
       onSubmit: signupSchema,
@@ -63,6 +78,7 @@ function RouteComponent() {
             email: value.email,
             password: value.password,
             name: value.name,
+            callbackURL: redirectTo,
             fetchOptions: {
               onSuccess: () => resolve(),
               onError: () => reject(new Error('Signup failed')),
@@ -89,7 +105,31 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="flex flex-col gap-5">
+          <Button
+            variant="outline"
+            onClick={() =>
+              authClient.signIn.social({
+                provider: 'github',
+                requestSignUp: true,
+                callbackURL: redirectTo,
+                newUserCallbackURL: redirectTo,
+                errorCallbackURL,
+              })
+            }
+          >
+            <HugeiconsIcon icon={GithubIcon} />
+            Sign up with Github
+          </Button>
+
+          <div className="flex items-center gap-2">
+            <Separator className="flex-1" />
+            <span className="text-sm text-muted-foreground">
+              Or with email & password
+            </span>
+            <Separator className="flex-1" />
+          </div>
+
           <form
             id="signup-form"
             onSubmit={(e) => {
@@ -180,11 +220,41 @@ function RouteComponent() {
                   )
                 }}
               />
+
+              <form.Field
+                name="confirmPassword"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid
+
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        Confirm Password
+                      </FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder="•••••••••••"
+                        type="password"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        aria-invalid={isInvalid}
+                        autoComplete="new-password"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  )
+                }}
+              />
             </FieldGroup>
           </form>
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className="flex-col gap-4 py-5">
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
@@ -198,6 +268,16 @@ function RouteComponent() {
               </Button>
             )}
           />
+          <p className="text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link
+              to="/login"
+              search={{ redirect: search.redirect, email: search.email }}
+              className="link"
+            >
+              Log in here
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>

@@ -3,7 +3,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { authMiddleware } from '@/middleware/auth'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import AppFooter from '@/components/app-footer'
 
 const getData = createServerFn().handler(async () => {

@@ -1,7 +1,9 @@
 import { useForm } from '@tanstack/react-form'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { GithubIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -21,8 +23,7 @@ import { Input } from '@/components/ui/input'
 import { authClient } from '@/lib/auth-client'
 import { authMiddleware } from '@/middleware/auth'
 import { Separator } from '@/components/ui/separator'
-import { HugeiconsIcon } from '@hugeicons/react'
-import { GithubIcon } from '@hugeicons/core-free-icons'
+import { useErrorCallbackURL } from '@/hooks/use-error-callback-url'
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email').trim(),
@@ -34,6 +35,7 @@ export const Route = createFileRoute('/login')({
   validateSearch: z.object({
     redirect: z.string().optional(),
     email: z.string().optional(),
+    error: z.string().optional(),
   }),
   server: {
     middleware: [authMiddleware(false)],
@@ -45,6 +47,11 @@ function RouteComponent() {
   const search = Route.useSearch()
 
   const redirectTo = search.redirect ?? '/'
+  const error = search.error ?? null
+  const errorCallbackURL = useErrorCallbackURL('/login', {
+    redirect: search.redirect,
+    email: search.email,
+  })
 
   const form = useForm({
     defaultValues: {
@@ -76,6 +83,7 @@ function RouteComponent() {
     },
   })
 
+
   return (
     <div className="flex items-center justify-center h-svh">
       <Card className="w-full max-w-sm">
@@ -87,13 +95,36 @@ function RouteComponent() {
         </CardHeader>
 
         <CardContent className="flex flex-col gap-5">
-          <Button
-            variant="outline"
-            onClick={() => authClient.signIn.social({ provider: 'github' })}
-          >
-            <HugeiconsIcon icon={GithubIcon} />
-            Log in with Github
-          </Button>
+          <div className="flex flex-col gap-3.5">
+
+            <Button
+              variant="outline"
+              onClick={() =>
+                authClient.signIn.social({
+                  provider: 'github',
+                  callbackURL: redirectTo,
+                  errorCallbackURL,
+                })
+              }
+            >
+              <HugeiconsIcon icon={GithubIcon} />
+              Log in with Github
+            </Button>
+
+            {error === 'signup_disabled' && (
+              <p className="text-sm text-destructive text-center">
+                Please{' '}
+                <Link
+                  to="/signup"
+                  search={{ redirect: search.redirect, email: search.email }}
+                  className="link"
+                >
+                  sign up
+                </Link>{' '}
+                before logging in.
+              </p>
+            )}
+          </div>
 
           <div className="flex items-center gap-2">
             <Separator className="flex-1" />
@@ -170,7 +201,7 @@ function RouteComponent() {
           </form>
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className="flex-col gap-4 py-5">
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
@@ -184,6 +215,16 @@ function RouteComponent() {
               </Button>
             )}
           />
+          <p className="text-sm text-muted-foreground">
+            Don't have account yet?{' '}
+            <Link
+              to="/signup"
+              search={{ redirect: search.redirect, email: search.email }}
+              className="link"
+            >
+              Sign up here
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>

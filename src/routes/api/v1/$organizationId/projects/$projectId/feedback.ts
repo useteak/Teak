@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import { FeedbackInputSchema } from '@/generated/zod/schemas'
-import { checkRateLimit, getClientIp } from '@/lib/rate-limit'
+import { checkRateLimit, getClientIp } from '@/utils/rate-limit'
 
 /** Rate limit: 5 requests per 60 seconds per IP */
-const RATE_LIMIT = { limit: 5, window: 60 * 1000 }
+const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
 
 /**
  * Public API endpoint for submitting feedback.
@@ -14,7 +14,9 @@ const RATE_LIMIT = { limit: 5, window: 60 * 1000 }
  * "trusted domains" to restrict which origins can submit feedback.
  */
 
-// Request body schema - only the fields customers should provide
+/**
+ * Request body schema - only the fields customers should provide.
+ */
 const FeedbackRequestSchema = FeedbackInputSchema.pick({
   description: true,
   type: true,
@@ -27,9 +29,11 @@ export const Route = createFileRoute(
   server: {
     handlers: {
       POST: async ({ request, params }) => {
-        // Rate limit by client IP
+        // Rate limit by client IP and project
         const clientIp = getClientIp(request)
-        const rateLimitResult = checkRateLimit(clientIp, RATE_LIMIT)
+        const { organizationId, projectId } = params
+        const rateLimitKey = `${clientIp}:${organizationId}:${projectId}`
+        const rateLimitResult = checkRateLimit(rateLimitKey, feedbackRateLimit)
 
         if (!rateLimitResult.allowed) {
           const retryAfterSeconds = Math.ceil(
@@ -90,22 +94,20 @@ export const Route = createFileRoute(
           }
 
           // Validate request body
-          const parseResult = FeedbackRequestSchema.safeParse(body)
-          if (!parseResult.success) {
+          const parsedBody = FeedbackRequestSchema.safeParse(body)
+          if (!parsedBody.success) {
             return Response.json(
               {
                 success: false,
                 error: {
                   code: 'VALIDATION_ERROR',
                   message: 'Invalid request body',
-                  details: parseResult.error.flatten().fieldErrors,
+                  details: parsedBody.error.flatten().fieldErrors,
                 },
               },
               { status: 400 },
             )
           }
-
-          const { organizationId, projectId } = params
 
           // Verify project exists and belongs to the organization
           const project = await prisma.project.findFirst({
@@ -131,9 +133,9 @@ export const Route = createFileRoute(
           // Create feedback
           const feedback = await prisma.feedback.create({
             data: {
-              description: parseResult.data.description,
-              type: parseResult.data.type,
-              email: parseResult.data.email,
+              description: parsedBody.data.description,
+              type: parsedBody.data.type,
+              email: parsedBody.data.email,
               projectId: project.id,
             },
           })

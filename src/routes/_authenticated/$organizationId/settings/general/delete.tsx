@@ -14,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 
 const getData = createServerFn()

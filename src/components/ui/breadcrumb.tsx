@@ -1,19 +1,19 @@
 import * as React from 'react'
 import { Slot } from 'radix-ui'
 
-import { cn } from '@/lib/utils'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
   ArrowRight01Icon,
   MoreHorizontalCircle01Icon,
 } from '@hugeicons/core-free-icons'
+import { mergeClassNames } from '@/utils/classnames'
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
     <nav
       aria-label="breadcrumb"
       data-slot="breadcrumb"
-      className={cn(className)}
+      className={mergeClassNames(className)}
       {...props}
     />
   )
@@ -23,7 +23,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
   return (
     <ol
       data-slot="breadcrumb-list"
-      className={cn(
+      className={mergeClassNames(
         'text-muted-foreground gap-1.5 text-sm sm:gap-2.5 flex flex-wrap items-center wrap-break-word',
         className,
       )}
@@ -36,7 +36,7 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-item"
-      className={cn('gap-1.5 inline-flex items-center', className)}
+      className={mergeClassNames('gap-1.5 inline-flex items-center', className)}
       {...props}
     />
   )
@@ -54,7 +54,10 @@ function BreadcrumbLink({
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn('hover:text-foreground transition-colors', className)}
+      className={mergeClassNames(
+        'hover:text-foreground transition-colors',
+        className,
+      )}
       {...props}
     />
   )
@@ -67,7 +70,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('text-foreground font-normal', className)}
+      className={mergeClassNames('text-foreground font-normal', className)}
       {...props}
     />
   )
@@ -83,7 +86,7 @@ function BreadcrumbSeparator({
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn('[&>svg]:size-3.5', className)}
+      className={mergeClassNames('[&>svg]:size-3.5', className)}
       {...props}
     >
       {children ?? <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />}
@@ -100,7 +103,7 @@ function BreadcrumbEllipsis({
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
-      className={cn(
+      className={mergeClassNames(
         'size-5 [&>svg]:size-4 flex items-center justify-center',
         className,
       )}

@@ -3,7 +3,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import {
@@ -77,18 +77,18 @@ const getData = createServerFn()
 
     const isAlreadyMember = session
       ? Boolean(
-          await prisma.organization.findFirst({
-            where: {
-              id: invitation.organizationId,
-              users: {
-                some: {
-                  id: session.user.id,
-                },
+        await prisma.organization.findFirst({
+          where: {
+            id: invitation.organizationId,
+            users: {
+              some: {
+                id: session.user.id,
               },
             },
-            select: { id: true },
-          }),
-        )
+          },
+          select: { id: true },
+        }),
+      )
       : false
 
     return {
@@ -200,28 +200,28 @@ function RouteComponent() {
 
         <CardContent>
           {data.status === 'not_found' ? (
-            <p>This invitation link is invalid.</p>
+            <p className='text-balance text-destructive leading-relaxed'>This invitation link is invalid.</p>
           ) : data.status === 'revoked' ? (
-            <p>This invitation was revoked.</p>
+            <p className='text-balance text-destructive leading-relaxed'>This invitation was revoked.</p>
           ) : data.status === 'expired' ? (
-            <p>This invitation has expired.</p>
+            <p className='text-balance text-destructive leading-relaxed'>This invitation has expired.</p>
           ) : data.status === 'accepted' ? (
-            <p>This invitation has already been accepted.</p>
+            <p className='text-balance text-destructive leading-relaxed'>This invitation has already been accepted.</p>
           ) : data.user ? (
             data.emailMatches ? (
               data.isAlreadyMember ? (
-                <p>
+                <p className='text-balance text-destructive leading-relaxed'>
                   You’re already a member of{' '}
                   <span className="font-medium">{data.organization.name}</span>.
                 </p>
               ) : (
-                <p>
+                <p className='text-balance text-muted-foreground leading-relaxed'>
                   Signed in as{' '}
-                  <span className="font-medium">{data.user.email}</span>.
+                  <span className="font-medium">{data.user.email}</span>
                 </p>
               )
             ) : (
-              <p>
+              <p className='text-balance text-destructive leading-relaxed'>
                 This invitation is for{' '}
                 <span className="font-medium">{data.email}</span>, but you’re
                 signed in as{' '}
@@ -229,8 +229,8 @@ function RouteComponent() {
               </p>
             )
           ) : (
-            <p className="text-balance">
-              Sign in or create an account for{' '}
+            <p className="text-balance text-muted-foreground leading-relaxed">
+              Log in or create an account for{' '}
               <span className="font-medium">{data.email}</span> to accept this
               invite.
             </p>
@@ -240,7 +240,7 @@ function RouteComponent() {
         <CardFooter className="justify-end gap-2">
           {data.status === 'pending' && !data.user ? (
             <>
-              <Button variant="outline" asChild>
+              <Button variant="secondary" asChild>
                 <Link
                   to="/login"
                   search={{ redirect: redirectPath, email: data.email }}

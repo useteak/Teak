@@ -24,9 +24,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { auth } from '@/lib/auth'
-import { getBaseUrlFromHeaders } from '@/lib/server-url'
+import { getBaseUrlFromHeaders } from '@/utils/server-url'
 import { resend, resendFromEmail } from '@/lib/resend'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))

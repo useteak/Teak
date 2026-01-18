@@ -26,7 +26,7 @@ export default function CodeBlock({
   const { systemTheme } = useTheme()
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const langsWithHtml = await Promise.all(
         _langs.map(async (lang) => ({
           ...lang,

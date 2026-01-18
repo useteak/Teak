@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import {
   Field,
   FieldError,
@@ -39,7 +39,7 @@ import {
   getCurlIntegrationCode,
   getJavaScriptIntegrationCode,
   getPythonIntegrationCode,
-} from '@/lib/api-integration'
+} from '@/helpers/integration-code'
 import { Separator } from '@/components/ui/separator'
 
 const formSchema = z.object({

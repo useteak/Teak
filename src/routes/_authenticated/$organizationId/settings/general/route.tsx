@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import {
   Field,
   FieldError,
@@ -146,7 +146,9 @@ function RouteComponent() {
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Organization name</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>
+                        Organization name
+                      </FieldLabel>
                       <Input
                         id={field.name}
                         name={field.name}
@@ -182,9 +184,9 @@ function RouteComponent() {
         </CardFooter>
       </Card>
 
-      <Card className="ring-1 ring-destructive">
+      <Card>
         <CardHeader>
-          <CardTitle>Dangerous</CardTitle>
+          <CardTitle>Danger Zone</CardTitle>
           <CardDescription>
             If you want to delete your organization, you can do so here.
           </CardDescription>

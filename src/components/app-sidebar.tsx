@@ -18,6 +18,7 @@ import {
 } from './ui/dropdown-menu'
 import { Avatar, AvatarFallback } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import {
   Sidebar,
   SidebarContent,
@@ -33,7 +34,6 @@ import {
 } from '@/components/ui/sidebar'
 import { Route } from '@/routes/_authenticated/$organizationId/route'
 import { authClient } from '@/lib/auth-client'
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 export function AppSidebar() {
   // Server state

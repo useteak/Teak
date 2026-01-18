@@ -4,7 +4,7 @@ import { ArrowRight02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { createServerFn } from '@tanstack/react-start'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import {
   Card,
   CardContent,

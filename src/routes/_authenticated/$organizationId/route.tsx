@@ -4,7 +4,7 @@ import { getRequestHeaders } from '@tanstack/react-start/server'
 import * as z from 'zod'
 import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
-import { prisma } from '@/db'
+import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 import AppFooter from '@/components/app-footer'
 
