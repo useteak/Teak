@@ -121,7 +121,9 @@ export function FeedbackCard({ feedback }: { feedback: Feedback }) {
             </p>
 
             {feedback.metadata && (
-              <Badge className='ml-auto' variant="secondary">Metadata available</Badge>
+              <Badge className="ml-auto" variant="secondary">
+                Metadata available
+              </Badge>
             )}
           </div>
         </div>

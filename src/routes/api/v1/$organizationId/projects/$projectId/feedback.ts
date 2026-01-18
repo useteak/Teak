@@ -4,6 +4,7 @@ import type { Prisma } from '@/generated/prisma/client'
 import { prisma } from '@/lib/database'
 import { FeedbackInputSchema } from '@/generated/zod/schemas'
 import { checkRateLimit, getClientIp } from '@/utils/rate-limit'
+import { resend, resendFromEmail } from '@/lib/resend'
 
 /** Rate limit: 5 requests per 60 seconds per IP */
 const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
@@ -151,6 +152,24 @@ export const Route = createFileRoute(
               projectId: project.id,
             },
           })
+
+          // Send confirmation email in production if email was provided
+          if (process.env.NODE_ENV === 'production' && parsedBody.data.email) {
+            try {
+              await resend.emails.send({
+                from: resendFromEmail,
+                to: parsedBody.data.email,
+                subject: `We received your feedback`,
+                html: `<p>Thank you for submitting your feedback!</p><p>We've received your ${parsedBody.data.type.toLowerCase()} and our team will review it shortly.</p><p>Your feedback helps us improve our product.</p>`,
+              })
+            } catch (emailError) {
+              // Log but don't fail the request if email fails
+              console.error(
+                'Failed to send feedback confirmation email:',
+                emailError,
+              )
+            }
+          }
 
           return Response.json(
             {
