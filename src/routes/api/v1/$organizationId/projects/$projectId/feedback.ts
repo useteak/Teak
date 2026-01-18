@@ -1,6 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { prisma } from '@/db'
 import { FeedbackInputSchema } from '@/generated/zod/schemas'
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit'
+
+/** Rate limit: 5 requests per 60 seconds per IP */
+const RATE_LIMIT = { limit: 5, window: 60 * 1000 }
 
 /**
  * Public API endpoint for submitting feedback.
@@ -23,6 +27,31 @@ export const Route = createFileRoute(
   server: {
     handlers: {
       POST: async ({ request, params }) => {
+        // Rate limit by client IP
+        const clientIp = getClientIp(request)
+        const rateLimitResult = checkRateLimit(clientIp, RATE_LIMIT)
+
+        if (!rateLimitResult.allowed) {
+          const retryAfterSeconds = Math.ceil(
+            rateLimitResult.retryAfterMs / 1000,
+          )
+          return Response.json(
+            {
+              success: false,
+              error: {
+                code: 'RATE_LIMIT_EXCEEDED',
+                message: `Too many requests. Please try again in ${retryAfterSeconds} seconds.`,
+              },
+            },
+            {
+              status: 429,
+              headers: {
+                'Retry-After': String(retryAfterSeconds),
+              },
+            },
+          )
+        }
+
         // TODO: Add trusted domain validation here when implemented
         // const origin = request.headers.get('origin')
         // if (!isAllowedOrigin(origin, project.trustedDomains)) { ... }
