@@ -77,18 +77,18 @@ const getData = createServerFn()
 
     const isAlreadyMember = session
       ? Boolean(
-        await prisma.organization.findFirst({
-          where: {
-            id: invitation.organizationId,
-            users: {
-              some: {
-                id: session.user.id,
+          await prisma.organization.findFirst({
+            where: {
+              id: invitation.organizationId,
+              users: {
+                some: {
+                  id: session.user.id,
+                },
               },
             },
-          },
-          select: { id: true },
-        }),
-      )
+            select: { id: true },
+          }),
+        )
       : false
 
     return {
@@ -200,28 +200,36 @@ function RouteComponent() {
 
         <CardContent>
           {data.status === 'not_found' ? (
-            <p className='text-balance text-destructive leading-relaxed'>This invitation link is invalid.</p>
+            <p className="text-balance text-destructive leading-relaxed">
+              This invitation link is invalid.
+            </p>
           ) : data.status === 'revoked' ? (
-            <p className='text-balance text-destructive leading-relaxed'>This invitation was revoked.</p>
+            <p className="text-balance text-destructive leading-relaxed">
+              This invitation was revoked.
+            </p>
           ) : data.status === 'expired' ? (
-            <p className='text-balance text-destructive leading-relaxed'>This invitation has expired.</p>
+            <p className="text-balance text-destructive leading-relaxed">
+              This invitation has expired.
+            </p>
           ) : data.status === 'accepted' ? (
-            <p className='text-balance text-destructive leading-relaxed'>This invitation has already been accepted.</p>
+            <p className="text-balance text-destructive leading-relaxed">
+              This invitation has already been accepted.
+            </p>
           ) : data.user ? (
             data.emailMatches ? (
               data.isAlreadyMember ? (
-                <p className='text-balance text-destructive leading-relaxed'>
+                <p className="text-balance text-destructive leading-relaxed">
                   You’re already a member of{' '}
                   <span className="font-medium">{data.organization.name}</span>.
                 </p>
               ) : (
-                <p className='text-balance text-muted-foreground leading-relaxed'>
+                <p className="text-balance text-muted-foreground leading-relaxed">
                   Signed in as{' '}
                   <span className="font-medium">{data.user.email}</span>
                 </p>
               )
             ) : (
-              <p className='text-balance text-destructive leading-relaxed'>
+              <p className="text-balance text-destructive leading-relaxed">
                 This invitation is for{' '}
                 <span className="font-medium">{data.email}</span>, but you’re
                 signed in as{' '}

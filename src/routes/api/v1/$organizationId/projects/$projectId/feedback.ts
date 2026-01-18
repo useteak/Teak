@@ -29,36 +29,7 @@ export const Route = createFileRoute(
   server: {
     handlers: {
       POST: async ({ request, params }) => {
-        // Rate limit by client IP and project
-        const clientIp = getClientIp(request)
         const { organizationId, projectId } = params
-        const rateLimitKey = `${clientIp}:${organizationId}:${projectId}`
-        const rateLimitResult = checkRateLimit(rateLimitKey, feedbackRateLimit)
-
-        if (!rateLimitResult.allowed) {
-          const retryAfterSeconds = Math.ceil(
-            rateLimitResult.retryAfterMs / 1000,
-          )
-          return Response.json(
-            {
-              success: false,
-              error: {
-                code: 'RATE_LIMIT_EXCEEDED',
-                message: `Too many requests. Please try again in ${retryAfterSeconds} seconds.`,
-              },
-            },
-            {
-              status: 429,
-              headers: {
-                'Retry-After': String(retryAfterSeconds),
-              },
-            },
-          )
-        }
-
-        // TODO: Add trusted domain validation here when implemented
-        // const origin = request.headers.get('origin')
-        // if (!isAllowedOrigin(origin, project.trustedDomains)) { ... }
 
         try {
           // Validate Content-Type
@@ -129,6 +100,41 @@ export const Route = createFileRoute(
               { status: 404 },
             )
           }
+
+          // Rate limit by client IP and project (only if enabled)
+          if (project.rateLimitingEnabled) {
+            const clientIp = getClientIp(request)
+            const rateLimitKey = `${clientIp}:${organizationId}:${projectId}`
+            const rateLimitResult = checkRateLimit(
+              rateLimitKey,
+              feedbackRateLimit,
+            )
+
+            if (!rateLimitResult.allowed) {
+              const retryAfterSeconds = Math.ceil(
+                rateLimitResult.retryAfterMs / 1000,
+              )
+              return Response.json(
+                {
+                  success: false,
+                  error: {
+                    code: 'RATE_LIMIT_EXCEEDED',
+                    message: `Too many requests. Please try again in ${retryAfterSeconds} seconds.`,
+                  },
+                },
+                {
+                  status: 429,
+                  headers: {
+                    'Retry-After': String(retryAfterSeconds),
+                  },
+                },
+              )
+            }
+          }
+
+          // TODO: Add trusted domain validation here when implemented
+          // const origin = request.headers.get('origin')
+          // if (!isAllowedOrigin(origin, project.trustedDomains)) { ... }
 
           // Create feedback
           const feedback = await prisma.feedback.create({

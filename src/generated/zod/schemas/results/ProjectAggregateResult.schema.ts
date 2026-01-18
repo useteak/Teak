@@ -2,6 +2,7 @@ import * as z from 'zod';
 export const ProjectAggregateResultSchema = z.object({  _count: z.object({
     id: z.number(),
     title: z.number(),
+    rateLimitingEnabled: z.number(),
     organizationId: z.number(),
     organization: z.number(),
     feedbacks: z.number(),

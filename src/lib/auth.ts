@@ -8,7 +8,10 @@ import { getRequiredEnv } from '@/utils/env'
 const githubClientId = getRequiredEnv('GITHUB_CLIENT_ID')
 const githubClientSecret = getRequiredEnv('GITHUB_CLIENT_SECRET')
 
-function getDefaultOrganizationName(user: { name?: string | null; email?: string | null }) {
+function getDefaultOrganizationName(user: {
+  name?: string | null
+  email?: string | null
+}) {
   const name = user.name?.trim()
   if (name) return name
 
@@ -62,7 +65,10 @@ export const auth = betterAuth({
             | { callbackURL?: string; newUserURL?: string }
             | undefined
 
-          return isInviteCallback(state?.newUserURL) || isInviteCallback(state?.callbackURL)
+          return (
+            isInviteCallback(state?.newUserURL) ||
+            isInviteCallback(state?.callbackURL)
+          )
         }
 
         return false

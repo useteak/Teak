@@ -9,13 +9,12 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { toast } from 'sonner'
 import { useForm } from '@tanstack/react-form'
-import { HugeiconsIcon } from '@hugeicons/react'
 import {
   ComputerTerminal01Icon,
   PythonIcon,
   Typescript01Icon,
 } from '@hugeicons/core-free-icons'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -40,9 +39,10 @@ import {
   getJavaScriptIntegrationCode,
   getPythonIntegrationCode,
 } from '@/helpers/integration-code'
-import { Separator } from '@/components/ui/separator'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
 
-const formSchema = z.object({
+const titleSchema = z.object({
   title: z.string().min(1, 'Project title must be at least 1 character.'),
 })
 
@@ -71,8 +71,17 @@ const getData = createServerFn()
     }
   })
 
+const saveDataSchema = z.object({
+  projectId: z.string(),
+  title: z
+    .string()
+    .min(1, 'Project title must be at least 1 character.')
+    .optional(),
+  rateLimitingEnabled: z.boolean().optional(),
+})
+
 const saveData = createServerFn({ method: 'POST' })
-  .inputValidator(formSchema.extend({ projectId: z.string() }))
+  .inputValidator(saveDataSchema)
   .handler(async ({ data }) => {
     const session = await auth.api.getSession({
       headers: getRequestHeaders(),
@@ -90,7 +99,10 @@ const saveData = createServerFn({ method: 'POST' })
         },
       },
       data: {
-        title: data.title,
+        ...(data.title !== undefined && { title: data.title }),
+        ...(data.rateLimitingEnabled !== undefined && {
+          rateLimitingEnabled: data.rateLimitingEnabled,
+        }),
       },
     })
 
@@ -112,13 +124,36 @@ function RouteComponent() {
   const params = Route.useParams()
   const router = useRouter()
 
+  // Rate limiting toggle state
+  const [isTogglingRateLimit, setIsTogglingRateLimit] = useState(false)
+
+  const handleRateLimitToggle = async (checked: boolean) => {
+    setIsTogglingRateLimit(true)
+    try {
+      await saveData({
+        data: {
+          projectId: params.projectId,
+          rateLimitingEnabled: checked,
+        },
+      })
+      toast.success(
+        checked ? 'Rate limiting enabled' : 'Rate limiting disabled',
+      )
+      await router.invalidate()
+    } catch {
+      toast.error('Failed to update rate limiting setting')
+    } finally {
+      setIsTogglingRateLimit(false)
+    }
+  }
+
   // Form state
   const form = useForm({
     defaultValues: {
       title: project?.title ?? '',
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: titleSchema,
     },
     onSubmit: async ({ value }) => {
       try {
@@ -244,6 +279,30 @@ function RouteComponent() {
         </CardHeader>
         <CardContent>
           <CodeBlock languages={languages} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Rate limiting</CardTitle>
+          <CardDescription>
+            Here you can toggle on or off rate limiting for ingress feedback
+            into this project. The default rate limit is 5 requests per minute
+            per IP address.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="rate-limiting"
+              checked={project?.rateLimitingEnabled ?? true}
+              onCheckedChange={handleRateLimitToggle}
+              disabled={isTogglingRateLimit}
+            />
+            <Label htmlFor="rate-limiting" className="cursor-pointer">
+              {(project?.rateLimitingEnabled ?? true) ? 'Enabled' : 'Disabled'}
+            </Label>
+          </div>
         </CardContent>
       </Card>
 

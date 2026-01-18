@@ -148,6 +148,7 @@ export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[k
 export const ProjectScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  rateLimitingEnabled: 'rateLimitingEnabled',
   organizationId: 'organizationId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

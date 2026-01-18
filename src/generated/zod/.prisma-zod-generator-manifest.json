@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "generatorVersion": "unknown",
-  "generatedAt": "2026-01-15T23:18:42.789Z",
+  "generatedAt": "2026-01-18T19:47:06.293Z",
   "outputPath": "/Users/abgn/Developer/demos/app-template/src/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",

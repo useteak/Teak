@@ -83,7 +83,6 @@ function RouteComponent() {
     },
   })
 
-
   return (
     <div className="flex items-center justify-center h-svh">
       <Card className="w-full max-w-sm">
@@ -96,7 +95,6 @@ function RouteComponent() {
 
         <CardContent className="flex flex-col gap-5">
           <div className="flex flex-col gap-3.5">
-
             <Button
               variant="outline"
               onClick={() =>

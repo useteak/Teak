@@ -7,6 +7,7 @@ import { ProjectCountOutputTypeArgsObjectSchema as ProjectCountOutputTypeArgsObj
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
   title: z.boolean().optional(),
+  rateLimitingEnabled: z.boolean().optional(),
   organizationId: z.boolean().optional(),
   organization: z.union([z.boolean(), z.lazy(() => OrganizationArgsObjectSchema)]).optional(),
   feedbacks: z.union([z.boolean(), z.lazy(() => FeedbackFindManySchema)]).optional(),

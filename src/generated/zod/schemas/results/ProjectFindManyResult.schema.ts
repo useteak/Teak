@@ -3,6 +3,7 @@ export const ProjectFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   title: z.string(),
+  rateLimitingEnabled: z.boolean(),
   organizationId: z.string(),
   organization: z.unknown(),
   feedbacks: z.array(z.unknown()),

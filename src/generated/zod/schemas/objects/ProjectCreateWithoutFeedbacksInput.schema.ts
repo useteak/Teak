@@ -5,6 +5,7 @@ import { OrganizationCreateNestedOneWithoutProjectsInputObjectSchema as Organiza
 const makeSchema = () => z.object({
   id: z.string().optional(),
   title: z.string(),
+  rateLimitingEnabled: z.boolean().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutProjectsInputObjectSchema)

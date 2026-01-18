@@ -5,6 +5,7 @@ import { FeedbackUncheckedCreateNestedManyWithoutProjectInputObjectSchema as Fee
 const makeSchema = () => z.object({
   id: z.string().optional(),
   title: z.string(),
+  rateLimitingEnabled: z.boolean().optional(),
   organizationId: z.string(),
   createdAt: z.coerce.date().optional(),
   feedbacks: z.lazy(() => FeedbackUncheckedCreateNestedManyWithoutProjectInputObjectSchema).optional()

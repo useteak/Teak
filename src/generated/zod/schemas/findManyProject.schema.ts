@@ -12,6 +12,7 @@ import { ProjectScalarFieldEnumSchema } from './enums/ProjectScalarFieldEnum.sch
 export const ProjectFindManySelectSchema: z.ZodType<Prisma.ProjectSelect> = z.object({
     id: z.boolean().optional(),
     title: z.boolean().optional(),
+    rateLimitingEnabled: z.boolean().optional(),
     organizationId: z.boolean().optional(),
     organization: z.boolean().optional(),
     feedbacks: z.boolean().optional(),
@@ -23,6 +24,7 @@ export const ProjectFindManySelectSchema: z.ZodType<Prisma.ProjectSelect> = z.ob
 export const ProjectFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
     title: z.boolean().optional(),
+    rateLimitingEnabled: z.boolean().optional(),
     organizationId: z.boolean().optional(),
     organization: z.boolean().optional(),
     feedbacks: z.boolean().optional(),

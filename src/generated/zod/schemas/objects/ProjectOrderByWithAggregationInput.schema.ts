@@ -8,6 +8,7 @@ import { ProjectMinOrderByAggregateInputObjectSchema as ProjectMinOrderByAggrega
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   title: SortOrderSchema.optional(),
+  rateLimitingEnabled: SortOrderSchema.optional(),
   organizationId: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
