@@ -2,6 +2,7 @@ import {
   BookmarkIcon,
   HomeIcon,
   IceCubesIcon,
+  Layers01Icon,
   LogoutIcon,
   PlusSignIcon,
   Settings05Icon,
@@ -137,6 +138,7 @@ export function AppSidebar() {
                         projectId: project.id,
                       }}
                     >
+                      <HugeiconsIcon icon={Layers01Icon} />
                       {project.title}
                     </Link>
                   </SidebarMenuButton>

@@ -20,13 +20,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { authClient } from '@/lib/auth-client'
 import { authMiddleware } from '@/middleware/auth'
+import { Separator } from '@/components/ui/separator'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { GithubIcon } from '@hugeicons/core-free-icons'
 
 const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(1, 'Email is required')
-    .email('Please enter a valid email'),
+  email: z.email('Please enter a valid email').trim(),
   password: z.string().min(1, 'Password is required'),
 })
 
@@ -87,7 +86,23 @@ function RouteComponent() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="flex flex-col gap-5">
+          <Button
+            variant="outline"
+            onClick={() => authClient.signIn.social({ provider: 'github' })}
+          >
+            <HugeiconsIcon icon={GithubIcon} />
+            Log in with Github
+          </Button>
+
+          <div className="flex items-center gap-2">
+            <Separator className="flex-1" />
+            <span className="text-sm text-muted-foreground">
+              Or with email & password
+            </span>
+            <Separator className="flex-1" />
+          </div>
+
           <form
             id="login-form"
             onSubmit={(e) => {

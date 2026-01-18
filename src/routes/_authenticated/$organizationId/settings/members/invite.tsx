@@ -290,7 +290,7 @@ function RouteComponent() {
         </form>
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={handleClose}>
+          <Button type="button" variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
           <form.Subscribe

@@ -37,6 +37,13 @@ const getData = createServerFn().handler(async () => {
     })
   }
 
+  if (organizations.length === 1) {
+    throw redirect({
+      to: '/$organizationId',
+      params: { organizationId: organizations[0].id },
+    })
+  }
+
   return {
     user: session?.user,
     organizations,

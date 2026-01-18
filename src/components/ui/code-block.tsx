@@ -26,7 +26,7 @@ export default function CodeBlock({
   const { systemTheme } = useTheme()
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const langsWithHtml = await Promise.all(
         _langs.map(async (lang) => ({
           ...lang,
@@ -63,10 +63,10 @@ export default function CodeBlock({
             <TabsTrigger
               key={language}
               value={language}
-              className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none font-condensed uppercase tracking-wider leading-none"
+              className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none"
             >
               <HugeiconsIcon icon={Icon} className="size-4" />
-              <span className="translate-y-px">{label}</span>
+              {label}
             </TabsTrigger>
           ))}
           <Button
