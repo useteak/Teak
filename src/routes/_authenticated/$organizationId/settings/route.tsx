@@ -27,7 +27,7 @@ function RouteComponent() {
   return (
     <div className="flex flex-col gap-8 flex-1 px-6 py-12 w-full max-w-6xl mx-auto">
       <div className="space-y-5">
-        <h1 className="text-2xl flex-1 font-medium">Settings</h1>
+        <h1 className="text-2xl flex-1 font-medium">Organization settings</h1>
 
         <Separator />
       </div>

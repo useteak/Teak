@@ -146,7 +146,7 @@ function RouteComponent() {
                     field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Org name</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Organization name</FieldLabel>
                       <Input
                         id={field.name}
                         name={field.name}
