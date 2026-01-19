@@ -3,6 +3,7 @@ import * as z from 'zod';
 export const OrganizationResultSchema = z.object({
     id: z.string(),
     name: z.string(),
+    image: z.string().nullable(),
     users: z.array(z.unknown()),
     projects: z.array(z.unknown()),
     invitations: z.array(z.unknown()),

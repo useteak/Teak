@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/card'
 import {
   Field,
+  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -238,6 +239,16 @@ function RouteComponent() {
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}
+                      <FieldDescription>
+                        Forgot your password?{' '}
+                        <Link
+                          to="/reset-password"
+                          search={{ email: search.email }}
+                          className="link"
+                        >
+                          Reset it here
+                        </Link>
+                      </FieldDescription>
                     </Field>
                   )
                 }}

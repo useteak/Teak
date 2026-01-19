@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import type { Prisma } from '../../../prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
+import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { OrganizationCountOrderByAggregateInputObjectSchema as OrganizationCountOrderByAggregateInputObjectSchema } from './OrganizationCountOrderByAggregateInput.schema';
 import { OrganizationMaxOrderByAggregateInputObjectSchema as OrganizationMaxOrderByAggregateInputObjectSchema } from './OrganizationMaxOrderByAggregateInput.schema';
 import { OrganizationMinOrderByAggregateInputObjectSchema as OrganizationMinOrderByAggregateInputObjectSchema } from './OrganizationMinOrderByAggregateInput.schema'
@@ -8,6 +9,7 @@ import { OrganizationMinOrderByAggregateInputObjectSchema as OrganizationMinOrde
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
   name: SortOrderSchema.optional(),
+  image: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
   _count: z.lazy(() => OrganizationCountOrderByAggregateInputObjectSchema).optional(),

@@ -1,6 +1,7 @@
 import { HugeiconsIcon } from '@hugeicons/react'
 import { ChevronDown, PlusSignIcon } from '@hugeicons/core-free-icons'
 import { Link } from '@tanstack/react-router'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -29,9 +30,12 @@ export default function OrganizationSwitcher() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="w-fit px-1.5 cursor-pointer">
-              <div className="bg-primary text-primary-foreground flex aspect-square size-5 items-center justify-center rounded-xs">
-                <p className="uppercase">{organization?.name[0]}</p>
-              </div>
+              <Avatar className="size-5">
+                <AvatarImage src={organization?.image ?? undefined} />
+                <AvatarFallback className="text-[10px]">
+                  {organization?.name[0]}
+                </AvatarFallback>
+              </Avatar>
               <span className="truncate font-medium">{organization?.name}</span>
               <HugeiconsIcon icon={ChevronDown} className="opacity-50" />
             </SidebarMenuButton>
@@ -66,9 +70,10 @@ export default function OrganizationSwitcher() {
                   }}
                   className="gap-2 p-2 cursor-pointer"
                 >
-                  <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <p className="uppercase">{o.name[0]}</p>
-                  </div>
+                  <Avatar size="sm">
+                    <AvatarImage src={o.image ?? undefined} />
+                    <AvatarFallback>{o.name[0]}</AvatarFallback>
+                  </Avatar>
                   {o.name}
                 </DropdownMenuCheckboxItem>
               )

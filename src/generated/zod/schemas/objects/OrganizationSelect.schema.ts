@@ -8,6 +8,7 @@ import { OrganizationCountOutputTypeArgsObjectSchema as OrganizationCountOutputT
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
   name: z.boolean().optional(),
+  image: z.boolean().optional(),
   users: z.union([z.boolean(), z.lazy(() => UserFindManySchema)]).optional(),
   projects: z.union([z.boolean(), z.lazy(() => ProjectFindManySchema)]).optional(),
   invitations: z.union([z.boolean(), z.lazy(() => OrganizationInvitationFindManySchema)]).optional(),

@@ -3,6 +3,7 @@ export const OrganizationFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
   name: z.string(),
+  image: z.string().optional(),
   users: z.array(z.unknown()),
   projects: z.array(z.unknown()),
   invitations: z.array(z.unknown()),

@@ -3,6 +3,7 @@ import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { createAuthMiddleware, getOAuthState } from 'better-auth/api'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 import { prisma } from '@/lib/database'
+import { resend, resendFromEmail } from '@/lib/resend'
 import { getRequiredEnv } from '@/utils/env'
 
 const githubClientId = getRequiredEnv('GITHUB_CLIENT_ID')
@@ -43,12 +44,28 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    async sendResetPassword({ user, url }) {
+      try {
+        await resend.emails.send({
+          from: resendFromEmail,
+          to: user.email,
+          subject: 'Reset your password',
+          html: `<p>Click the link below to reset your password:</p><p><a href="${url}">Reset password</a></p><p>If you didn't request this, you can safely ignore this email.</p>`,
+        })
+      } catch (error) {
+        console.error(
+          `[Auth] Failed to send password reset email to ${user.email}:`,
+          error,
+        )
+      }
+    },
   },
   socialProviders: {
     github: {
       clientId: githubClientId,
       clientSecret: githubClientSecret,
       disableImplicitSignUp: true,
+      overrideUserInfoOnSignIn: true,
       mapProfileToUser: (profile) => ({
         image: profile.avatar_url,
       }),

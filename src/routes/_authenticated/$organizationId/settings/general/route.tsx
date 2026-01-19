@@ -32,6 +32,11 @@ import { createSeoMeta } from '@/lib/seo'
 
 const formSchema = z.object({
   name: z.string().min(1, 'Organization name must be at least 1 character.'),
+  image: z
+    .string()
+    .refine((val) => val === '' || z.string().url().safeParse(val).success, {
+      message: 'Please enter a valid URL.',
+    }),
 })
 
 const getData = createServerFn()
@@ -65,7 +70,7 @@ const saveData = createServerFn({ method: 'POST' })
       headers: getRequestHeaders(),
     })
 
-    const organization = await prisma.organization.update({
+    await prisma.organization.update({
       where: {
         id: data.organizationId,
         users: {
@@ -76,6 +81,7 @@ const saveData = createServerFn({ method: 'POST' })
       },
       data: {
         name: data.name,
+        image: data.image || null,
       },
     })
 
@@ -109,6 +115,7 @@ function RouteComponent() {
   const form = useForm({
     defaultValues: {
       name: organization?.name ?? '',
+      image: organization?.image ?? '',
     },
     validators: {
       onSubmit: formSchema,
@@ -165,6 +172,33 @@ function RouteComponent() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         aria-invalid={isInvalid}
                         placeholder="Acme INC"
+                        autoComplete="off"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  )
+                }}
+              />
+              <form.Field
+                name="image"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        Organization image URL
+                      </FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        aria-invalid={isInvalid}
+                        placeholder="https://example.com/logo.png"
                         autoComplete="off"
                       />
                       {isInvalid && (

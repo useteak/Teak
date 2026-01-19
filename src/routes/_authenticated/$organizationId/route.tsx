@@ -6,7 +6,6 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
-import AppFooter from '@/components/app-footer'
 
 const getData = createServerFn()
   .inputValidator(z.object({ organizationId: z.string() }))

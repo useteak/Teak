@@ -12,6 +12,7 @@ import { OrganizationScalarFieldEnumSchema } from './enums/OrganizationScalarFie
 export const OrganizationFindFirstSelectSchema: z.ZodType<Prisma.OrganizationSelect> = z.object({
     id: z.boolean().optional(),
     name: z.boolean().optional(),
+    image: z.boolean().optional(),
     users: z.boolean().optional(),
     projects: z.boolean().optional(),
     invitations: z.boolean().optional(),
@@ -23,6 +24,7 @@ export const OrganizationFindFirstSelectSchema: z.ZodType<Prisma.OrganizationSel
 export const OrganizationFindFirstSelectZodSchema = z.object({
     id: z.boolean().optional(),
     name: z.boolean().optional(),
+    image: z.boolean().optional(),
     users: z.boolean().optional(),
     projects: z.boolean().optional(),
     invitations: z.boolean().optional(),

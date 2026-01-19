@@ -1178,6 +1178,7 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 export const OrganizationScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
