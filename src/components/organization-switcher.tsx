@@ -28,7 +28,7 @@ export default function OrganizationSwitcher() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton className="w-fit px-1.5">
+            <SidebarMenuButton className="w-fit px-1.5 cursor-pointer">
               <div className="bg-primary text-primary-foreground flex aspect-square size-5 items-center justify-center rounded-sm">
                 <p className="uppercase">{organization?.name[0]}</p>
               </div>
@@ -64,7 +64,7 @@ export default function OrganizationSwitcher() {
                       },
                     })
                   }}
-                  className="gap-2 p-2"
+                  className="gap-2 p-2 cursor-pointer"
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
                     <p className="uppercase">{o.name[0]}</p>
@@ -74,7 +74,7 @@ export default function OrganizationSwitcher() {
               )
             })}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2" asChild>
+            <DropdownMenuItem className="gap-2 p-2 cursor-pointer" asChild>
               <Link to="/new-organization">
                 <div className="bg-background flex size-6 items-center justify-center rounded-sm border">
                   <HugeiconsIcon icon={PlusSignIcon} className="size-4" />

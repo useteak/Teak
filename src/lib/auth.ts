@@ -47,6 +47,9 @@ export const auth = betterAuth({
       clientId: githubClientId,
       clientSecret: githubClientSecret,
       disableImplicitSignUp: true,
+      mapProfileToUser: (profile) => ({
+        image: profile.avatar_url,
+      }),
     },
   },
   plugins: [tanstackStartCookies()],

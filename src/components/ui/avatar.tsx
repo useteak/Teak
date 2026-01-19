@@ -31,7 +31,7 @@ function AvatarImage({
     <AvatarPrimitive.Image
       data-slot="avatar-image"
       className={mergeClassNames(
-        'aspect-square size-full object-cover',
+        'rounded aspect-square size-full object-cover',
         className,
       )}
       {...props}

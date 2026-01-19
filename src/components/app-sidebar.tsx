@@ -1,5 +1,4 @@
 import {
-  BookmarkIcon,
   IceCubesIcon,
   Layers01Icon,
   LogoutIcon,
@@ -15,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { Avatar, AvatarFallback } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import {
@@ -139,9 +138,12 @@ export function AppSidebar() {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
                   size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
                 >
                   <Avatar className="h-8 w-8">
+                    {user?.image && (
+                      <AvatarImage src={user.image} alt={user.name} />
+                    )}
                     <AvatarFallback>{user?.name[0]}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
@@ -155,6 +157,12 @@ export function AppSidebar() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent sideOffset={8}>
+                <DropdownMenuItem asChild>
+                  <Link to="/account/settings/general">
+                    <HugeiconsIcon icon={Settings05Icon} />
+                    Account settings
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   variant="destructive"
                   onSelect={() => {
