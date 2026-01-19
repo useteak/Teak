@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { AppLogo } from './app-logo'
+import { Button } from './ui/button'
 import {
   Sidebar,
   SidebarContent,
@@ -111,29 +112,50 @@ export function AppSidebar() {
           </SidebarGroupAction>
 
           <SidebarGroupContent>
-            <SidebarMenu>
-              {projects.map((project) => (
-                <SidebarMenuItem key={project.id}>
+            {projects.length > 0 ? (
+              <SidebarMenu>
+                {projects.map((project) => (
+                  <SidebarMenuItem key={project.id}>
+                    <SidebarMenuButton
+                      isActive={location.pathname.startsWith(
+                        `/${params.organizationId}/projects/${project.id}`,
+                      )}
+                      asChild
+                    >
+                      <Link
+                        to="/$organizationId/projects/$projectId/feedback"
+                        params={{
+                          organizationId: params.organizationId,
+                          projectId: project.id,
+                        }}
+                      >
+                        <HugeiconsIcon icon={Layers01Icon} />
+                        {project.title}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            ) : (
+              <SidebarMenu>
+                <SidebarMenuItem>
                   <SidebarMenuButton
-                    isActive={location.pathname.startsWith(
-                      `/${params.organizationId}/projects/${project.id}`,
-                    )}
                     asChild
+                    isActive={location.pathname.startsWith(
+                      `/${params.organizationId}/projects/new`,
+                    )}
                   >
                     <Link
-                      to="/$organizationId/projects/$projectId/feedback"
-                      params={{
-                        organizationId: params.organizationId,
-                        projectId: project.id,
-                      }}
+                      to="/$organizationId/projects/new"
+                      params={{ organizationId: params.organizationId }}
                     >
-                      <HugeiconsIcon icon={Layers01Icon} />
-                      {project.title}
+                      <HugeiconsIcon icon={PlusSignIcon} />
+                      New project
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+              </SidebarMenu>
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
