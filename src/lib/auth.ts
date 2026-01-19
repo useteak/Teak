@@ -59,6 +59,11 @@ export const auth = betterAuth({
       disableImplicitSignUp: true,
     },
   },
+  account: {
+    accountLinking: {
+      trustedProviders: ['github', 'linear'],
+    },
+  },
   plugins: [tanstackStartCookies()],
   hooks: {
     after: createAuthMiddleware(async (ctx) => {

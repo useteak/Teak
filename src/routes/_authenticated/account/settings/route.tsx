@@ -5,7 +5,11 @@ import {
   useLocation,
 } from '@tanstack/react-router'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ArrowLeft01Icon, UserIcon } from '@hugeicons/core-free-icons'
+import {
+  ArrowLeft01Icon,
+  SecurityLockIcon,
+  UserIcon,
+} from '@hugeicons/core-free-icons'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -56,6 +60,19 @@ function RouteComponent() {
                 <Link to="/account/settings/general">
                   <HugeiconsIcon icon={UserIcon} />
                   General
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                isActive={location.pathname.startsWith(
+                  '/account/settings/authentication',
+                )}
+                asChild
+              >
+                <Link to="/account/settings/authentication">
+                  <HugeiconsIcon icon={SecurityLockIcon} />
+                  Authentication
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

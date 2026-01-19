@@ -47,7 +47,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <AppLogo
-          className="p-1.5 opacity-25 hover:opacity-100 transition-opacity"
+          className="pb-2 p-1.5 opacity-25 hover:opacity-100 transition-opacity"
           imageClassName="h-4"
         />
 

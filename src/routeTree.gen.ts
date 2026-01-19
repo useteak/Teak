@@ -26,6 +26,7 @@ import { Route as AuthenticatedOrganizationIdIntegrationsRouteRouteImport } from
 import { Route as AuthenticatedOrganizationIdIntegrationsIndexRouteImport } from './routes/_authenticated/$organizationId/integrations/index'
 import { Route as AuthenticatedOrganizationIdProjectsNewRouteImport } from './routes/_authenticated/$organizationId/projects/new'
 import { Route as AuthenticatedAccountSettingsGeneralRouteRouteImport } from './routes/_authenticated/account/settings/general/route'
+import { Route as AuthenticatedAccountSettingsAuthenticationRouteRouteImport } from './routes/_authenticated/account/settings/authentication/route'
 import { Route as AuthenticatedOrganizationIdSettingsMembersRouteRouteImport } from './routes/_authenticated/$organizationId/settings/members/route'
 import { Route as AuthenticatedOrganizationIdSettingsGeneralRouteRouteImport } from './routes/_authenticated/$organizationId/settings/general/route'
 import { Route as AuthenticatedOrganizationIdProjectsProjectIdRouteRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/route'
@@ -131,6 +132,12 @@ const AuthenticatedAccountSettingsGeneralRouteRoute =
     path: '/general',
     getParentRoute: () => AuthenticatedAccountSettingsRouteRoute,
   } as any)
+const AuthenticatedAccountSettingsAuthenticationRouteRoute =
+  AuthenticatedAccountSettingsAuthenticationRouteRouteImport.update({
+    id: '/authentication',
+    path: '/authentication',
+    getParentRoute: () => AuthenticatedAccountSettingsRouteRoute,
+  } as any)
 const AuthenticatedOrganizationIdSettingsMembersRouteRoute =
   AuthenticatedOrganizationIdSettingsMembersRouteRouteImport.update({
     id: '/members',
@@ -218,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
+  '/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
   '/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
   '/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
@@ -245,6 +253,7 @@ export interface FileRoutesByTo {
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
+  '/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
   '/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
   '/$organizationId/integrations': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
@@ -276,6 +285,7 @@ export interface FileRoutesById {
   '/_authenticated/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
+  '/_authenticated/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
   '/_authenticated/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/_authenticated/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
   '/_authenticated/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/$organizationId/projects/$projectId'
     | '/$organizationId/settings/general'
     | '/$organizationId/settings/members'
+    | '/account/settings/authentication'
     | '/account/settings/general'
     | '/$organizationId/projects/new'
     | '/$organizationId/integrations/'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/$organizationId/projects/$projectId'
     | '/$organizationId/settings/general'
     | '/$organizationId/settings/members'
+    | '/account/settings/authentication'
     | '/account/settings/general'
     | '/$organizationId/projects/new'
     | '/$organizationId/integrations'
@@ -364,6 +376,7 @@ export interface FileRouteTypes {
     | '/_authenticated/$organizationId/projects/$projectId'
     | '/_authenticated/$organizationId/settings/general'
     | '/_authenticated/$organizationId/settings/members'
+    | '/_authenticated/account/settings/authentication'
     | '/_authenticated/account/settings/general'
     | '/_authenticated/$organizationId/projects/new'
     | '/_authenticated/$organizationId/integrations/'
@@ -505,6 +518,13 @@ declare module '@tanstack/react-router' {
       path: '/general'
       fullPath: '/account/settings/general'
       preLoaderRoute: typeof AuthenticatedAccountSettingsGeneralRouteRouteImport
+      parentRoute: typeof AuthenticatedAccountSettingsRouteRoute
+    }
+    '/_authenticated/account/settings/authentication': {
+      id: '/_authenticated/account/settings/authentication'
+      path: '/authentication'
+      fullPath: '/account/settings/authentication'
+      preLoaderRoute: typeof AuthenticatedAccountSettingsAuthenticationRouteRouteImport
       parentRoute: typeof AuthenticatedAccountSettingsRouteRoute
     }
     '/_authenticated/$organizationId/settings/members': {
@@ -729,11 +749,14 @@ const AuthenticatedAccountSettingsGeneralRouteRouteWithChildren =
   )
 
 interface AuthenticatedAccountSettingsRouteRouteChildren {
+  AuthenticatedAccountSettingsAuthenticationRouteRoute: typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
   AuthenticatedAccountSettingsGeneralRouteRoute: typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
 }
 
 const AuthenticatedAccountSettingsRouteRouteChildren: AuthenticatedAccountSettingsRouteRouteChildren =
   {
+    AuthenticatedAccountSettingsAuthenticationRouteRoute:
+      AuthenticatedAccountSettingsAuthenticationRouteRoute,
     AuthenticatedAccountSettingsGeneralRouteRoute:
       AuthenticatedAccountSettingsGeneralRouteRouteWithChildren,
   }

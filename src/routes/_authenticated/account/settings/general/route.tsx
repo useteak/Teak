@@ -109,7 +109,7 @@ function RouteComponent() {
       <Card>
         <CardHeader>
           <CardTitle>Basic information</CardTitle>
-          <CardDescription>Here you can change your name</CardDescription>
+          <CardDescription>Here you can change your name.</CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -145,6 +145,18 @@ function RouteComponent() {
                   )
                 }}
               />
+
+              <Field>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  value={user?.email ?? ''}
+                  disabled
+                  readOnly
+                  autoComplete="email"
+                />
+              </Field>
             </FieldGroup>
           </form>
         </CardContent>
