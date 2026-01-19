@@ -7,6 +7,7 @@ import appCss from '../styles.css?url'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { createSeoMeta } from '@/lib/seo'
+import AppFooter from '@/components/app-footer'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -35,7 +36,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Toaster position="top-center" richColors />
         <ThemeProvider>
-          <TooltipProvider delayDuration={700}>{children}</TooltipProvider>
+          <TooltipProvider delayDuration={700}>{children}
+            <AppFooter />
+
+          </TooltipProvider>
         </ThemeProvider>
         <TanStackDevtools
           config={{

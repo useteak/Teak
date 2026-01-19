@@ -59,10 +59,7 @@ function RouteComponent() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <div className="min-h-svh">
-          <Outlet />
-        </div>
-        <AppFooter />
+        <Outlet />
       </SidebarInset>
     </SidebarProvider>
   )
