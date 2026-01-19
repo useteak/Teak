@@ -108,19 +108,38 @@ function RouteComponent() {
 
         <CardContent className="flex flex-col gap-5">
           <div className="flex flex-col gap-3.5">
-            <Button
-              variant="outline"
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: 'github',
-                  callbackURL: redirectTo,
-                  errorCallbackURL,
-                })
-              }
-            >
-              <HugeiconsIcon icon={GithubIcon} />
-              Log in with Github
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                variant="outline"
+                onClick={() =>
+                  authClient.signIn.social({
+                    provider: 'github',
+                    callbackURL: redirectTo,
+                    errorCallbackURL,
+                  })
+                }
+              >
+                <HugeiconsIcon icon={GithubIcon} />
+                Github
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  authClient.signIn.social({
+                    provider: 'linear',
+                    callbackURL: redirectTo,
+                    errorCallbackURL,
+                  })
+                }
+              >
+                <img
+                  src="/linear-logo.svg"
+                  alt="Linear"
+                  className="h-4 w-auto"
+                />
+                Linear
+              </Button>
+            </div>
 
             {error === 'signup_disabled' && (
               <p className="text-sm text-destructive text-center">

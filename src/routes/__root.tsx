@@ -36,9 +36,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Toaster position="top-center" richColors />
         <ThemeProvider>
-          <TooltipProvider delayDuration={700}>{children}
+          <TooltipProvider delayDuration={700}>
+            {children}
             <AppFooter />
-
           </TooltipProvider>
         </ThemeProvider>
         <TanStackDevtools

@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import {
   ComputerTerminal01Icon,
+  Diamond02Icon,
+  PhpIcon,
   PythonIcon,
   Typescript01Icon,
 } from '@hugeicons/core-free-icons'
@@ -9,7 +11,9 @@ import CodeBlock from '@/components/ui/code-block'
 import {
   getCurlIntegrationCode,
   getJavaScriptIntegrationCode,
+  getPhpIntegrationCode,
   getPythonIntegrationCode,
+  getRubyIntegrationCode,
 } from '@/helpers/integration-code'
 
 type IntegrationCodeBlockProps = {
@@ -46,6 +50,18 @@ export function IntegrationCodeBlock({
       hideComments,
     )
 
+    const phpCode = getPhpIntegrationCode(
+      organizationId,
+      projectId,
+      hideComments,
+    )
+
+    const rubyCode = getRubyIntegrationCode(
+      organizationId,
+      projectId,
+      hideComments,
+    )
+
     return [
       {
         language: 'typescript' as const,
@@ -58,6 +74,18 @@ export function IntegrationCodeBlock({
         icon: PythonIcon,
         code: pythonCode,
         label: 'Python',
+      },
+      {
+        language: 'php' as const,
+        icon: PhpIcon,
+        code: phpCode,
+        label: 'PHP',
+      },
+      {
+        language: 'ruby' as const,
+        icon: Diamond02Icon,
+        code: rubyCode,
+        label: 'Ruby',
       },
       {
         language: 'shell' as const,

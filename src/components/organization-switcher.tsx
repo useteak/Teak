@@ -29,7 +29,7 @@ export default function OrganizationSwitcher() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="w-fit px-1.5 cursor-pointer">
-              <div className="bg-primary text-primary-foreground flex aspect-square size-5 items-center justify-center rounded-sm">
+              <div className="bg-primary text-primary-foreground flex aspect-square size-5 items-center justify-center rounded-xs">
                 <p className="uppercase">{organization?.name[0]}</p>
               </div>
               <span className="truncate font-medium">{organization?.name}</span>

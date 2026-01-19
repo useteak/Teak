@@ -7,6 +7,8 @@ import { getRequiredEnv } from '@/utils/env'
 
 const githubClientId = getRequiredEnv('GITHUB_CLIENT_ID')
 const githubClientSecret = getRequiredEnv('GITHUB_CLIENT_SECRET')
+const linearClientId = getRequiredEnv('LINEAR_CLIENT_ID')
+const linearClientSecret = getRequiredEnv('LINEAR_CLIENT_SECRET')
 
 function getDefaultOrganizationName(user: {
   name?: string | null
@@ -50,6 +52,11 @@ export const auth = betterAuth({
       mapProfileToUser: (profile) => ({
         image: profile.avatar_url,
       }),
+    },
+    linear: {
+      clientId: linearClientId,
+      clientSecret: linearClientSecret,
+      disableImplicitSignUp: true,
     },
   },
   plugins: [tanstackStartCookies()],

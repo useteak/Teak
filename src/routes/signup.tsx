@@ -120,21 +120,38 @@ function RouteComponent() {
         </CardHeader>
 
         <CardContent className="flex flex-col gap-5">
-          <Button
-            variant="outline"
-            onClick={() =>
-              authClient.signIn.social({
-                provider: 'github',
-                requestSignUp: true,
-                callbackURL: redirectTo,
-                newUserCallbackURL: redirectTo,
-                errorCallbackURL,
-              })
-            }
-          >
-            <HugeiconsIcon icon={GithubIcon} />
-            Sign up with Github
-          </Button>
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant="outline"
+              onClick={() =>
+                authClient.signIn.social({
+                  provider: 'github',
+                  requestSignUp: true,
+                  callbackURL: redirectTo,
+                  newUserCallbackURL: redirectTo,
+                  errorCallbackURL,
+                })
+              }
+            >
+              <HugeiconsIcon icon={GithubIcon} />
+              Github
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                authClient.signIn.social({
+                  provider: 'linear',
+                  requestSignUp: true,
+                  callbackURL: redirectTo,
+                  newUserCallbackURL: redirectTo,
+                  errorCallbackURL,
+                })
+              }
+            >
+              <img src="/linear-logo.svg" alt="Linear" className="h-4 w-auto" />
+              Linear
+            </Button>
+          </div>
 
           <div className="flex items-center gap-2">
             <Separator className="flex-1" />

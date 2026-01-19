@@ -17,6 +17,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
+import { AppLogo } from './app-logo'
 import {
   Sidebar,
   SidebarContent,
@@ -45,6 +46,11 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
+        <AppLogo
+          className="p-1.5 opacity-25 hover:opacity-100 transition-opacity"
+          imageClassName="h-4"
+        />
+
         <OrganizationSwitcher />
 
         <SidebarMenu>
