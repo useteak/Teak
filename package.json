@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
-    "build": "prisma db push && vite build",
-    "start": "node .output/server/index.mjs",
+    "build": "vite build",
+    "start": "prisma db push && prisma generate && node .output/server/index.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint",
