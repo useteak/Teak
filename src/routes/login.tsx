@@ -4,7 +4,7 @@ import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { GithubIcon, ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons'
+import { ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -120,8 +120,12 @@ function RouteComponent() {
                   })
                 }
               >
-                <HugeiconsIcon icon={GithubIcon} />
-                Github
+                <img
+                  src="/github-logo.svg"
+                  alt="GitHub"
+                  className="h-4 w-auto dark:invert"
+                />
+                GitHub
               </Button>
               <Button
                 variant="outline"
@@ -136,7 +140,7 @@ function RouteComponent() {
                 <img
                   src="/linear-logo.svg"
                   alt="Linear"
-                  className="h-4 w-auto"
+                  className="h-4 w-auto dark:invert"
                 />
                 Linear
               </Button>

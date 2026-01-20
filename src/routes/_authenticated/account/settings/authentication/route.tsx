@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 import { useState } from 'react'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { GithubIcon, MailIcon } from '@hugeicons/core-free-icons'
+import { MailIcon } from '@hugeicons/core-free-icons'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import {
@@ -37,10 +37,10 @@ const PROVIDER_META: Record<string, { label: string; icon: React.ReactNode }> =
     github: {
       label: 'GitHub',
       icon: (
-        <HugeiconsIcon
-          className="text-muted-foreground translate-y-px"
-          icon={GithubIcon}
-          size={18}
+        <img
+          src="/github-logo.svg"
+          alt="GitHub"
+          className="h-4 w-auto translate-y-px dark:invert"
         />
       ),
     },
@@ -50,7 +50,7 @@ const PROVIDER_META: Record<string, { label: string; icon: React.ReactNode }> =
         <img
           src="/linear-logo.svg"
           alt="Linear"
-          className="h-4 w-auto opacity-50 translate-y-px"
+          className="h-4 w-auto translate-y-px dark:invert"
         />
       ),
     },

@@ -40,16 +40,16 @@ Valid `type` values: `BUG`, `FEATURE_REQUEST`, `IMPROVEMENT`, `QUESTION`, `PRAIS
 
 ## Environment variables
 
-| Variable | Required | Description |
-| --- | --- | --- |
-| `DATABASE_URL` | Yes | Postgres connection string for Prisma |
-| `VITE_APP_URL` | Yes | Public base URL used in API examples and links |
-| `RESEND_API_KEY` | Yes | Resend API key for transactional email |
-| `RESEND_FROM_EMAIL` | No | Sender address for outgoing email |
-| `GITHUB_CLIENT_ID` | Yes | GitHub OAuth app client ID |
-| `GITHUB_CLIENT_SECRET` | Yes | GitHub OAuth app client secret |
-| `LINEAR_CLIENT_ID` | Yes | Linear OAuth app client ID |
-| `LINEAR_CLIENT_SECRET` | Yes | Linear OAuth app client secret |
+| Variable               | Required | Description                                    |
+| ---------------------- | -------- | ---------------------------------------------- |
+| `DATABASE_URL`         | Yes      | Postgres connection string for Prisma          |
+| `VITE_APP_URL`         | Yes      | Public base URL used in API examples and links |
+| `RESEND_API_KEY`       | Yes      | Resend API key for transactional email         |
+| `RESEND_FROM_EMAIL`    | No       | Sender address for outgoing email              |
+| `GITHUB_CLIENT_ID`     | Yes      | GitHub OAuth app client ID                     |
+| `GITHUB_CLIENT_SECRET` | Yes      | GitHub OAuth app client secret                 |
+| `LINEAR_CLIENT_ID`     | Yes      | Linear OAuth app client ID                     |
+| `LINEAR_CLIENT_SECRET` | Yes      | Linear OAuth app client secret                 |
 
 ## Tech stack
 
