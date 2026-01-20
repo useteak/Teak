@@ -9,7 +9,7 @@ type SeoOptions = {
 export function createSeoMeta(options: SeoOptions = {}) {
   const title = options.title
     ? `${options.title} | ${config.productName}`
-    : config.productName
+    : `${config.productName} - ${config.productTagline}`
   const description = options.description ?? config.productDescription
   const image = options.image ?? `${config.productUrl}/og-image.png`
 
