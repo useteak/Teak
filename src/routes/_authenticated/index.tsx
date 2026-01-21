@@ -514,7 +514,7 @@ function ExampleClaudeCode() {
                       e.preventDefault()
 
                       fetch(
-                        `${config.productUrl}/api/v1/cmklda16y0001ygrphcme3w0k/projects/cmkleht0m0000gmrpg7ljukvz/feedback`,
+                        `${config.productUrl}/api/v1/cmklrlrw400000ap937t15c3n/projects/cmklrn3pi00010ap98krpl2tk/feedback`,
                         {
                           method: 'POST',
                           headers: {
