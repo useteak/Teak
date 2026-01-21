@@ -8,14 +8,20 @@ import {
   sendFeedbackConfirmationEmail,
   sendFeedbackNotificationEmails,
 } from '@/lib/communication'
+import {
+  apiError,
+  apiSuccess,
+  authenticateApiKey,
+  verifyOrganizationAccess,
+} from '@/lib/api-auth'
 
 /** Rate limit: 5 requests per 60 seconds per IP */
 const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 }
 
 const jsonWithCors = (body: unknown, init?: ResponseInit): Response => {
@@ -27,14 +33,6 @@ const jsonWithCors = (body: unknown, init?: ResponseInit): Response => {
     },
   })
 }
-
-/**
- * Public API endpoint for submitting feedback.
- * POST /api/v1/:organizationId/projects/:projectId/feedback
- *
- * This endpoint is unauthenticated. In the future, we may add support for
- * "trusted domains" to restrict which origins can submit feedback.
- */
 
 /**
  * Request body schema - only the fields customers should provide.
@@ -59,6 +57,66 @@ export const Route = createFileRoute(
           headers: corsHeaders,
         })
       },
+
+      /**
+       * GET /api/v1/:organizationId/projects/:projectId/feedback
+       * List all feedback for a project (authenticated).
+       */
+      GET: async ({ request, params }) => {
+        const { organizationId, projectId } = params
+
+        try {
+          // Authenticate via API key
+          const authResult = await authenticateApiKey(request)
+          if (!authResult.success) {
+            return authResult.response
+          }
+
+          // Verify organization access
+          const accessError = verifyOrganizationAccess(
+            authResult.organizationId,
+            organizationId,
+          )
+          if (accessError) {
+            return accessError
+          }
+
+          // Verify project exists and belongs to the organization
+          const project = await prisma.project.findFirst({
+            where: {
+              id: projectId,
+              organizationId: organizationId,
+            },
+          })
+
+          if (!project) {
+            return apiError('NOT_FOUND', 'Project not found', 404)
+          }
+
+          // Fetch all feedback for the project
+          const feedback = await prisma.feedback.findMany({
+            where: {
+              projectId: project.id,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          })
+
+          return apiSuccess(feedback)
+        } catch (error) {
+          console.error('Error listing feedback:', error)
+          return apiError('INTERNAL_ERROR', 'An unexpected error occurred', 500)
+        }
+      },
+
+      /**
+       * POST /api/v1/:organizationId/projects/:projectId/feedback
+       * Public API endpoint for submitting feedback (unauthenticated).
+       *
+       * This endpoint is unauthenticated. In the future, we may add support for
+       * "trusted domains" to restrict which origins can submit feedback.
+       */
       POST: async ({ request, params }) => {
         const { organizationId, projectId } = params
 
@@ -223,7 +281,7 @@ export const Route = createFileRoute(
           return jsonWithCors(
             {
               success: true,
-              feedback,
+              data: feedback,
             },
             { status: 201 },
           )
