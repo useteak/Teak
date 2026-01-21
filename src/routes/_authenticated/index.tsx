@@ -144,7 +144,7 @@ function App() {
       </header>
 
       <section className="mt-20 space-y-8">
-        <div className="space-y-4">
+        <div className="space-y-3">
           <h2 className="text-2xl font-medium">Examples</h2>
 
           <p className="text-muted-foreground text-balance leading-relaxed">
@@ -155,24 +155,18 @@ function App() {
           </p>
         </div>
 
-        <div className="grid xl:-mx-64 xl:grid-cols-2 gap-6">
+        <div className="gap-6 grid xl:grid-cols-4 xl:-mx-240 overflow-x-hidden">
+          <div className="flex flex-col gap-3">
+            <ExampleResend />
+          </div>
           <div className="flex flex-col gap-3 h-full">
-            <p className="opacity-50 text-sm text-muted-foreground">Cursor</p>
             <ExampleCursor />
           </div>
           <div className="flex flex-col gap-3 h-full">
-            <p className="opacity-50 text-sm text-muted-foreground">
-              Claude Code
-            </p>
             <ExampleClaudeCode />
           </div>
           <div className="flex flex-col gap-3">
-            <p className="opacity-50 text-sm text-muted-foreground">Linear</p>
             <ExampleLinear />
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="opacity-50 text-sm text-muted-foreground">Resend</p>
-            <ExampleResend />
           </div>
         </div>
       </section>
@@ -259,7 +253,7 @@ function App() {
 
 function ExampleLinear() {
   return (
-    <div className="border dark:border-[#303237] divide-y dark:divide-[#303237] bg-white dark:bg-[#1c1d1f] rounded-lg shadow-xl dark:shadow-black/25">
+    <div className="border dark:border-[#303237] divide-y dark:divide-[#303237] bg-white dark:bg-[#1c1d1f] rounded-lg shadow-xl dark:shadow-black/25 flex-1 flex flex-col">
       <div className="flex items-center justify-between pl-8 pr-6 py-4">
         <p className="font-semibold">Contact us</p>
         <HugeiconsIcon
@@ -268,7 +262,7 @@ function ExampleLinear() {
         />
       </div>
 
-      <div className="flex flex-col gap-4 px-8 py-4">
+      <div className="flex flex-col gap-4 px-8 py-4 flex-1">
         <p className="dark:text-[#9c9da1] text-balance">
           Include any relevant details, or email us directly at{' '}
           <a href="#" className="text-foreground">
@@ -278,8 +272,7 @@ function ExampleLinear() {
         </p>
 
         <textarea
-          rows={6}
-          className="border rounded-md p-2.5 resize-none dark:border-[#33353b] dark:placeholder-[#626366] focus:outline-none focus:ring-0"
+          className="border rounded-md p-2.5 resize-none dark:border-[#33353b] dark:placeholder-[#626366] focus:outline-none focus:ring-0 min-h-48 xl:min-h-0 xl:flex-1"
           placeholder="How do I..."
         />
 
@@ -372,7 +365,7 @@ function ExampleCursor() {
         </p>
 
         <div className="flex flex-col gap-2.5 flex-1">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2.5">
             {[
               { label: 'Idea', lede: "I think thid's be cool!" },
               { label: 'Small Bug', lede: 'This is off...' },
