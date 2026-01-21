@@ -12,6 +12,22 @@ import {
 /** Rate limit: 5 requests per 60 seconds per IP */
 const feedbackRateLimit = { limit: 5, window: 60 * 1000 }
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
+const jsonWithCors = (body: unknown, init?: ResponseInit): Response => {
+  return Response.json(body, {
+    ...init,
+    headers: {
+      ...corsHeaders,
+      ...init?.headers,
+    },
+  })
+}
+
 /**
  * Public API endpoint for submitting feedback.
  * POST /api/v1/:organizationId/projects/:projectId/feedback
@@ -37,6 +53,12 @@ export const Route = createFileRoute(
 )({
   server: {
     handlers: {
+      OPTIONS: () => {
+        return new Response(null, {
+          status: 204,
+          headers: corsHeaders,
+        })
+      },
       POST: async ({ request, params }) => {
         const { organizationId, projectId } = params
 
@@ -44,7 +66,7 @@ export const Route = createFileRoute(
           // Validate Content-Type
           const contentType = request.headers.get('content-type')
           if (!contentType?.includes('application/json')) {
-            return Response.json(
+            return jsonWithCors(
               {
                 success: false,
                 error: {
@@ -61,7 +83,7 @@ export const Route = createFileRoute(
           try {
             body = await request.json()
           } catch {
-            return Response.json(
+            return jsonWithCors(
               {
                 success: false,
                 error: {
@@ -76,7 +98,7 @@ export const Route = createFileRoute(
           // Validate request body
           const parsedBody = FeedbackRequestSchema.safeParse(body)
           if (!parsedBody.success) {
-            return Response.json(
+            return jsonWithCors(
               {
                 success: false,
                 error: {
@@ -114,7 +136,7 @@ export const Route = createFileRoute(
           })
 
           if (!project) {
-            return Response.json(
+            return jsonWithCors(
               {
                 success: false,
                 error: {
@@ -139,7 +161,7 @@ export const Route = createFileRoute(
               const retryAfterSeconds = Math.ceil(
                 rateLimitResult.retryAfterMs / 1000,
               )
-              return Response.json(
+              return jsonWithCors(
                 {
                   success: false,
                   error: {
@@ -198,7 +220,7 @@ export const Route = createFileRoute(
             })
           }
 
-          return Response.json(
+          return jsonWithCors(
             {
               success: true,
               feedback,
@@ -207,7 +229,7 @@ export const Route = createFileRoute(
           )
         } catch (error) {
           console.error('Error creating feedback:', error)
-          return Response.json(
+          return jsonWithCors(
             {
               success: false,
               error: {

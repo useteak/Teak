@@ -3,11 +3,17 @@ import { getRequestHeaders } from '@tanstack/react-start/server'
 import { createServerFn } from '@tanstack/react-start'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
+  ApiIcon,
+  ArrowMoveDownLeftIcon,
   ArrowUpRightIcon,
   Attachment01Icon,
   Cancel01Icon,
+  CursorIcon,
+  MailIcon,
   MessageIcon,
 } from '@hugeicons/core-free-icons'
+import { toast } from 'sonner'
+import { useState } from 'react'
 import { auth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { createSeoMeta } from '@/lib/seo'
@@ -18,6 +24,7 @@ import { config } from '@/config'
 import { FeedbackCard } from '@/components/feedback-card'
 import { FeedbackType } from '@/generated/prisma/enums'
 import { mergeClassNames } from '@/utils/classnames'
+import { Separator } from '@/components/ui/separator'
 
 const getData = createServerFn().handler(async () => {
   const session = await auth.api.getSession({
@@ -69,8 +76,8 @@ function App() {
         </div>
       </nav>
 
-      <header className="mt-16">
-        <h1 className="text-5xl/tight font-medium text-balance">
+      <header className="mt-10">
+        <h1 className="text-5xl/tight font-medium text-balance font-serif">
           Customer feedback experiences without the infrastructure
         </h1>
 
@@ -88,11 +95,11 @@ function App() {
             className="mt-12"
           />
 
-          <div className="relative h-14 w-px overflow-hidden">
+          <div className="relative h-14 w-px overflow-hidden mt-2">
             <div className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.25)_0,rgba(255,255,255,0.25)_6px,transparent_6px,transparent_12px)] bg-size-[1px_12px] animate-[dash-down_0.6s_linear_infinite]" />
           </div>
 
-          <div className="w-full relative">
+          <div className="w-full relative mt-2">
             {Array.from({ length: 3 }).map((_, i) => (
               <Card
                 key={i}
@@ -129,23 +136,37 @@ function App() {
             ))}
           </div>
         </div>
-
-        {/* <Button
-          size="lg"
-          asChild
-          variant="link"
-          className="text-foreground px-0 mt-6 hover:underline underline-offset-4 decoration-primary/50"
-        >
-          <Link to="/signup">
-            Get your API key{' '}
-            <HugeiconsIcon icon={ArrowRight02Icon} className="size-4" />
-          </Link>
-        </Button> */}
       </header>
 
-      <section className="mt-20 space-y-8">
-        <div className="space-y-3">
-          <h2 className="text-2xl font-medium">Examples</h2>
+      <Separator className="mb-12 mt-16" />
+
+      <section className="space-y-12">
+        <div className="space-y-4">
+          <h2 className="text-3xl font-medium font-serif">
+            {config.productName} works where you do
+          </h2>
+          <p className="text-muted-foreground text-balance leading-relaxed">
+            Forward feedback to the right people, in the right places.
+          </p>
+
+          <p className="text-muted-foreground text-balance leading-relaxed">
+            {config.productName} integrates with tools like Linear and Slack,
+            and provides a REST API for you to build your own integrations.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-10">
+          <img src="/linear-logo.svg" className="w-16 dark:invert opacity-10" />
+          <img src="/slack-logo.svg" className="w-16 dark:invert opacity-10" />
+          <HugeiconsIcon icon={ApiIcon} className="size-18 opacity-10" />
+        </div>
+      </section>
+
+      <Separator className="my-12" />
+
+      <section className="space-y-12">
+        <div className="space-y-5">
+          <h2 className="text-3xl font-medium font-serif">Examples</h2>
 
           <p className="text-muted-foreground text-balance leading-relaxed">
             Here are some example feedback UI's you can build with{' '}
@@ -412,6 +433,9 @@ function ExampleCursor() {
 }
 
 function ExampleClaudeCode() {
+  const [value, setValue] = useState('')
+  const [hasFocused, setHasFocused] = useState(false)
+
   return (
     <div className="dark:bg-[#22252a] p-5 h-full font-mono text-sm leading-normal space-y-8 rounded-md">
       <div className="border dark:border-[#f19e4b] rounded-sm flex divide-x dark:divide-[#f19e4b]">
@@ -453,14 +477,69 @@ function ExampleClaudeCode() {
             </p>
           </div>
 
-          <div className="border dark:border-[#a4cbfa] rounded-sm dark:divide-[#f19e4b] p-3 space-y-4">
+          <div className="border dark:border-[#a4cbfa] rounded-sm dark:divide-[#f19e4b] p-3 space-y-4 relative">
             <p className="dark:text-[#a4cbfa]">Submit Feedback / Bug Report</p>
 
             <p className="dark:text-[#acb2b2]">Describe the issue below:</p>
-            <textarea
-              rows={2}
-              className="w-full focus:outline-none focus:ring-0 resize-none"
-            />
+
+            <div className="relative">
+              <textarea
+                rows={2}
+                value={value}
+                onChange={(e) => setValue(e.currentTarget.value)}
+                onFocus={() => setHasFocused(true)}
+                className="w-full focus:outline-none focus:ring-0 resize-none placeholder-gray-600"
+                placeholder="The plan mode is not..."
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (value) {
+                      e.preventDefault()
+
+                      fetch(
+                        'http://localhost:3000/api/v1/cmklda16y0001ygrphcme3w0k/projects/cmkleht0m0000gmrpg7ljukvz/feedback',
+                        {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            // Required fields
+                            description: value,
+                            type: 'FEATURE_REQUEST', // Options: 'BUG' | 'FEATURE_REQUEST' | 'IMPROVEMENT' | 'QUESTION' | 'PRAISE' | 'OTHER'
+
+                            // Optional fields
+                            email: 'janedoe@myspace.com', // Contact email for follow-up
+                            metadata: { page: 'Hosting · Docs' }, // Any additional JSON data
+                          }),
+                        },
+                      )
+                        .then(async (res) => {
+                          if (res.ok) {
+                            toast.success('Feedback submitted')
+                            setValue('')
+                          } else {
+                            toast.error('Failed to submit feedback')
+                          }
+
+                          return res.json()
+                        })
+                        .catch((err) => {
+                          console.error(err)
+                          toast.error('Failed to submit feedback')
+                        })
+                    }
+                  }
+                }}
+              />
+
+              <HugeiconsIcon
+                icon={CursorIcon}
+                className={mergeClassNames(
+                  'size-10 absolute -rotate-12 top-6 left-1/3 pointer-events-none fill-black animate-bounce transition',
+                  hasFocused ? 'opacity-0' : 'opacity-100',
+                )}
+              />
+            </div>
           </div>
         </div>
 
