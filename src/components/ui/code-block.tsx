@@ -30,7 +30,7 @@ export default function CodeBlock({
     defaultLanguage ?? _langs[0]?.language,
   )
   const [copied, setCopied] = useState(false)
-  const { systemTheme } = useTheme()
+  const { theme } = useTheme()
 
   useEffect(() => {
     ;(async () => {
@@ -39,15 +39,14 @@ export default function CodeBlock({
           ...lang,
           code: await codeToHtml(lang.code, {
             lang: lang.language,
-            theme:
-              systemTheme === 'dark' ? 'github-dark' : 'github-light-default',
+            theme: theme === 'dark' ? 'github-dark' : 'github-light-default',
           }),
         })),
       )
 
       setLanguages(langsWithHtml)
     })()
-  }, [_langs, systemTheme])
+  }, [_langs, theme])
 
   const handleCopy = async () => {
     const activeLang = _langs.find((l) => l.language === activeTab)

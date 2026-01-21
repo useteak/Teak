@@ -8,7 +8,7 @@ import { MessageIcon } from '@hugeicons/core-free-icons'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 import { FeedbackCard } from '@/components/feedback-card'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import {
   Empty,
   EmptyContent,
