@@ -12,6 +12,7 @@ export const OrganizationGroupByResultSchema = z.array(z.object({
     users: z.number(),
     projects: z.number(),
     invitations: z.number(),
+    apiKeys: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

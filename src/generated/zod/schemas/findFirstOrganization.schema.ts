@@ -16,6 +16,7 @@ export const OrganizationFindFirstSelectSchema: z.ZodType<Prisma.OrganizationSel
     users: z.boolean().optional(),
     projects: z.boolean().optional(),
     invitations: z.boolean().optional(),
+    apiKeys: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -28,6 +29,7 @@ export const OrganizationFindFirstSelectZodSchema = z.object({
     users: z.boolean().optional(),
     projects: z.boolean().optional(),
     invitations: z.boolean().optional(),
+    apiKeys: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()

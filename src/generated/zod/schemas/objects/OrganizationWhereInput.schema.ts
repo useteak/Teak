@@ -5,7 +5,8 @@ import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } 
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
 import { UserListRelationFilterObjectSchema as UserListRelationFilterObjectSchema } from './UserListRelationFilter.schema';
 import { ProjectListRelationFilterObjectSchema as ProjectListRelationFilterObjectSchema } from './ProjectListRelationFilter.schema';
-import { OrganizationInvitationListRelationFilterObjectSchema as OrganizationInvitationListRelationFilterObjectSchema } from './OrganizationInvitationListRelationFilter.schema'
+import { OrganizationInvitationListRelationFilterObjectSchema as OrganizationInvitationListRelationFilterObjectSchema } from './OrganizationInvitationListRelationFilter.schema';
+import { ApiKeyListRelationFilterObjectSchema as ApiKeyListRelationFilterObjectSchema } from './ApiKeyListRelationFilter.schema'
 
 const organizationwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => OrganizationWhereInputObjectSchema), z.lazy(() => OrganizationWhereInputObjectSchema).array()]).optional(),
@@ -18,7 +19,8 @@ const organizationwhereinputSchema = z.object({
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   users: z.lazy(() => UserListRelationFilterObjectSchema).optional(),
   projects: z.lazy(() => ProjectListRelationFilterObjectSchema).optional(),
-  invitations: z.lazy(() => OrganizationInvitationListRelationFilterObjectSchema).optional()
+  invitations: z.lazy(() => OrganizationInvitationListRelationFilterObjectSchema).optional(),
+  apiKeys: z.lazy(() => ApiKeyListRelationFilterObjectSchema).optional()
 }).strict();
 export const OrganizationWhereInputObjectSchema: z.ZodType<Prisma.OrganizationWhereInput> = organizationwhereinputSchema as unknown as z.ZodType<Prisma.OrganizationWhereInput>;
 export const OrganizationWhereInputObjectZodSchema = organizationwhereinputSchema;

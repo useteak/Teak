@@ -1,7 +1,8 @@
 import * as z from 'zod';
 import type { Prisma } from '../../../prisma/client';
 import { ProjectCreateNestedManyWithoutOrganizationInputObjectSchema as ProjectCreateNestedManyWithoutOrganizationInputObjectSchema } from './ProjectCreateNestedManyWithoutOrganizationInput.schema';
-import { OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema as OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema } from './OrganizationInvitationCreateNestedManyWithoutOrganizationInput.schema'
+import { OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema as OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema } from './OrganizationInvitationCreateNestedManyWithoutOrganizationInput.schema';
+import { ApiKeyCreateNestedManyWithoutOrganizationInputObjectSchema as ApiKeyCreateNestedManyWithoutOrganizationInputObjectSchema } from './ApiKeyCreateNestedManyWithoutOrganizationInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
@@ -10,7 +11,8 @@ const makeSchema = () => z.object({
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   projects: z.lazy(() => ProjectCreateNestedManyWithoutOrganizationInputObjectSchema).optional(),
-  invitations: z.lazy(() => OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema).optional()
+  invitations: z.lazy(() => OrganizationInvitationCreateNestedManyWithoutOrganizationInputObjectSchema).optional(),
+  apiKeys: z.lazy(() => ApiKeyCreateNestedManyWithoutOrganizationInputObjectSchema).optional()
 }).strict();
 export const OrganizationCreateWithoutUsersInputObjectSchema: z.ZodType<Prisma.OrganizationCreateWithoutUsersInput> = makeSchema() as unknown as z.ZodType<Prisma.OrganizationCreateWithoutUsersInput>;
 export const OrganizationCreateWithoutUsersInputObjectZodSchema = makeSchema();

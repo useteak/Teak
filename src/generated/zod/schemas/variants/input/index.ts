@@ -8,6 +8,7 @@ export { SessionInputSchema } from './Session.input';
 export { AccountInputSchema } from './Account.input';
 export { VerificationInputSchema } from './Verification.input';
 export { OrganizationInputSchema } from './Organization.input';
+export { ApiKeyInputSchema } from './ApiKey.input';
 export { ProjectInputSchema } from './Project.input';
 export { ProjectMemberInputSchema } from './ProjectMember.input';
 export { FeedbackInputSchema } from './Feedback.input';

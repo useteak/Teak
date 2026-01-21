@@ -30,14 +30,17 @@ import { Route as AuthenticatedAccountSettingsGeneralRouteRouteImport } from './
 import { Route as AuthenticatedAccountSettingsAuthenticationRouteRouteImport } from './routes/_authenticated/account/settings/authentication/route'
 import { Route as AuthenticatedOrganizationIdSettingsMembersRouteRouteImport } from './routes/_authenticated/$organizationId/settings/members/route'
 import { Route as AuthenticatedOrganizationIdSettingsGeneralRouteRouteImport } from './routes/_authenticated/$organizationId/settings/general/route'
+import { Route as AuthenticatedOrganizationIdSettingsApiKeysRouteRouteImport } from './routes/_authenticated/$organizationId/settings/api-keys/route'
 import { Route as AuthenticatedOrganizationIdProjectsProjectIdRouteRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/route'
 import { Route as AuthenticatedAccountSettingsGeneralDeleteRouteImport } from './routes/_authenticated/account/settings/general/delete'
 import { Route as AuthenticatedOrganizationIdSettingsMembersInviteRouteImport } from './routes/_authenticated/$organizationId/settings/members/invite'
 import { Route as AuthenticatedOrganizationIdSettingsGeneralDeleteRouteImport } from './routes/_authenticated/$organizationId/settings/general/delete'
+import { Route as AuthenticatedOrganizationIdSettingsApiKeysNewRouteImport } from './routes/_authenticated/$organizationId/settings/api-keys/new'
 import { Route as AuthenticatedOrganizationIdProjectsProjectIdFeedbackRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/feedback'
 import { Route as AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/settings/route'
 import { Route as ApiV1OrganizationIdProjectsProjectIdFeedbackRouteImport } from './routes/api/v1/$organizationId/projects/$projectId/feedback'
 import { Route as AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRouteImport } from './routes/_authenticated/$organizationId/settings/members/$memberId.delete'
+import { Route as AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRouteImport } from './routes/_authenticated/$organizationId/settings/api-keys/$apiKeyId.delete'
 import { Route as AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRouteImport } from './routes/_authenticated/$organizationId/projects/$projectId/settings/delete'
 
 const SignupRoute = SignupRouteImport.update({
@@ -156,6 +159,12 @@ const AuthenticatedOrganizationIdSettingsGeneralRouteRoute =
     path: '/general',
     getParentRoute: () => AuthenticatedOrganizationIdSettingsRouteRoute,
   } as any)
+const AuthenticatedOrganizationIdSettingsApiKeysRouteRoute =
+  AuthenticatedOrganizationIdSettingsApiKeysRouteRouteImport.update({
+    id: '/api-keys',
+    path: '/api-keys',
+    getParentRoute: () => AuthenticatedOrganizationIdSettingsRouteRoute,
+  } as any)
 const AuthenticatedOrganizationIdProjectsProjectIdRouteRoute =
   AuthenticatedOrganizationIdProjectsProjectIdRouteRouteImport.update({
     id: '/projects/$projectId',
@@ -179,6 +188,12 @@ const AuthenticatedOrganizationIdSettingsGeneralDeleteRoute =
     id: '/delete',
     path: '/delete',
     getParentRoute: () => AuthenticatedOrganizationIdSettingsGeneralRouteRoute,
+  } as any)
+const AuthenticatedOrganizationIdSettingsApiKeysNewRoute =
+  AuthenticatedOrganizationIdSettingsApiKeysNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AuthenticatedOrganizationIdSettingsApiKeysRouteRoute,
   } as any)
 const AuthenticatedOrganizationIdProjectsProjectIdFeedbackRoute =
   AuthenticatedOrganizationIdProjectsProjectIdFeedbackRouteImport.update({
@@ -206,6 +221,12 @@ const AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRoute =
     path: '/$memberId/delete',
     getParentRoute: () => AuthenticatedOrganizationIdSettingsMembersRouteRoute,
   } as any)
+const AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute =
+  AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRouteImport.update({
+    id: '/$apiKeyId/delete',
+    path: '/$apiKeyId/delete',
+    getParentRoute: () => AuthenticatedOrganizationIdSettingsApiKeysRouteRoute,
+  } as any)
 const AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRoute =
   AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRouteImport.update({
     id: '/delete',
@@ -230,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
+  '/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
   '/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
@@ -238,10 +260,12 @@ export interface FileRoutesByFullPath {
   '/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/$organizationId/projects/$projectId/feedback': typeof AuthenticatedOrganizationIdProjectsProjectIdFeedbackRoute
+  '/$organizationId/settings/api-keys/new': typeof AuthenticatedOrganizationIdSettingsApiKeysNewRoute
   '/$organizationId/settings/general/delete': typeof AuthenticatedOrganizationIdSettingsGeneralDeleteRoute
   '/$organizationId/settings/members/invite': typeof AuthenticatedOrganizationIdSettingsMembersInviteRoute
   '/account/settings/general/delete': typeof AuthenticatedAccountSettingsGeneralDeleteRoute
   '/$organizationId/projects/$projectId/settings/delete': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRoute
+  '/$organizationId/settings/api-keys/$apiKeyId/delete': typeof AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute
   '/$organizationId/settings/members/$memberId/delete': typeof AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRoute
   '/api/v1/$organizationId/projects/$projectId/feedback': typeof ApiV1OrganizationIdProjectsProjectIdFeedbackRoute
 }
@@ -259,6 +283,7 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId': typeof AuthenticatedOrganizationIdIndexRoute
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
+  '/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
   '/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
@@ -267,10 +292,12 @@ export interface FileRoutesByTo {
   '/$organizationId/integrations': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/$organizationId/projects/$projectId/feedback': typeof AuthenticatedOrganizationIdProjectsProjectIdFeedbackRoute
+  '/$organizationId/settings/api-keys/new': typeof AuthenticatedOrganizationIdSettingsApiKeysNewRoute
   '/$organizationId/settings/general/delete': typeof AuthenticatedOrganizationIdSettingsGeneralDeleteRoute
   '/$organizationId/settings/members/invite': typeof AuthenticatedOrganizationIdSettingsMembersInviteRoute
   '/account/settings/general/delete': typeof AuthenticatedAccountSettingsGeneralDeleteRoute
   '/$organizationId/projects/$projectId/settings/delete': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRoute
+  '/$organizationId/settings/api-keys/$apiKeyId/delete': typeof AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute
   '/$organizationId/settings/members/$memberId/delete': typeof AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRoute
   '/api/v1/$organizationId/projects/$projectId/feedback': typeof ApiV1OrganizationIdProjectsProjectIdFeedbackRoute
 }
@@ -292,6 +319,7 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_authenticated/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
   '/_authenticated/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
+  '/_authenticated/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/members': typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
   '/_authenticated/account/settings/authentication': typeof AuthenticatedAccountSettingsAuthenticationRouteRoute
@@ -300,10 +328,12 @@ export interface FileRoutesById {
   '/_authenticated/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/_authenticated/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/_authenticated/$organizationId/projects/$projectId/feedback': typeof AuthenticatedOrganizationIdProjectsProjectIdFeedbackRoute
+  '/_authenticated/$organizationId/settings/api-keys/new': typeof AuthenticatedOrganizationIdSettingsApiKeysNewRoute
   '/_authenticated/$organizationId/settings/general/delete': typeof AuthenticatedOrganizationIdSettingsGeneralDeleteRoute
   '/_authenticated/$organizationId/settings/members/invite': typeof AuthenticatedOrganizationIdSettingsMembersInviteRoute
   '/_authenticated/account/settings/general/delete': typeof AuthenticatedAccountSettingsGeneralDeleteRoute
   '/_authenticated/$organizationId/projects/$projectId/settings/delete': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsDeleteRoute
+  '/_authenticated/$organizationId/settings/api-keys/$apiKeyId/delete': typeof AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute
   '/_authenticated/$organizationId/settings/members/$memberId/delete': typeof AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRoute
   '/api/v1/$organizationId/projects/$projectId/feedback': typeof ApiV1OrganizationIdProjectsProjectIdFeedbackRoute
 }
@@ -325,6 +355,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/$organizationId/'
     | '/$organizationId/projects/$projectId'
+    | '/$organizationId/settings/api-keys'
     | '/$organizationId/settings/general'
     | '/$organizationId/settings/members'
     | '/account/settings/authentication'
@@ -333,10 +364,12 @@ export interface FileRouteTypes {
     | '/$organizationId/integrations/'
     | '/$organizationId/projects/$projectId/settings'
     | '/$organizationId/projects/$projectId/feedback'
+    | '/$organizationId/settings/api-keys/new'
     | '/$organizationId/settings/general/delete'
     | '/$organizationId/settings/members/invite'
     | '/account/settings/general/delete'
     | '/$organizationId/projects/$projectId/settings/delete'
+    | '/$organizationId/settings/api-keys/$apiKeyId/delete'
     | '/$organizationId/settings/members/$memberId/delete'
     | '/api/v1/$organizationId/projects/$projectId/feedback'
   fileRoutesByTo: FileRoutesByTo
@@ -354,6 +387,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/$organizationId'
     | '/$organizationId/projects/$projectId'
+    | '/$organizationId/settings/api-keys'
     | '/$organizationId/settings/general'
     | '/$organizationId/settings/members'
     | '/account/settings/authentication'
@@ -362,10 +396,12 @@ export interface FileRouteTypes {
     | '/$organizationId/integrations'
     | '/$organizationId/projects/$projectId/settings'
     | '/$organizationId/projects/$projectId/feedback'
+    | '/$organizationId/settings/api-keys/new'
     | '/$organizationId/settings/general/delete'
     | '/$organizationId/settings/members/invite'
     | '/account/settings/general/delete'
     | '/$organizationId/projects/$projectId/settings/delete'
+    | '/$organizationId/settings/api-keys/$apiKeyId/delete'
     | '/$organizationId/settings/members/$memberId/delete'
     | '/api/v1/$organizationId/projects/$projectId/feedback'
   id:
@@ -386,6 +422,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/_authenticated/$organizationId/'
     | '/_authenticated/$organizationId/projects/$projectId'
+    | '/_authenticated/$organizationId/settings/api-keys'
     | '/_authenticated/$organizationId/settings/general'
     | '/_authenticated/$organizationId/settings/members'
     | '/_authenticated/account/settings/authentication'
@@ -394,10 +431,12 @@ export interface FileRouteTypes {
     | '/_authenticated/$organizationId/integrations/'
     | '/_authenticated/$organizationId/projects/$projectId/settings'
     | '/_authenticated/$organizationId/projects/$projectId/feedback'
+    | '/_authenticated/$organizationId/settings/api-keys/new'
     | '/_authenticated/$organizationId/settings/general/delete'
     | '/_authenticated/$organizationId/settings/members/invite'
     | '/_authenticated/account/settings/general/delete'
     | '/_authenticated/$organizationId/projects/$projectId/settings/delete'
+    | '/_authenticated/$organizationId/settings/api-keys/$apiKeyId/delete'
     | '/_authenticated/$organizationId/settings/members/$memberId/delete'
     | '/api/v1/$organizationId/projects/$projectId/feedback'
   fileRoutesById: FileRoutesById
@@ -561,6 +600,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteImport
       parentRoute: typeof AuthenticatedOrganizationIdSettingsRouteRoute
     }
+    '/_authenticated/$organizationId/settings/api-keys': {
+      id: '/_authenticated/$organizationId/settings/api-keys'
+      path: '/api-keys'
+      fullPath: '/$organizationId/settings/api-keys'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdSettingsRouteRoute
+    }
     '/_authenticated/$organizationId/projects/$projectId': {
       id: '/_authenticated/$organizationId/projects/$projectId'
       path: '/projects/$projectId'
@@ -588,6 +634,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/$organizationId/settings/general/delete'
       preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsGeneralDeleteRouteImport
       parentRoute: typeof AuthenticatedOrganizationIdSettingsGeneralRouteRoute
+    }
+    '/_authenticated/$organizationId/settings/api-keys/new': {
+      id: '/_authenticated/$organizationId/settings/api-keys/new'
+      path: '/new'
+      fullPath: '/$organizationId/settings/api-keys/new'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysNewRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRoute
     }
     '/_authenticated/$organizationId/projects/$projectId/feedback': {
       id: '/_authenticated/$organizationId/projects/$projectId/feedback'
@@ -617,6 +670,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsMembersMemberIdDeleteRouteImport
       parentRoute: typeof AuthenticatedOrganizationIdSettingsMembersRouteRoute
     }
+    '/_authenticated/$organizationId/settings/api-keys/$apiKeyId/delete': {
+      id: '/_authenticated/$organizationId/settings/api-keys/$apiKeyId/delete'
+      path: '/$apiKeyId/delete'
+      fullPath: '/$organizationId/settings/api-keys/$apiKeyId/delete'
+      preLoaderRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRouteImport
+      parentRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRoute
+    }
     '/_authenticated/$organizationId/projects/$projectId/settings/delete': {
       id: '/_authenticated/$organizationId/projects/$projectId/settings/delete'
       path: '/delete'
@@ -640,6 +700,24 @@ const AuthenticatedOrganizationIdIntegrationsRouteRouteChildren: AuthenticatedOr
 const AuthenticatedOrganizationIdIntegrationsRouteRouteWithChildren =
   AuthenticatedOrganizationIdIntegrationsRouteRoute._addFileChildren(
     AuthenticatedOrganizationIdIntegrationsRouteRouteChildren,
+  )
+
+interface AuthenticatedOrganizationIdSettingsApiKeysRouteRouteChildren {
+  AuthenticatedOrganizationIdSettingsApiKeysNewRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysNewRoute
+  AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute
+}
+
+const AuthenticatedOrganizationIdSettingsApiKeysRouteRouteChildren: AuthenticatedOrganizationIdSettingsApiKeysRouteRouteChildren =
+  {
+    AuthenticatedOrganizationIdSettingsApiKeysNewRoute:
+      AuthenticatedOrganizationIdSettingsApiKeysNewRoute,
+    AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute:
+      AuthenticatedOrganizationIdSettingsApiKeysApiKeyIdDeleteRoute,
+  }
+
+const AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren =
+  AuthenticatedOrganizationIdSettingsApiKeysRouteRoute._addFileChildren(
+    AuthenticatedOrganizationIdSettingsApiKeysRouteRouteChildren,
   )
 
 interface AuthenticatedOrganizationIdSettingsGeneralRouteRouteChildren {
@@ -676,12 +754,15 @@ const AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren =
   )
 
 interface AuthenticatedOrganizationIdSettingsRouteRouteChildren {
+  AuthenticatedOrganizationIdSettingsApiKeysRouteRoute: typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   AuthenticatedOrganizationIdSettingsGeneralRouteRoute: typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
   AuthenticatedOrganizationIdSettingsMembersRouteRoute: typeof AuthenticatedOrganizationIdSettingsMembersRouteRouteWithChildren
 }
 
 const AuthenticatedOrganizationIdSettingsRouteRouteChildren: AuthenticatedOrganizationIdSettingsRouteRouteChildren =
   {
+    AuthenticatedOrganizationIdSettingsApiKeysRouteRoute:
+      AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren,
     AuthenticatedOrganizationIdSettingsGeneralRouteRoute:
       AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren,
     AuthenticatedOrganizationIdSettingsMembersRouteRoute:

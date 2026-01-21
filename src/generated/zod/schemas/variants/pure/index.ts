@@ -8,6 +8,7 @@ export { SessionModelSchema } from './Session.pure';
 export { AccountModelSchema } from './Account.pure';
 export { VerificationModelSchema } from './Verification.pure';
 export { OrganizationModelSchema } from './Organization.pure';
+export { ApiKeyModelSchema } from './ApiKey.pure';
 export { ProjectModelSchema } from './Project.pure';
 export { ProjectMemberModelSchema } from './ProjectMember.pure';
 export { FeedbackModelSchema } from './Feedback.pure';

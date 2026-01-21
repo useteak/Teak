@@ -5,7 +5,11 @@ import {
   useLocation,
 } from '@tanstack/react-router'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { BuildingIcon, UserGroup03Icon } from '@hugeicons/core-free-icons'
+import {
+  BuildingIcon,
+  Key01Icon,
+  UserGroup03Icon,
+} from '@hugeicons/core-free-icons'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -64,6 +68,23 @@ function RouteComponent() {
               >
                 <HugeiconsIcon icon={UserGroup03Icon} />
                 Members
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname.startsWith(
+                `/${params.organizationId}/settings/api-keys`,
+              )}
+              asChild
+            >
+              <Link
+                to="/$organizationId/settings/api-keys"
+                params={{ organizationId: params.organizationId }}
+              >
+                <HugeiconsIcon icon={Key01Icon} />
+                API Keys
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

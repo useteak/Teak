@@ -8,6 +8,7 @@ export { SessionResultSchema } from './Session.result';
 export { AccountResultSchema } from './Account.result';
 export { VerificationResultSchema } from './Verification.result';
 export { OrganizationResultSchema } from './Organization.result';
+export { ApiKeyResultSchema } from './ApiKey.result';
 export { ProjectResultSchema } from './Project.result';
 export { ProjectMemberResultSchema } from './ProjectMember.result';
 export { FeedbackResultSchema } from './Feedback.result';

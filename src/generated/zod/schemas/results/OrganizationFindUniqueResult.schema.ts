@@ -6,6 +6,7 @@ export const OrganizationFindUniqueResultSchema = z.nullable(z.object({
   users: z.array(z.unknown()),
   projects: z.array(z.unknown()),
   invitations: z.array(z.unknown()),
+  apiKeys: z.array(z.unknown()),
   createdAt: z.date(),
   updatedAt: z.date()
 }));
