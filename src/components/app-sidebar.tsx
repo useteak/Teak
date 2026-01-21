@@ -1,24 +1,18 @@
 import {
   IceCubesIcon,
   Layers01Icon,
-  LogoutIcon,
   PlusSignIcon,
   Settings05Icon,
   UnfoldMoreIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link, useLocation } from '@tanstack/react-router'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from './ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { AppLogo } from './app-logo'
-import { Button } from './ui/button'
+import { UserAccountDropdownContent } from './user-account-dropdown-content'
 import {
   Sidebar,
   SidebarContent,
@@ -33,14 +27,12 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Route } from '@/routes/_authenticated/$organizationId/route'
-import { authClient } from '@/lib/auth-client'
 
 export function AppSidebar() {
   // Server state
   const { user, projects } = Route.useLoaderData()
 
   // URL state
-  const navigate = Route.useNavigate()
   const params = Route.useParams()
   const location = useLocation()
 
@@ -184,31 +176,7 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent sideOffset={8}>
-                <DropdownMenuItem asChild>
-                  <Link to="/account/settings/general">
-                    <HugeiconsIcon icon={Settings05Icon} />
-                    Account settings
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  variant="destructive"
-                  onSelect={() => {
-                    authClient.signOut({
-                      fetchOptions: {
-                        onSuccess: () => {
-                          navigate({
-                            to: '/login',
-                          })
-                        },
-                      },
-                    })
-                  }}
-                >
-                  <HugeiconsIcon icon={LogoutIcon} />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
+              <UserAccountDropdownContent />
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>

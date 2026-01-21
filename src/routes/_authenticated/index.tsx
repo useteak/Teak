@@ -4,12 +4,10 @@ import { createServerFn } from '@tanstack/react-start'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
   ApiIcon,
-  ArrowMoveDownLeftIcon,
   ArrowUpRightIcon,
   Attachment01Icon,
   Cancel01Icon,
   CursorIcon,
-  MailIcon,
   MessageIcon,
 } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
@@ -25,6 +23,12 @@ import { FeedbackCard } from '@/components/feedback-card'
 import { FeedbackType } from '@/generated/prisma/enums'
 import { mergeClassNames } from '@/utils/classnames'
 import { Separator } from '@/components/ui/separator'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { UserAccountDropdownContent } from '@/components/user-account-dropdown-content'
 
 const getData = createServerFn().handler(async () => {
   const session = await auth.api.getSession({
@@ -60,9 +64,23 @@ function App() {
 
         <div className="flex items-center gap-2">
           {user ? (
-            <Button size="lg" variant="link" asChild>
-              <Link to="/home">Go to dashboard</Link>
-            </Button>
+            <>
+              <Button size="lg" variant="link" asChild>
+                <Link to="/home">Go to dashboard</Link>
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                    <Avatar>
+                      <AvatarImage src={user.image ?? undefined} />
+                      <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <UserAccountDropdownContent />
+              </DropdownMenu>
+            </>
           ) : (
             <>
               <Button size="lg" variant="link" asChild>
@@ -496,7 +514,7 @@ function ExampleClaudeCode() {
                       e.preventDefault()
 
                       fetch(
-                        'http://localhost:3000/api/v1/cmklda16y0001ygrphcme3w0k/projects/cmkleht0m0000gmrpg7ljukvz/feedback',
+                        `${config.productUrl}/api/v1/cmklda16y0001ygrphcme3w0k/projects/cmkleht0m0000gmrpg7ljukvz/feedback`,
                         {
                           method: 'POST',
                           headers: {

@@ -3,6 +3,7 @@ import {
   Outlet,
   createFileRoute,
   useLocation,
+  useRouter,
 } from '@tanstack/react-router'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
@@ -31,16 +32,23 @@ export const Route = createFileRoute('/_authenticated/account/settings')({
 function RouteComponent() {
   const location = useLocation()
 
+  const router = useRouter()
+
   return (
     <SidebarProvider>
       <div className="flex flex-col gap-8 flex-1 px-6 py-12 w-full max-w-6xl mx-auto">
         <div className="space-y-5">
           <div className="space-y-3">
-            <Button className="-ml-3.5" variant="link" size="sm" asChild>
-              <Link to="/home">
-                <HugeiconsIcon icon={ArrowLeft01Icon} />
-                Back
-              </Link>
+            <Button
+              className="-ml-3.5"
+              variant="link"
+              size="sm"
+              onClick={() => {
+                router.history.back()
+              }}
+            >
+              <HugeiconsIcon icon={ArrowLeft01Icon} />
+              Back
             </Button>
             <h1 className="text-2xl flex-1 font-medium">Account settings</h1>
           </div>
