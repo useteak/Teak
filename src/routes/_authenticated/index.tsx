@@ -6,8 +6,12 @@ import {
   ApiIcon,
   ArrowUpRightIcon,
   Attachment01Icon,
+  BookIcon,
+  BookmarkIcon,
   Cancel01Icon,
   CursorIcon,
+  LibraryIcon,
+  LinkIcon,
   MessageIcon,
 } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
@@ -159,30 +163,6 @@ function App() {
       <Separator className="mb-12 mt-16" />
 
       <section className="space-y-12">
-        <div className="space-y-4">
-          <h2 className="text-3xl font-medium font-serif">
-            {config.productName} works where you do
-          </h2>
-          <p className="text-muted-foreground text-balance leading-relaxed">
-            Forward feedback to the right people, in the right places.
-          </p>
-
-          <p className="text-muted-foreground text-balance leading-relaxed">
-            {config.productName} integrates with tools like Linear and Slack,
-            and provides a REST API for you to build your own integrations.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-10">
-          <img src="/linear-logo.svg" className="w-16 dark:invert opacity-10" />
-          <img src="/slack-logo.svg" className="w-16 dark:invert opacity-10" />
-          <HugeiconsIcon icon={ApiIcon} className="size-18 opacity-10" />
-        </div>
-      </section>
-
-      <Separator className="my-12" />
-
-      <section className="space-y-12">
         <div className="space-y-5">
           <h2 className="text-3xl font-medium font-serif">Examples</h2>
 
@@ -210,82 +190,56 @@ function App() {
         </div>
       </section>
 
-      {/* <div className="space-y-10">
-        <div className='space-y-4'>
+      <Separator className="mb-12 mt-16" />
 
-          <h2 className="text-2xl font-medium mt-6">Pricing</h2>
+      <section className="flex flex-col items-center gap-12">
+        <div className="flex flex-col items-center text-center gap-4">
+          <h2 className="text-3xl font-medium font-serif">
+            {config.productName} works where you do
+          </h2>
+          <p className="text-muted-foreground text-balance leading-relaxed">
+            Forward feedback to the right people, in the right places.
+          </p>
 
-          <p className="text-muted-foreground-secondary text-balance leading-relaxed">
-            We want to keep pricing simple. If you're running a open source
-            project, or you're just getting off the ground as a solo founder, the
-            bill's on us.
+          <p className="text-muted-foreground text-balance leading-relaxed">
+            {config.productName} integrates with tools like Linear and Slack,
+            and provides a REST API for you to build your own integrations.
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
-          <Card>
-            <CardHeader>
-              <CardDescription>OSS & Solo Founders</CardDescription>
-              <CardTitle className="text-2xl">Free</CardTitle>
-            </CardHeader>
-            <CardFooter>
-              <Button asChild className="w-full" variant="secondary">
-                <Link to="/signup">Get started</Link>
-              </Button>
-            </CardFooter>
-          </Card>
+        <div className="flex items-center gap-10 w-full max-w-xl">
+          <div className="flex flex-col items-center gap-4">
+            <img
+              src="/linear-logo.svg"
+              className="w-16 dark:invert opacity-40"
+            />
+            <p className="text-center text-muted-foreground text-balance">
+              Linear integration coming soon
+            </p>
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardDescription>Teams</CardDescription>
-              <CardTitle className="text-2xl">$7/month</CardTitle>
-              <CardDescription>Per member</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 list-inside">
-                <li className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Tick02Icon}
-                    className="size-4 text-foreground-primary"
-                  />{' '}
-                  No credit card required
-                </li>
-                <li className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Tick02Icon}
-                    className="size-4 text-foreground-primary"
-                  />{' '}
-                  14 day free trial
-                </li>
-                <li className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Tick02Icon}
-                    className="size-4 text-foreground-primary"
-                  />{' '}
-                  Cancel anytime
-                </li>
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link to="/signup">Sign up</Link>
-              </Button>
-            </CardFooter>
-          </Card>
+          <div className="flex flex-col items-center gap-4">
+            <HugeiconsIcon icon={ApiIcon} className="size-18" />
+            <p className="text-center text-balance">
+              Start building with our Rest API today
+            </p>
+          </div>
 
-          <Card>
-            <CardHeader>
-              <CardDescription>Enterprise</CardDescription>
-              <CardTitle className="text-2xl">Custom</CardTitle>
-            </CardHeader>
-            <CardFooter>
-              <Button asChild className="w-full" variant="secondary">
-                <Link to="/signup">Get in touch</Link>
-              </Button>
-            </CardFooter>
-          </Card>
+          <div className="flex flex-col items-center gap-4">
+            <img
+              src="/slack-logo.svg"
+              className="w-16 dark:invert opacity-40"
+            />
+            <p className="text-center text-muted-foreground text-balance">
+              Slack integration coming soon
+            </p>
+          </div>
         </div>
-      </div> */}
+
+        <Button size="lg" variant="secondary">
+          Read the documentation
+        </Button>
+      </section>
     </div>
   )
 }
