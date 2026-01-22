@@ -6,12 +6,8 @@ import {
   ApiIcon,
   ArrowUpRightIcon,
   Attachment01Icon,
-  BookIcon,
-  BookmarkIcon,
   Cancel01Icon,
   CursorIcon,
-  LibraryIcon,
-  LinkIcon,
   MessageIcon,
 } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
@@ -25,7 +21,7 @@ import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { config } from '@/config'
 import { FeedbackCard } from '@/components/feedback-card'
 import { FeedbackType } from '@/generated/prisma/enums'
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 import { Separator } from '@/components/ui/separator'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -98,7 +94,7 @@ function App() {
         </div>
       </nav>
 
-      <header className="mt-10">
+      <header className="mt-16">
         <h1 className="text-5xl/tight font-medium text-balance font-serif">
           Customer feedback experiences without the infrastructure
         </h1>
@@ -126,7 +122,7 @@ function App() {
               <Card
                 key={i}
                 size="sm"
-                className={mergeClassNames(
+                className={cn(
                   'w-full divide-y dark:divide-background data-[size=sm]:gap-0 data-[size=sm]:py-0 -mt-2',
                   i && 'absolute top-0',
                   i === 0 && 'scale-90',
@@ -137,6 +133,7 @@ function App() {
                 }}
               >
                 <FeedbackCard
+                  withBorder
                   feedback={{
                     id: '1',
                     description:
@@ -160,7 +157,7 @@ function App() {
         </div>
       </header>
 
-      <Separator className="mb-12 mt-16" />
+      <Separator className="mb-12 mt-20" />
 
       <section className="space-y-12">
         <div className="space-y-5">
@@ -240,6 +237,16 @@ function App() {
           Read the documentation
         </Button>
       </section>
+
+      <Separator className="my-12" />
+
+      <div className="xl:-mx-72">
+        <img
+          src="/dashboard.webp"
+          alt={`${config.productName} dashboard`}
+          className="w-full"
+        />
+      </div>
     </div>
   )
 }
@@ -506,7 +513,7 @@ function ExampleClaudeCode() {
 
               <HugeiconsIcon
                 icon={CursorIcon}
-                className={mergeClassNames(
+                className={cn(
                   'size-10 absolute -rotate-12 top-6 left-1/3 pointer-events-none fill-black animate-bounce transition',
                   hasFocused ? 'opacity-0' : 'opacity-100',
                 )}

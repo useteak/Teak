@@ -7,8 +7,9 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import { MessageIcon } from '@hugeicons/core-free-icons'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
+import { formatFeedbackType, getFeedbackTypeIcon } from '@/lib/format'
 import { FeedbackCard } from '@/components/feedback-card'
-import { Card } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Empty,
   EmptyContent,
@@ -19,6 +20,8 @@ import {
 } from '@/components/ui/empty'
 import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { Spinner } from '@/components/ui/spinner'
+import { FeedbackType } from '@/generated/prisma/enums'
+import { cn } from '@/utils/classnames'
 
 const getData = createServerFn()
   .inputValidator(z.object({ projectId: z.string() }))
@@ -99,6 +102,40 @@ function RouteComponent() {
 
   return (
     <>
+      <div className="grid grid-cols-3 gap-3">
+        {Object.values(FeedbackType).map((feedbackType) => {
+          const icon = getFeedbackTypeIcon(feedbackType)
+          const feedbackCount = feedback.filter(
+            (f) => f.type === feedbackType,
+          ).length
+
+          if (!feedbackCount) {
+            return <Card className="opacity-50 h-23.5" />
+          }
+
+          return (
+            <Card key={feedbackType} size="sm">
+              <CardHeader className="flex flex-col justify-between h-full gap-3">
+                <p className="text-sm font-medium text-muted-foreground -mt-0.5">
+                  {formatFeedbackType(feedbackType, true)}
+                </p>
+
+                <div className="flex items-center gap-2.5">
+                  <HugeiconsIcon
+                    icon={icon.component}
+                    strokeWidth={1}
+                    className={cn('size-7', icon.className)}
+                  />
+                  <CardTitle className="group-data-[size=sm]/card:text-3xl tabular-nums leading-none">
+                    {feedbackCount.toLocaleString()}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+            </Card>
+          )
+        })}
+      </div>
+
       {Object.entries(
         Object.groupBy(feedback, (f) =>
           isToday(f.createdAt)
@@ -109,7 +146,7 @@ function RouteComponent() {
         ),
       ).map(([day, entries]) => (
         <div key={day} className="flex items-start gap-8">
-          <h2 className="text-sm text-muted-foreground w-28 text-right font-condensed uppercase tracking-wider font-medium mt-1">
+          <h2 className="text-sm text-muted-foreground w-24 text-right font-medium mt-1">
             {day}
           </h2>
 

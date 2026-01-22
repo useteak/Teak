@@ -33,7 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 import { createSeoMeta } from '@/lib/seo'
 
 const getData = createServerFn()
@@ -110,9 +110,7 @@ function RouteComponent() {
 
                 return (
                   <TableRow key={member.id}>
-                    <TableCell
-                      className={mergeClassNames({ 'font-medium': isSelf })}
-                    >
+                    <TableCell className={cn({ 'font-medium': isSelf })}>
                       {isSelf ? 'You' : member.name}
                     </TableCell>
                     <TableCell className="text-muted-foreground">

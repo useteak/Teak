@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Avatar as AvatarPrimitive } from 'radix-ui'
 
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 
 function Avatar({
   className,
@@ -14,7 +14,7 @@ function Avatar({
     <AvatarPrimitive.Root
       data-slot="avatar"
       data-size={size}
-      className={mergeClassNames(
+      className={cn(
         'after:rounded size-8 data-[size=lg]:size-10 data-[size=sm]:size-6 after:border-border group/avatar relative flex shrink-0 select-none after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten',
         className,
       )}
@@ -30,10 +30,7 @@ function AvatarImage({
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
-      className={mergeClassNames(
-        'rounded aspect-square size-full object-cover',
-        className,
-      )}
+      className={cn('rounded aspect-square size-full object-cover', className)}
       {...props}
     />
   )
@@ -46,7 +43,7 @@ function AvatarFallback({
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
-      className={mergeClassNames(
+      className={cn(
         'rounded bg-muted text-muted-foreground flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs uppercase',
         className,
       )}
@@ -59,7 +56,7 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<'span'>) {
   return (
     <span
       data-slot="avatar-badge"
-      className={mergeClassNames(
+      className={cn(
         'bg-primary text-primary-foreground ring-background absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none',
         'group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden',
         'group-data-[size=default]/avatar:size-2.5 group-data-[size=default]/avatar:[&>svg]:size-2',
@@ -75,7 +72,7 @@ function AvatarGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="avatar-group"
-      className={mergeClassNames(
+      className={cn(
         '*:data-[slot=avatar]:ring-background group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2',
         className,
       )}
@@ -91,7 +88,7 @@ function AvatarGroupCount({
   return (
     <div
       data-slot="avatar-group-count"
-      className={mergeClassNames(
+      className={cn(
         'bg-muted text-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3 ring-background relative flex shrink-0 items-center justify-center ring-2',
         className,
       )}

@@ -31,7 +31,7 @@ import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { createSeoMeta } from '@/lib/seo'
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 
 const titleSchema = z.object({
   title: z.string().min(1, 'Project title must be at least 1 character.'),
@@ -332,7 +332,7 @@ function RouteComponent() {
             />
             <Label
               htmlFor="rate-limiting"
-              className={mergeClassNames(
+              className={cn(
                 'cursor-pointer',
                 (project?.rateLimitingEnabled ?? true)
                   ? 'text-foreground'
@@ -362,7 +362,7 @@ function RouteComponent() {
             />
             <Label
               htmlFor="subscription"
-              className={mergeClassNames(
+              className={cn(
                 'cursor-pointer',
                 (membership?.notifyOnFeedback ?? false)
                   ? 'text-foreground'

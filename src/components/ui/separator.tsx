@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Separator as SeparatorPrimitive } from 'radix-ui'
 
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 
 function Separator({
   className,
@@ -14,7 +14,7 @@ function Separator({
       data-slot="separator"
       decorative={decorative}
       orientation={orientation}
-      className={mergeClassNames(
+      className={cn(
         'bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch',
         className,
       )}

@@ -1,5 +1,6 @@
 import type { Feedback, FeedbackType, Project } from '@/generated/prisma/client'
 import { resend, resendFromEmail } from '@/lib/resend'
+import { formatFeedbackType } from '@/lib/format'
 
 /**
  * Communication module for sending notifications to project members.
@@ -17,28 +18,6 @@ export type FeedbackNotificationRecipients =
 export interface FeedbackNotificationData {
   project: Pick<Project, 'id' | 'title'>
   feedback: Pick<Feedback, 'id' | 'description' | 'type' | 'email'>
-}
-
-/**
- * Formats the feedback type for display in notifications.
- */
-function formatFeedbackType(type: FeedbackType): string {
-  switch (type) {
-    case 'BUG':
-      return 'Bug Report'
-    case 'FEATURE_REQUEST':
-      return 'Feature Request'
-    case 'IMPROVEMENT':
-      return 'Improvement Suggestion'
-    case 'QUESTION':
-      return 'Question'
-    case 'PRAISE':
-      return 'Praise'
-    case 'OTHER':
-      return 'Other'
-    default:
-      return type
-  }
 }
 
 /**

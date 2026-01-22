@@ -7,7 +7,7 @@ import { Button } from './button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 import type { IconSvgElement } from '@hugeicons/react'
 import type { BundledLanguage } from 'shiki'
-import { mergeClassNames } from '@/utils/classnames'
+import { cn } from '@/utils/classnames'
 
 type CodeBlockLanguage = {
   language: BundledLanguage
@@ -65,7 +65,7 @@ export default function CodeBlock({
     <Tabs
       value={activeTab}
       onValueChange={setActiveTab}
-      className={mergeClassNames('gap-0 w-full', className)}
+      className={cn('gap-0 w-full', className)}
     >
       <TabsList className="w-full justify-start rounded-b-none bg-white dark:bg-[#1e1e1e] p-2 group-data-horizontal/tabs:h-12 gap-1 border-t border-x dark:border-none">
         {languages.map(({ icon: Icon, label, language }) => (
