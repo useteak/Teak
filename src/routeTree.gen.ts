@@ -23,11 +23,22 @@ import { Route as AuthenticatedOrganizationIdRouteRouteImport } from './routes/_
 import { Route as AuthenticatedDocsIndexRouteImport } from './routes/_authenticated/docs/index'
 import { Route as AuthenticatedOrganizationIdIndexRouteImport } from './routes/_authenticated/$organizationId/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AuthenticatedDocsRateLimitingRouteImport } from './routes/_authenticated/docs/rate-limiting'
+import { Route as AuthenticatedDocsProjectsRouteImport } from './routes/_authenticated/docs/projects'
+import { Route as AuthenticatedDocsOrganizationsRouteImport } from './routes/_authenticated/docs/organizations'
+import { Route as AuthenticatedDocsNotificationsRouteImport } from './routes/_authenticated/docs/notifications'
+import { Route as AuthenticatedDocsFeedbackRouteImport } from './routes/_authenticated/docs/feedback'
+import { Route as AuthenticatedDocsAuthRouteImport } from './routes/_authenticated/docs/auth'
 import { Route as ApiV1OrganizationIdRouteRouteImport } from './routes/api/v1/$organizationId/route'
 import { Route as AuthenticatedAccountSettingsRouteRouteImport } from './routes/_authenticated/account/settings/route'
 import { Route as AuthenticatedOrganizationIdSettingsRouteRouteImport } from './routes/_authenticated/$organizationId/settings/route'
 import { Route as AuthenticatedOrganizationIdIntegrationsRouteRouteImport } from './routes/_authenticated/$organizationId/integrations/route'
 import { Route as AuthenticatedOrganizationIdIntegrationsIndexRouteImport } from './routes/_authenticated/$organizationId/integrations/index'
+import { Route as AuthenticatedDocsApiProjectsRouteImport } from './routes/_authenticated/docs/api/projects'
+import { Route as AuthenticatedDocsApiOverviewRouteImport } from './routes/_authenticated/docs/api/overview'
+import { Route as AuthenticatedDocsApiOrganizationsRouteImport } from './routes/_authenticated/docs/api/organizations'
+import { Route as AuthenticatedDocsApiFeedbackRouteImport } from './routes/_authenticated/docs/api/feedback'
+import { Route as AuthenticatedDocsApiAuthRouteImport } from './routes/_authenticated/docs/api/auth'
 import { Route as AuthenticatedOrganizationIdProjectsNewRouteImport } from './routes/_authenticated/$organizationId/projects/new'
 import { Route as ApiV1OrganizationIdProjectsRouteRouteImport } from './routes/api/v1/$organizationId/projects/route'
 import { Route as AuthenticatedAccountSettingsGeneralRouteRouteImport } from './routes/_authenticated/account/settings/general/route'
@@ -121,6 +132,41 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDocsRateLimitingRoute =
+  AuthenticatedDocsRateLimitingRouteImport.update({
+    id: '/rate-limiting',
+    path: '/rate-limiting',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsProjectsRoute =
+  AuthenticatedDocsProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsOrganizationsRoute =
+  AuthenticatedDocsOrganizationsRouteImport.update({
+    id: '/organizations',
+    path: '/organizations',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsNotificationsRoute =
+  AuthenticatedDocsNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsFeedbackRoute =
+  AuthenticatedDocsFeedbackRouteImport.update({
+    id: '/feedback',
+    path: '/feedback',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsAuthRoute = AuthenticatedDocsAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => AuthenticatedDocsRouteRoute,
+} as any)
 const ApiV1OrganizationIdRouteRoute =
   ApiV1OrganizationIdRouteRouteImport.update({
     id: '/api/v1/$organizationId',
@@ -150,6 +196,36 @@ const AuthenticatedOrganizationIdIntegrationsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedOrganizationIdIntegrationsRouteRoute,
+  } as any)
+const AuthenticatedDocsApiProjectsRoute =
+  AuthenticatedDocsApiProjectsRouteImport.update({
+    id: '/api/projects',
+    path: '/api/projects',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsApiOverviewRoute =
+  AuthenticatedDocsApiOverviewRouteImport.update({
+    id: '/api/overview',
+    path: '/api/overview',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsApiOrganizationsRoute =
+  AuthenticatedDocsApiOrganizationsRouteImport.update({
+    id: '/api/organizations',
+    path: '/api/organizations',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsApiFeedbackRoute =
+  AuthenticatedDocsApiFeedbackRouteImport.update({
+    id: '/api/feedback',
+    path: '/api/feedback',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
+  } as any)
+const AuthenticatedDocsApiAuthRoute =
+  AuthenticatedDocsApiAuthRouteImport.update({
+    id: '/api/auth',
+    path: '/api/auth',
+    getParentRoute: () => AuthenticatedDocsRouteRoute,
   } as any)
 const AuthenticatedOrganizationIdProjectsNewRoute =
   AuthenticatedOrganizationIdProjectsNewRouteImport.update({
@@ -291,6 +367,12 @@ export interface FileRoutesByFullPath {
   '/$organizationId/settings': typeof AuthenticatedOrganizationIdSettingsRouteRouteWithChildren
   '/account/settings': typeof AuthenticatedAccountSettingsRouteRouteWithChildren
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
+  '/docs/auth': typeof AuthenticatedDocsAuthRoute
+  '/docs/feedback': typeof AuthenticatedDocsFeedbackRoute
+  '/docs/notifications': typeof AuthenticatedDocsNotificationsRoute
+  '/docs/organizations': typeof AuthenticatedDocsOrganizationsRoute
+  '/docs/projects': typeof AuthenticatedDocsProjectsRoute
+  '/docs/rate-limiting': typeof AuthenticatedDocsRateLimitingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
   '/docs/': typeof AuthenticatedDocsIndexRoute
@@ -302,6 +384,11 @@ export interface FileRoutesByFullPath {
   '/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/api/v1/$organizationId/projects': typeof ApiV1OrganizationIdProjectsRouteRouteWithChildren
   '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/docs/api/auth': typeof AuthenticatedDocsApiAuthRoute
+  '/docs/api/feedback': typeof AuthenticatedDocsApiFeedbackRoute
+  '/docs/api/organizations': typeof AuthenticatedDocsApiOrganizationsRoute
+  '/docs/api/overview': typeof AuthenticatedDocsApiOverviewRoute
+  '/docs/api/projects': typeof AuthenticatedDocsApiProjectsRoute
   '/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/api/v1/$organizationId/projects/$projectId': typeof ApiV1OrganizationIdProjectsProjectIdRouteRouteWithChildren
@@ -328,6 +415,12 @@ export interface FileRoutesByTo {
   '/$organizationId/settings': typeof AuthenticatedOrganizationIdSettingsRouteRouteWithChildren
   '/account/settings': typeof AuthenticatedAccountSettingsRouteRouteWithChildren
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
+  '/docs/auth': typeof AuthenticatedDocsAuthRoute
+  '/docs/feedback': typeof AuthenticatedDocsFeedbackRoute
+  '/docs/notifications': typeof AuthenticatedDocsNotificationsRoute
+  '/docs/organizations': typeof AuthenticatedDocsOrganizationsRoute
+  '/docs/projects': typeof AuthenticatedDocsProjectsRoute
+  '/docs/rate-limiting': typeof AuthenticatedDocsRateLimitingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId': typeof AuthenticatedOrganizationIdIndexRoute
   '/docs': typeof AuthenticatedDocsIndexRoute
@@ -339,6 +432,11 @@ export interface FileRoutesByTo {
   '/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/api/v1/$organizationId/projects': typeof ApiV1OrganizationIdProjectsRouteRouteWithChildren
   '/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/docs/api/auth': typeof AuthenticatedDocsApiAuthRoute
+  '/docs/api/feedback': typeof AuthenticatedDocsApiFeedbackRoute
+  '/docs/api/organizations': typeof AuthenticatedDocsApiOrganizationsRoute
+  '/docs/api/overview': typeof AuthenticatedDocsApiOverviewRoute
+  '/docs/api/projects': typeof AuthenticatedDocsApiProjectsRoute
   '/$organizationId/integrations': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/api/v1/$organizationId/projects/$projectId': typeof ApiV1OrganizationIdProjectsProjectIdRouteRouteWithChildren
@@ -370,6 +468,12 @@ export interface FileRoutesById {
   '/_authenticated/$organizationId/settings': typeof AuthenticatedOrganizationIdSettingsRouteRouteWithChildren
   '/_authenticated/account/settings': typeof AuthenticatedAccountSettingsRouteRouteWithChildren
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
+  '/_authenticated/docs/auth': typeof AuthenticatedDocsAuthRoute
+  '/_authenticated/docs/feedback': typeof AuthenticatedDocsFeedbackRoute
+  '/_authenticated/docs/notifications': typeof AuthenticatedDocsNotificationsRoute
+  '/_authenticated/docs/organizations': typeof AuthenticatedDocsOrganizationsRoute
+  '/_authenticated/docs/projects': typeof AuthenticatedDocsProjectsRoute
+  '/_authenticated/docs/rate-limiting': typeof AuthenticatedDocsRateLimitingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_authenticated/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
   '/_authenticated/docs/': typeof AuthenticatedDocsIndexRoute
@@ -381,6 +485,11 @@ export interface FileRoutesById {
   '/_authenticated/account/settings/general': typeof AuthenticatedAccountSettingsGeneralRouteRouteWithChildren
   '/api/v1/$organizationId/projects': typeof ApiV1OrganizationIdProjectsRouteRouteWithChildren
   '/_authenticated/$organizationId/projects/new': typeof AuthenticatedOrganizationIdProjectsNewRoute
+  '/_authenticated/docs/api/auth': typeof AuthenticatedDocsApiAuthRoute
+  '/_authenticated/docs/api/feedback': typeof AuthenticatedDocsApiFeedbackRoute
+  '/_authenticated/docs/api/organizations': typeof AuthenticatedDocsApiOrganizationsRoute
+  '/_authenticated/docs/api/overview': typeof AuthenticatedDocsApiOverviewRoute
+  '/_authenticated/docs/api/projects': typeof AuthenticatedDocsApiProjectsRoute
   '/_authenticated/$organizationId/integrations/': typeof AuthenticatedOrganizationIdIntegrationsIndexRoute
   '/_authenticated/$organizationId/projects/$projectId/settings': typeof AuthenticatedOrganizationIdProjectsProjectIdSettingsRouteRouteWithChildren
   '/api/v1/$organizationId/projects/$projectId': typeof ApiV1OrganizationIdProjectsProjectIdRouteRouteWithChildren
@@ -412,6 +521,12 @@ export interface FileRouteTypes {
     | '/$organizationId/settings'
     | '/account/settings'
     | '/api/v1/$organizationId'
+    | '/docs/auth'
+    | '/docs/feedback'
+    | '/docs/notifications'
+    | '/docs/organizations'
+    | '/docs/projects'
+    | '/docs/rate-limiting'
     | '/api/auth/$'
     | '/$organizationId/'
     | '/docs/'
@@ -423,6 +538,11 @@ export interface FileRouteTypes {
     | '/account/settings/general'
     | '/api/v1/$organizationId/projects'
     | '/$organizationId/projects/new'
+    | '/docs/api/auth'
+    | '/docs/api/feedback'
+    | '/docs/api/organizations'
+    | '/docs/api/overview'
+    | '/docs/api/projects'
     | '/$organizationId/integrations/'
     | '/$organizationId/projects/$projectId/settings'
     | '/api/v1/$organizationId/projects/$projectId'
@@ -449,6 +569,12 @@ export interface FileRouteTypes {
     | '/$organizationId/settings'
     | '/account/settings'
     | '/api/v1/$organizationId'
+    | '/docs/auth'
+    | '/docs/feedback'
+    | '/docs/notifications'
+    | '/docs/organizations'
+    | '/docs/projects'
+    | '/docs/rate-limiting'
     | '/api/auth/$'
     | '/$organizationId'
     | '/docs'
@@ -460,6 +586,11 @@ export interface FileRouteTypes {
     | '/account/settings/general'
     | '/api/v1/$organizationId/projects'
     | '/$organizationId/projects/new'
+    | '/docs/api/auth'
+    | '/docs/api/feedback'
+    | '/docs/api/organizations'
+    | '/docs/api/overview'
+    | '/docs/api/projects'
     | '/$organizationId/integrations'
     | '/$organizationId/projects/$projectId/settings'
     | '/api/v1/$organizationId/projects/$projectId'
@@ -490,6 +621,12 @@ export interface FileRouteTypes {
     | '/_authenticated/$organizationId/settings'
     | '/_authenticated/account/settings'
     | '/api/v1/$organizationId'
+    | '/_authenticated/docs/auth'
+    | '/_authenticated/docs/feedback'
+    | '/_authenticated/docs/notifications'
+    | '/_authenticated/docs/organizations'
+    | '/_authenticated/docs/projects'
+    | '/_authenticated/docs/rate-limiting'
     | '/api/auth/$'
     | '/_authenticated/$organizationId/'
     | '/_authenticated/docs/'
@@ -501,6 +638,11 @@ export interface FileRouteTypes {
     | '/_authenticated/account/settings/general'
     | '/api/v1/$organizationId/projects'
     | '/_authenticated/$organizationId/projects/new'
+    | '/_authenticated/docs/api/auth'
+    | '/_authenticated/docs/api/feedback'
+    | '/_authenticated/docs/api/organizations'
+    | '/_authenticated/docs/api/overview'
+    | '/_authenticated/docs/api/projects'
     | '/_authenticated/$organizationId/integrations/'
     | '/_authenticated/$organizationId/projects/$projectId/settings'
     | '/api/v1/$organizationId/projects/$projectId'
@@ -626,6 +768,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/docs/rate-limiting': {
+      id: '/_authenticated/docs/rate-limiting'
+      path: '/rate-limiting'
+      fullPath: '/docs/rate-limiting'
+      preLoaderRoute: typeof AuthenticatedDocsRateLimitingRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/projects': {
+      id: '/_authenticated/docs/projects'
+      path: '/projects'
+      fullPath: '/docs/projects'
+      preLoaderRoute: typeof AuthenticatedDocsProjectsRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/organizations': {
+      id: '/_authenticated/docs/organizations'
+      path: '/organizations'
+      fullPath: '/docs/organizations'
+      preLoaderRoute: typeof AuthenticatedDocsOrganizationsRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/notifications': {
+      id: '/_authenticated/docs/notifications'
+      path: '/notifications'
+      fullPath: '/docs/notifications'
+      preLoaderRoute: typeof AuthenticatedDocsNotificationsRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/feedback': {
+      id: '/_authenticated/docs/feedback'
+      path: '/feedback'
+      fullPath: '/docs/feedback'
+      preLoaderRoute: typeof AuthenticatedDocsFeedbackRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/auth': {
+      id: '/_authenticated/docs/auth'
+      path: '/auth'
+      fullPath: '/docs/auth'
+      preLoaderRoute: typeof AuthenticatedDocsAuthRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
     '/api/v1/$organizationId': {
       id: '/api/v1/$organizationId'
       path: '/api/v1/$organizationId'
@@ -660,6 +844,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/$organizationId/integrations/'
       preLoaderRoute: typeof AuthenticatedOrganizationIdIntegrationsIndexRouteImport
       parentRoute: typeof AuthenticatedOrganizationIdIntegrationsRouteRoute
+    }
+    '/_authenticated/docs/api/projects': {
+      id: '/_authenticated/docs/api/projects'
+      path: '/api/projects'
+      fullPath: '/docs/api/projects'
+      preLoaderRoute: typeof AuthenticatedDocsApiProjectsRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/api/overview': {
+      id: '/_authenticated/docs/api/overview'
+      path: '/api/overview'
+      fullPath: '/docs/api/overview'
+      preLoaderRoute: typeof AuthenticatedDocsApiOverviewRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/api/organizations': {
+      id: '/_authenticated/docs/api/organizations'
+      path: '/api/organizations'
+      fullPath: '/docs/api/organizations'
+      preLoaderRoute: typeof AuthenticatedDocsApiOrganizationsRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/api/feedback': {
+      id: '/_authenticated/docs/api/feedback'
+      path: '/api/feedback'
+      fullPath: '/docs/api/feedback'
+      preLoaderRoute: typeof AuthenticatedDocsApiFeedbackRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
+    }
+    '/_authenticated/docs/api/auth': {
+      id: '/_authenticated/docs/api/auth'
+      path: '/api/auth'
+      fullPath: '/docs/api/auth'
+      preLoaderRoute: typeof AuthenticatedDocsApiAuthRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
     }
     '/_authenticated/$organizationId/projects/new': {
       id: '/_authenticated/$organizationId/projects/new'
@@ -952,12 +1171,35 @@ const AuthenticatedOrganizationIdRouteRouteWithChildren =
   )
 
 interface AuthenticatedDocsRouteRouteChildren {
+  AuthenticatedDocsAuthRoute: typeof AuthenticatedDocsAuthRoute
+  AuthenticatedDocsFeedbackRoute: typeof AuthenticatedDocsFeedbackRoute
+  AuthenticatedDocsNotificationsRoute: typeof AuthenticatedDocsNotificationsRoute
+  AuthenticatedDocsOrganizationsRoute: typeof AuthenticatedDocsOrganizationsRoute
+  AuthenticatedDocsProjectsRoute: typeof AuthenticatedDocsProjectsRoute
+  AuthenticatedDocsRateLimitingRoute: typeof AuthenticatedDocsRateLimitingRoute
   AuthenticatedDocsIndexRoute: typeof AuthenticatedDocsIndexRoute
+  AuthenticatedDocsApiAuthRoute: typeof AuthenticatedDocsApiAuthRoute
+  AuthenticatedDocsApiFeedbackRoute: typeof AuthenticatedDocsApiFeedbackRoute
+  AuthenticatedDocsApiOrganizationsRoute: typeof AuthenticatedDocsApiOrganizationsRoute
+  AuthenticatedDocsApiOverviewRoute: typeof AuthenticatedDocsApiOverviewRoute
+  AuthenticatedDocsApiProjectsRoute: typeof AuthenticatedDocsApiProjectsRoute
 }
 
 const AuthenticatedDocsRouteRouteChildren: AuthenticatedDocsRouteRouteChildren =
   {
+    AuthenticatedDocsAuthRoute: AuthenticatedDocsAuthRoute,
+    AuthenticatedDocsFeedbackRoute: AuthenticatedDocsFeedbackRoute,
+    AuthenticatedDocsNotificationsRoute: AuthenticatedDocsNotificationsRoute,
+    AuthenticatedDocsOrganizationsRoute: AuthenticatedDocsOrganizationsRoute,
+    AuthenticatedDocsProjectsRoute: AuthenticatedDocsProjectsRoute,
+    AuthenticatedDocsRateLimitingRoute: AuthenticatedDocsRateLimitingRoute,
     AuthenticatedDocsIndexRoute: AuthenticatedDocsIndexRoute,
+    AuthenticatedDocsApiAuthRoute: AuthenticatedDocsApiAuthRoute,
+    AuthenticatedDocsApiFeedbackRoute: AuthenticatedDocsApiFeedbackRoute,
+    AuthenticatedDocsApiOrganizationsRoute:
+      AuthenticatedDocsApiOrganizationsRoute,
+    AuthenticatedDocsApiOverviewRoute: AuthenticatedDocsApiOverviewRoute,
+    AuthenticatedDocsApiProjectsRoute: AuthenticatedDocsApiProjectsRoute,
   }
 
 const AuthenticatedDocsRouteRouteWithChildren =

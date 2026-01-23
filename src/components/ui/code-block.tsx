@@ -92,8 +92,6 @@ function CodeTab({
 }) {
   const [html, setHtml] = useState<string>()
 
-  console.log({ language, code })
-
   useEffect(() => {
     if (!html && code) {
       codeToHtml(code, {

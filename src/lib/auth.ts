@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { createAuthMiddleware, getOAuthState } from 'better-auth/api'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { lastLoginMethod } from 'better-auth/plugins'
 import { prisma } from '@/lib/database'
 import { resend, resendFromEmail } from '@/lib/resend'
 import { getRequiredEnv } from '@/utils/env'
@@ -81,7 +82,7 @@ export const auth = betterAuth({
       trustedProviders: ['github', 'linear'],
     },
   },
-  plugins: [tanstackStartCookies()],
+  plugins: [tanstackStartCookies(), lastLoginMethod()],
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const newSession = ctx.context.newSession

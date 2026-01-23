@@ -70,12 +70,12 @@ function App() {
           {user ? (
             <>
               <Button size="lg" variant="link" asChild>
-                <Link to="/home">Go to dashboard</Link>
+                <Link to="/home">Dashboard</Link>
               </Button>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                  <button className="cursor-pointer rounded focus:outline-none focus:ring-0">
                     <Avatar>
                       <AvatarImage src={user.image ?? undefined} />
                       <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>

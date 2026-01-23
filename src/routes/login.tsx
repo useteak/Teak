@@ -34,6 +34,7 @@ import { Separator } from '@/components/ui/separator'
 import { useErrorCallbackURL } from '@/hooks/use-error-callback-url'
 import { createSeoMeta } from '@/lib/seo'
 import { config } from '@/config'
+import LastUsedBadge from '@/components/last-used-badge'
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email').trim(),
@@ -56,6 +57,8 @@ export const Route = createFileRoute('/login')({
 })
 
 function RouteComponent() {
+  const lastMethod = authClient.getLastUsedLoginMethod()
+
   const navigate = useNavigate()
   const search = Route.useSearch()
   const [showPassword, setShowPassword] = useState(false)
@@ -112,6 +115,7 @@ function RouteComponent() {
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="outline"
+                className="relative"
                 onClick={() =>
                   authClient.signIn.social({
                     provider: 'github',
@@ -126,9 +130,11 @@ function RouteComponent() {
                   className="h-4 w-auto dark:invert"
                 />
                 GitHub
+                {lastMethod === 'github' && <LastUsedBadge />}
               </Button>
               <Button
                 variant="outline"
+                className="relative"
                 onClick={() =>
                   authClient.signIn.social({
                     provider: 'linear',
@@ -143,6 +149,7 @@ function RouteComponent() {
                   className="h-4 w-auto dark:invert"
                 />
                 Linear
+                {lastMethod === 'linear' && <LastUsedBadge />}
               </Button>
             </div>
 
@@ -161,11 +168,12 @@ function RouteComponent() {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative">
             <Separator className="flex-1" />
             <span className="text-sm text-muted-foreground">
               Or with email & password
             </span>
+            {lastMethod === 'email' && <LastUsedBadge />}
             <Separator className="flex-1" />
           </div>
 

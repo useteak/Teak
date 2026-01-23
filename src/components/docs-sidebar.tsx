@@ -1,9 +1,3 @@
-import {
-  SecurityLockIcon,
-  WaveIcon,
-  WavingHandIcon,
-} from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { AppLogo } from './app-logo'
 import {
@@ -11,6 +5,8 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -40,13 +36,104 @@ export function DocsSidebar() {
               isActive={location.pathname === `/docs/auth`}
               asChild
             >
-              <Link to="/docs">Authentication</Link>
+              <Link to="/docs/auth">Authentication</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/docs/organizations`}
+              asChild
+            >
+              <Link to="/docs/organizations">Organizations</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/docs/projects`}
+              asChild
+            >
+              <Link to="/docs/projects">Projects</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/docs/notifications`}
+              asChild
+            >
+              <Link to="/docs/notifications">Notifications</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/docs/feedback`}
+              asChild
+            >
+              <Link to="/docs/feedback">Feedback</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              isActive={location.pathname === `/docs/rate-limiting`}
+              asChild
+            >
+              <Link to="/docs/rate-limiting">Rate limiting</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup></SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Teak API</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={location.pathname === `/docs/api/overview`}
+                  asChild
+                >
+                  <Link to="/docs/api/overview">API overview</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={location.pathname === `/docs/api/auth`}
+                  asChild
+                >
+                  <Link to="/docs/api/auth">Authentication</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={location.pathname === `/docs/api/organizations`}
+                  asChild
+                >
+                  <Link to="/docs/api/organizations">Organizations</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={location.pathname === `/docs/api/projects`}
+                  asChild
+                >
+                  <a href="/docs/api/projects">Projects</a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  isActive={location.pathname === `/docs/api/feedback`}
+                  asChild
+                >
+                  <a href="/docs/api/feedback">Feedback</a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter></SidebarFooter>
     </Sidebar>
