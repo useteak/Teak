@@ -1,4 +1,5 @@
 import {
+  BookmarkIcon,
   IceCubesIcon,
   Layers01Icon,
   PlusSignIcon,
@@ -60,6 +61,13 @@ export function AppSidebar() {
               >
                 <HugeiconsIcon icon={Settings05Icon} />
                 Settings
+              </Link>
+            </SidebarMenuButton>
+
+            <SidebarMenuButton asChild>
+              <Link to="/docs">
+                <HugeiconsIcon icon={BookmarkIcon} />
+                Documentation
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

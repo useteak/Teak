@@ -63,6 +63,10 @@ function App() {
         </Link>
 
         <div className="flex items-center gap-2">
+          <Button size="lg" variant="link" asChild>
+            <Link to="/docs">Documentation</Link>
+          </Button>
+
           {user ? (
             <>
               <Button size="lg" variant="link" asChild>

@@ -12,7 +12,7 @@ export const authMiddleware = (requireAuth = true) =>
     const session = await auth.api.getSession({ headers })
 
     // If / don't check auth
-    if (pathname === '/') {
+    if (pathname === '/' || pathname.startsWith('/docs')) {
       return await next()
     }
 

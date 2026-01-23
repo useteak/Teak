@@ -5,6 +5,8 @@
 @import '@fontsource-variable/fira-code';
 @import '@fontsource-variable/noto-serif';
 
+@plugin '@tailwindcss/typography';
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -46,7 +48,7 @@
 }
 
 .dark {
-  --background: oklch(0.15 0 0);
+  --background: oklch(0.17 0 0);
   --foreground: oklch(0.985 0 0);
   --foreground-primary: oklch(0.792 0.209 151.711);
   --card: oklch(0.18 0 0);
@@ -137,6 +139,9 @@
   }
   html {
     @apply font-sans;
+  }
+  article {
+    @apply px-6 py-12 prose dark:prose-invert mx-auto w-full max-w-3xl prose-h1:font-medium prose-headings:font-semibold prose-neutral;
   }
 }
 

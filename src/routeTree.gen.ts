@@ -18,7 +18,9 @@ import { Route as InviteTokenRouteImport } from './routes/invite/$token'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedNewOrganizationRouteImport } from './routes/_authenticated/new-organization'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
+import { Route as AuthenticatedDocsRouteRouteImport } from './routes/_authenticated/docs/route'
 import { Route as AuthenticatedOrganizationIdRouteRouteImport } from './routes/_authenticated/$organizationId/route'
+import { Route as AuthenticatedDocsIndexRouteImport } from './routes/_authenticated/docs/index'
 import { Route as AuthenticatedOrganizationIdIndexRouteImport } from './routes/_authenticated/$organizationId/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiV1OrganizationIdRouteRouteImport } from './routes/api/v1/$organizationId/route'
@@ -92,12 +94,22 @@ const AuthenticatedHomeRoute = AuthenticatedHomeRouteImport.update({
   path: '/home',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDocsRouteRoute = AuthenticatedDocsRouteRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOrganizationIdRouteRoute =
   AuthenticatedOrganizationIdRouteRouteImport.update({
     id: '/$organizationId',
     path: '/$organizationId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDocsIndexRoute = AuthenticatedDocsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedDocsRouteRoute,
+} as any)
 const AuthenticatedOrganizationIdIndexRoute =
   AuthenticatedOrganizationIdIndexRouteImport.update({
     id: '/',
@@ -269,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/docs': typeof AuthenticatedDocsRouteRouteWithChildren
   '/home': typeof AuthenticatedHomeRoute
   '/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -280,6 +293,7 @@ export interface FileRoutesByFullPath {
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
+  '/docs/': typeof AuthenticatedDocsIndexRoute
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
@@ -316,6 +330,7 @@ export interface FileRoutesByTo {
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/$organizationId': typeof AuthenticatedOrganizationIdIndexRoute
+  '/docs': typeof AuthenticatedDocsIndexRoute
   '/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
@@ -345,6 +360,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/_authenticated/$organizationId': typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  '/_authenticated/docs': typeof AuthenticatedDocsRouteRouteWithChildren
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -356,6 +372,7 @@ export interface FileRoutesById {
   '/api/v1/$organizationId': typeof ApiV1OrganizationIdRouteRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_authenticated/$organizationId/': typeof AuthenticatedOrganizationIdIndexRoute
+  '/_authenticated/docs/': typeof AuthenticatedDocsIndexRoute
   '/_authenticated/$organizationId/projects/$projectId': typeof AuthenticatedOrganizationIdProjectsProjectIdRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/api-keys': typeof AuthenticatedOrganizationIdSettingsApiKeysRouteRouteWithChildren
   '/_authenticated/$organizationId/settings/general': typeof AuthenticatedOrganizationIdSettingsGeneralRouteRouteWithChildren
@@ -385,6 +402,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/$organizationId'
+    | '/docs'
     | '/home'
     | '/new-organization'
     | '/settings'
@@ -396,6 +414,7 @@ export interface FileRouteTypes {
     | '/api/v1/$organizationId'
     | '/api/auth/$'
     | '/$organizationId/'
+    | '/docs/'
     | '/$organizationId/projects/$projectId'
     | '/$organizationId/settings/api-keys'
     | '/$organizationId/settings/general'
@@ -432,6 +451,7 @@ export interface FileRouteTypes {
     | '/api/v1/$organizationId'
     | '/api/auth/$'
     | '/$organizationId'
+    | '/docs'
     | '/$organizationId/projects/$projectId'
     | '/$organizationId/settings/api-keys'
     | '/$organizationId/settings/general'
@@ -460,6 +480,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signup'
     | '/_authenticated/$organizationId'
+    | '/_authenticated/docs'
     | '/_authenticated/home'
     | '/_authenticated/new-organization'
     | '/_authenticated/settings'
@@ -471,6 +492,7 @@ export interface FileRouteTypes {
     | '/api/v1/$organizationId'
     | '/api/auth/$'
     | '/_authenticated/$organizationId/'
+    | '/_authenticated/docs/'
     | '/_authenticated/$organizationId/projects/$projectId'
     | '/_authenticated/$organizationId/settings/api-keys'
     | '/_authenticated/$organizationId/settings/general'
@@ -569,12 +591,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHomeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/docs': {
+      id: '/_authenticated/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof AuthenticatedDocsRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/$organizationId': {
       id: '/_authenticated/$organizationId'
       path: '/$organizationId'
       fullPath: '/$organizationId'
       preLoaderRoute: typeof AuthenticatedOrganizationIdRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/docs/': {
+      id: '/_authenticated/docs/'
+      path: '/'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof AuthenticatedDocsIndexRouteImport
+      parentRoute: typeof AuthenticatedDocsRouteRoute
     }
     '/_authenticated/$organizationId/': {
       id: '/_authenticated/$organizationId/'
@@ -915,6 +951,20 @@ const AuthenticatedOrganizationIdRouteRouteWithChildren =
     AuthenticatedOrganizationIdRouteRouteChildren,
   )
 
+interface AuthenticatedDocsRouteRouteChildren {
+  AuthenticatedDocsIndexRoute: typeof AuthenticatedDocsIndexRoute
+}
+
+const AuthenticatedDocsRouteRouteChildren: AuthenticatedDocsRouteRouteChildren =
+  {
+    AuthenticatedDocsIndexRoute: AuthenticatedDocsIndexRoute,
+  }
+
+const AuthenticatedDocsRouteRouteWithChildren =
+  AuthenticatedDocsRouteRoute._addFileChildren(
+    AuthenticatedDocsRouteRouteChildren,
+  )
+
 interface AuthenticatedAccountSettingsGeneralRouteRouteChildren {
   AuthenticatedAccountSettingsGeneralDeleteRoute: typeof AuthenticatedAccountSettingsGeneralDeleteRoute
 }
@@ -950,6 +1000,7 @@ const AuthenticatedAccountSettingsRouteRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedOrganizationIdRouteRoute: typeof AuthenticatedOrganizationIdRouteRouteWithChildren
+  AuthenticatedDocsRouteRoute: typeof AuthenticatedDocsRouteRouteWithChildren
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedNewOrganizationRoute: typeof AuthenticatedNewOrganizationRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -960,6 +1011,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOrganizationIdRouteRoute:
     AuthenticatedOrganizationIdRouteRouteWithChildren,
+  AuthenticatedDocsRouteRoute: AuthenticatedDocsRouteRouteWithChildren,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedNewOrganizationRoute: AuthenticatedNewOrganizationRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
