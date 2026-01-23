@@ -41,17 +41,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <AppFooter />
           </TooltipProvider>
         </ThemeProvider>
-        {/* <TanStackDevtools */}
-        {/*   config={{ */}
-        {/*     position: 'bottom-right', */}
-        {/*   }} */}
-        {/*   plugins={[ */}
-        {/*     { */}
-        {/*       name: 'Tanstack Router', */}
-        {/*       render: <TanStackRouterDevtoolsPanel />, */}
-        {/*     }, */}
-        {/*   ]} */}
-        {/* /> */}
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            {
+              name: 'Tanstack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
 
         <Scripts />
       </body>

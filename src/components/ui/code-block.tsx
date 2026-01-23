@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { codeToHtml } from 'shiki'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { CopyIcon, Tick02Icon } from '@hugeicons/core-free-icons'
-import { useTheme } from 'next-themes'
 import { Button } from './button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
+import { Skeleton } from './skeleton'
 import type { IconSvgElement } from '@hugeicons/react'
 import type { BundledLanguage } from 'shiki'
 import { cn } from '@/utils/classnames'
@@ -17,39 +17,21 @@ type CodeBlockLanguage = {
 }
 
 export default function CodeBlock({
-  languages: _langs,
   defaultLanguage,
   className,
+  languages,
 }: {
   languages: Array<CodeBlockLanguage>
   defaultLanguage?: BundledLanguage
   className?: string
 }) {
-  const [languages, setLanguages] = useState<Array<CodeBlockLanguage>>([])
   const [activeTab, setActiveTab] = useState<string>(
-    defaultLanguage ?? _langs[0]?.language,
+    defaultLanguage ?? languages[0]?.language,
   )
   const [copied, setCopied] = useState(false)
-  const { theme } = useTheme()
-
-  useEffect(() => {
-    ;(async () => {
-      const langsWithHtml = await Promise.all(
-        _langs.map(async (lang) => ({
-          ...lang,
-          code: await codeToHtml(lang.code, {
-            lang: lang.language,
-            theme: theme === 'dark' ? 'github-dark' : 'github-light-default',
-          }),
-        })),
-      )
-
-      setLanguages(langsWithHtml)
-    })()
-  }, [_langs, theme])
 
   const handleCopy = async () => {
-    const activeLang = _langs.find((l) => l.language === activeTab)
+    const activeLang = languages.find((l) => l.language === activeTab)
     if (activeLang) {
       await navigator.clipboard.writeText(activeLang.code)
       setCopied(true)
@@ -90,16 +72,49 @@ export default function CodeBlock({
       </TabsList>
       {languages.map((language) => {
         return (
-          <TabsContent
+          <CodeTab
             key={language.language}
-            value={language.language}
-            className="max-w-full"
-          >
-            <Code code={language.code} />
-          </TabsContent>
+            language={language.language}
+            code={language.code}
+          />
         )
       })}
     </Tabs>
+  )
+}
+
+function CodeTab({
+  language,
+  code,
+}: {
+  language: BundledLanguage
+  code: string
+}) {
+  const [html, setHtml] = useState<string>()
+
+  console.log({ language, code })
+
+  useEffect(() => {
+    if (!html && code) {
+      codeToHtml(code, {
+        lang: language,
+        theme: 'dark-plus',
+      })
+        .then(setHtml)
+        .catch((e) => {
+          console.error(e)
+        })
+    }
+  }, [code, html])
+
+  return (
+    <TabsContent value={language} className="max-w-full">
+      {html ? (
+        <Code code={html} />
+      ) : (
+        <Skeleton className="h-72 rounded-t-none" />
+      )}
+    </TabsContent>
   )
 }
 
