@@ -22,6 +22,7 @@ export function DocsSidebar() {
         <AppLogo
           className="pb-2 p-1.5 opacity-25 hover:opacity-100 transition-opacity"
           imageClassName="h-4"
+          href="/"
         />
 
         <SidebarMenu>

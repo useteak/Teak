@@ -55,12 +55,7 @@ function App() {
   return (
     <div className="flex flex-col gap-10 w-full max-w-4xl mx-auto p-8 xl:pt-12 xl:pb-32 px-8 xl:px-12 min-h-svh">
       <nav className="flex items-center justify-between">
-        <Link
-          to="/"
-          className="text-muted-foreground text-lg font-bold lowercase"
-        >
-          <AppLogo imageClassName="h-6" withLink={false} />
-        </Link>
+        <AppLogo imageClassName="h-6" href="/" />
 
         <div className="flex items-center gap-2">
           <Button size="lg" variant="link" asChild>
@@ -262,7 +257,7 @@ function ExampleLinear() {
         <p className="font-semibold">Contact us</p>
         <HugeiconsIcon
           icon={Cancel01Icon}
-          className="size-[18px] text-muted-foreground hover:text-foreground transition"
+          className="size-4.5 text-muted-foreground hover:text-foreground transition"
         />
       </div>
 
@@ -283,7 +278,7 @@ function ExampleLinear() {
         <div className="flex items-center justify-between">
           <HugeiconsIcon
             icon={Attachment01Icon}
-            className="size-[18px] text-muted-foreground hover:text-foreground transition"
+            className="size-4.5 text-muted-foreground hover:text-foreground transition"
           />
 
           <button className="rounded-[5px] h-8 px-3.5 font-medium bg-[#606acb] text-white hover:bg-[#6D78E7] transition">

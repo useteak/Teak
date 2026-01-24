@@ -195,14 +195,14 @@ function RouteComponent() {
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                       <Input
+                        type="email"
                         id={field.name}
                         name={field.name}
-                        placeholder="jane@doe.com"
-                        type="email"
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         aria-invalid={isInvalid}
+                        placeholder="janedoe@myspace.com"
                         autoComplete="email"
                       />
                       {isInvalid && (

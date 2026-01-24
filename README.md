@@ -25,7 +25,7 @@ curl -X POST "https://your-app-url/api/v1/{organizationId}/projects/{projectId}/
   -d '{
     "description": "I would really love to be able to copy this page as markdown.",
     "type": "FEATURE_REQUEST",
-    "email": "jane@doe.com",
+    "email": "janedoe@myspace.com",
     "metadata": { "page": "Docs" }
   }'
 ```

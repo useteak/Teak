@@ -1,15 +1,17 @@
 import { Link } from '@tanstack/react-router'
 
 type AppLogoProps = {
-  className?: string
   imageClassName?: string
+  className?: string
   withLink?: boolean
+  href?: string
 }
 
 export function AppLogo({
-  className,
-  imageClassName,
   withLink = true,
+  imageClassName,
+  className,
+  href = '/',
 }: AppLogoProps) {
   const imageClasses = (extra: string) =>
     [imageClassName, extra].filter(Boolean).join(' ')
@@ -31,7 +33,7 @@ export function AppLogo({
 
   if (withLink) {
     return (
-      <Link to="/home" className={className}>
+      <Link to={href} className={className}>
         {renderImages()}
       </Link>
     )

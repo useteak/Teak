@@ -2,18 +2,22 @@ import {
   BookmarkIcon,
   IceCubesIcon,
   Layers01Icon,
+  MessageIcon,
   PlusSignIcon,
   Settings05Icon,
   UnfoldMoreIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Link, useLocation } from '@tanstack/react-router'
+import { useState } from 'react'
 import { DropdownMenu, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import OrganizationSwitcher from './organization-switcher'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { AppLogo } from './app-logo'
 import { UserAccountDropdownContent } from './user-account-dropdown-content'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import FeedbackForm from './feedback-form'
 import {
   Sidebar,
   SidebarContent,
@@ -36,6 +40,9 @@ export function AppSidebar() {
   // URL state
   const params = Route.useParams()
   const location = useLocation()
+
+  // Local state
+  const [isFeedbackFormOpen, setIsFeedbackFormOpen] = useState<boolean>(false)
 
   return (
     <Sidebar>
@@ -162,6 +169,26 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
+            <Popover
+              open={isFeedbackFormOpen}
+              onOpenChange={setIsFeedbackFormOpen}
+            >
+              <PopoverTrigger asChild>
+                <SidebarMenuButton>
+                  <HugeiconsIcon icon={MessageIcon} />
+                  Got feedback?
+                </SidebarMenuButton>
+              </PopoverTrigger>
+              <PopoverContent className="w-96" side="top" align="start">
+                <FeedbackForm
+                  userEmail={user?.email}
+                  onClose={() => setIsFeedbackFormOpen(false)}
+                />
+              </PopoverContent>
+            </Popover>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem className="mt-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton

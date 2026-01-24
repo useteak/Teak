@@ -34,7 +34,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="dark overflow-x-hidden">
-        <Toaster position="top-center" richColors />
+        <Toaster theme="dark" position="top-center" richColors />
         <ThemeProvider defaultTheme="dark">
           <TooltipProvider delayDuration={700}>
             {children}

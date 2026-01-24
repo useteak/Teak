@@ -274,7 +274,7 @@ function RouteComponent() {
                     <Input
                       id={field.name}
                       name={field.name}
-                      placeholder="jane@doe.com"
+                      placeholder="janedoe@myspace.com"
                       type="email"
                       value={field.state.value}
                       onBlur={field.handleBlur}
