@@ -7,8 +7,10 @@ import {
   ArrowUpRightIcon,
   Attachment01Icon,
   Cancel01Icon,
+  CancelIcon,
   CursorIcon,
   MessageIcon,
+  TickIcon,
 } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
 import { useState } from 'react'
@@ -16,7 +18,14 @@ import { auth } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { createSeoMeta } from '@/lib/seo'
 import { AppLogo } from '@/components/app-logo'
-import { Card } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { IntegrationCodeBlock } from '@/components/integration-code-block'
 import { config } from '@/config'
 import { FeedbackCard } from '@/components/feedback-card'
@@ -160,7 +169,9 @@ function App() {
 
       <section className="space-y-12">
         <div className="space-y-5">
-          <h2 className="text-3xl font-medium font-serif">Examples</h2>
+          <h2 className="text-3xl font-medium font-serif">
+            Example integrations
+          </h2>
 
           <p className="text-muted-foreground text-balance leading-relaxed">
             Here are some example feedback UI's you can build with{' '}
@@ -203,7 +214,7 @@ function App() {
           </p>
         </div>
 
-        <div className="flex items-center gap-10 w-full max-w-xl">
+        <div className="flex flex-col xl:flex-row items-center xl:items-start gap-10 w-full xl:max-w-xl">
           <div className="flex flex-col items-center gap-4">
             <img
               src="/linear-logo.svg"
@@ -232,20 +243,192 @@ function App() {
           </div>
         </div>
 
-        <Button size="lg" variant="secondary">
-          Read the documentation
+        <Button size="lg" asChild>
+          <Link to="/docs/api/overview">Read API documentation</Link>
         </Button>
       </section>
 
       <Separator className="my-12" />
 
-      <div className="xl:-mx-72">
-        <img
-          src="/dashboard.webp"
-          alt={`${config.productName} dashboard`}
-          className="w-full"
-        />
-      </div>
+      <section className="space-y-8">
+        <div className="space-y-6">
+          <h3 className="font-serif text-3xl">
+            A beautifully simple dashboard
+          </h3>
+          <p className="text-lg/relaxed text-muted-foreground">
+            Don't waste your time in complex overly complex customer feedback
+            apps. Here, you get everything you need to know about what your
+            customers are experiencing at a glance.
+          </p>
+        </div>
+
+        <div className="xl:-mx-72">
+          <img
+            src="/dashboard.webp"
+            alt={`${config.productName} dashboard`}
+            className="w-full"
+          />
+        </div>
+      </section>
+
+      <Separator className="my-12" />
+
+      <section>
+        <div className="space-y-8">
+          <div className="flex items-center gap-5">
+            <img src="/icon-white.svg" className="h-10" />
+            <img src="/github-logo.svg" className="w-10 invert" />
+          </div>
+
+          <div className="space-y-9">
+            <div className="space-y-6">
+              <h3 className="font-serif text-3xl">
+                {config.productName} loves Open Source
+              </h3>
+              <p className="text-lg/relaxed text-muted-foreground">
+                We believe in building in the open, and thus, we've made Teak
+                open source. This means that you can go and read the source code
+                for {config.productName}, and see exactly what goes on under the
+                hood.
+              </p>
+            </div>
+
+            <Button size="lg" asChild>
+              <a
+                href={config.sourceCodeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View code on GitHub
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <Separator className="my-12" />
+
+      <section>
+        <div className="space-y-9">
+          <h3 className="font-serif text-3xl">Pricing</h3>
+
+          <div className="grid xl:grid-cols-3 gap-4 xl:-mx-32">
+            <Card>
+              <CardHeader>
+                <CardDescription>Starter</CardDescription>
+                <CardTitle className="text-2xl font-serif">Free</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <ul className="space-y-1.5 text-base">
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 1
+                    project
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 7 day
+                    feedback retention
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 2
+                    members
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> No
+                    credit card required
+                  </li>
+                  <li className="flex items-center gap-1 text-muted-foreground">
+                    <HugeiconsIcon className="size-3.5" icon={CancelIcon} /> API
+                    access
+                  </li>
+                  <li className="flex items-center gap-1 text-muted-foreground">
+                    <HugeiconsIcon className="size-3.5" icon={CancelIcon} />{' '}
+                    Support
+                  </li>
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full" variant="outline" asChild>
+                  <Link to="/signup">Sign up now</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+
+            <Card className="border-foreground-primary pointer-events-none opacity-50">
+              <CardHeader>
+                <CardDescription>Pro</CardDescription>
+                <CardTitle className="text-2xl font-serif">
+                  10€
+                  <span className="text-muted-foreground text-lg">/month</span>
+                </CardTitle>
+              </CardHeader>
+
+              <CardContent className="flex-1">
+                <ul className="space-y-1.5 text-base text-foreground-primary">
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 10
+                    projects
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 90
+                    day feedback retention
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> 10
+                    members
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} /> API
+                    access
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <HugeiconsIcon className="size-3.5" icon={TickIcon} />{' '}
+                    Support
+                  </li>
+                </ul>
+
+                <p className="text-balance text-sm text-muted-foreground mt-4">
+                  You can always upgrade from{' '}
+                  <span className="font-serif">Basic</span> to{' '}
+                  <span className="font-serif">Pro</span> if you need more from{' '}
+                  {config.productName}.
+                </p>
+              </CardContent>
+              <CardFooter className="flex flex-col items-center gap-2">
+                <Button className="w-full" asChild disabled>
+                  <Link to="/signup">Coming soon</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardDescription>Enterprise</CardDescription>
+                <CardTitle className="text-2xl font-serif">
+                  Get in contact
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <p className="text-balance text-sm/relaxed text-muted-foreground mt-4">
+                  Are you a larger team or organization that wants to use{' '}
+                  {config.productName}? Let's have a coffee and come up with a
+                  tailored solution for all your customer feedback needs.
+                </p>
+              </CardContent>
+              <CardFooter className="flex flex-col items-center gap-2">
+                <Button className="w-full" variant="outline" asChild>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={config.calendlyUrl}
+                  >
+                    Book a call
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

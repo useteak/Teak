@@ -175,7 +175,7 @@ project = JSON.parse(response.body)`,
           authentication.
         </p>
 
-        <div className="not-prose">
+        <div className="not-prose pt-2">
           <CodeBlock languages={languages} defaultLanguage="typescript" />
         </div>
 

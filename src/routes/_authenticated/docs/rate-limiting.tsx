@@ -48,11 +48,6 @@ function RouteComponent() {
               <HugeiconsIcon icon={ArrowLeft01Icon} /> Feedback
             </Link>
           </Button>
-          <Button asChild variant="outline">
-            <Link to="/docs">
-              Getting started <HugeiconsIcon icon={ArrowRightIcon} />
-            </Link>
-          </Button>
         </div>
       </article>
     </div>
