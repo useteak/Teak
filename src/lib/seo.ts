@@ -11,7 +11,9 @@ export function createSeoMeta(options: SeoOptions = {}) {
     ? `${options.title} | ${config.productName}`
     : `${config.productName} - ${config.productTagline}`
   const description = options.description ?? config.productDescription
-  const image = options.image ?? `${config.productUrl}/og-image.png`
+  const image =
+    options.image ??
+    `https://res.cloudinary.com/albin-groen/image/upload/f_auto,q_auto/v1769268243/opengraph_ekdobi.png`
 
   return [
     { title },
