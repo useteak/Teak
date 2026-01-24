@@ -20,7 +20,7 @@ Teak lets you create organizations and projects, then exposes a simple endpoint 
 Submit feedback to a project:
 
 ```shell
-curl -X POST "https://your-app-url/api/v1/{organizationId}/projects/{projectId}/feedback" \
+curl -X POST "https://www.useteak.com/api/v1/{organizationId}/projects/{projectId}/feedback" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "I would really love to be able to copy this page as markdown.",
