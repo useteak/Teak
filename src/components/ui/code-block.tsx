@@ -49,26 +49,25 @@ export default function CodeBlock({
       onValueChange={setActiveTab}
       className={cn('gap-0 w-full', className)}
     >
-      <TabsList className="w-full justify-start rounded-b-none bg-white dark:bg-[#1e1e1e] p-2 group-data-horizontal/tabs:h-12 gap-1 border-t border-x dark:border-none">
-        {languages.map(({ icon: Icon, label, language }) => (
-          <TabsTrigger
-            key={language}
-            value={language}
-            className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none"
-          >
-            <HugeiconsIcon icon={Icon} className="size-4" />
-            {label}
-          </TabsTrigger>
-        ))}
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          className="ml-auto"
-          onClick={handleCopy}
-        >
-          <HugeiconsIcon icon={copied ? Tick02Icon : CopyIcon} />
-          <span className="sr-only">{copied ? 'Copied' : 'Copy'}</span>
-        </Button>
+      <TabsList className="w-full justify-start rounded-b-none bg-white dark:bg-[#1e1e1e] group-data-horizontal/tabs:h-12 gap-0 border-t border-x dark:border-none">
+        <div className="flex gap-2 flex-1 overflow-x-auto p-2">
+          {languages.map(({ icon: Icon, label, language }) => (
+            <TabsTrigger
+              key={language}
+              value={language}
+              className="flex-0 font-normal border-none data-active:bg-muted group-data-[variant=default]/tabs-list:data-active:shadow-none"
+            >
+              <HugeiconsIcon icon={Icon} className="size-4" />
+              {label}
+            </TabsTrigger>
+          ))}
+        </div>
+        <div className="ml-auto p-2">
+          <Button variant="ghost" size="icon-sm" onClick={handleCopy}>
+            <HugeiconsIcon icon={copied ? Tick02Icon : CopyIcon} />
+            <span className="sr-only">{copied ? 'Copied' : 'Copy'}</span>
+          </Button>
+        </div>
       </TabsList>
       {languages.map((language) => {
         return (

@@ -114,7 +114,7 @@ function RouteComponent() {
             organizationId: params.organizationId,
           },
         })
-        toast.success('Org created')
+        toast.success('Project created')
         navigate({
           to: '/$organizationId/projects/$projectId/settings',
           params: {
@@ -123,7 +123,7 @@ function RouteComponent() {
           },
         })
       } catch {
-        toast.error('Failed to create org')
+        toast.error('Failed to create project')
       }
     },
   })
