@@ -39,7 +39,7 @@ export function FeedbackCard({
             {formatFeedbackType(feedback.type)}
           </p>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground" suppressHydrationWarning>
             {format(feedback.createdAt, 'HH:mm')}
           </p>
         </div>

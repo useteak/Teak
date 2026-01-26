@@ -195,7 +195,10 @@ function RouteComponent() {
 
                     <div className="space-y-1">
                       <p className="text-sm font-medium">{meta.label}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p
+                        className="text-xs text-muted-foreground"
+                        suppressHydrationWarning
+                      >
                         Added on {format(account.createdAt, 'PPp')}
                       </p>
                     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
@@ -57,7 +57,11 @@ export const Route = createFileRoute('/login')({
 })
 
 function RouteComponent() {
-  const lastMethod = authClient.getLastUsedLoginMethod()
+  const [lastMethod, setLastMethod] = useState<string | null>(null)
+
+  useEffect(() => {
+    setLastMethod(authClient.getLastUsedLoginMethod())
+  }, [])
 
   const navigate = useNavigate()
   const search = Route.useSearch()
