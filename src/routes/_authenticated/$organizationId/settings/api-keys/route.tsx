@@ -197,7 +197,10 @@ function RouteComponent() {
                           </InputGroupAddon>
                         </InputGroup>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">
+                      <TableCell
+                        className="text-muted-foreground"
+                        suppressHydrationWarning
+                      >
                         {formatDistanceToNow(new Date(apiKey.createdAt), {
                           addSuffix: true,
                         })}

@@ -8,7 +8,7 @@ export default function AppFooter() {
         className="p-1.5 opacity-50 hover:opacity-100 transition-opacity"
         imageClassName="h-4"
       />
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground" suppressHydrationWarning>
         © {config.productName} {new Date().getFullYear()} · Built with ❤️ in 🇸🇪
       </p>
     </footer>
