@@ -234,7 +234,7 @@ function App() {
           </div>
         </div>
 
-        <Button size="lg" asChild>
+        <Button size="lg" variant="outline" asChild>
           <Link to="/docs/api/overview">Read API documentation</Link>
         </Button>
       </section>
@@ -284,7 +284,7 @@ function App() {
               </p>
             </div>
 
-            <Button size="lg" asChild>
+            <Button size="lg" variant="outline" asChild>
               <a
                 href={config.sourceCodeUrl}
                 target="_blank"
