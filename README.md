@@ -76,3 +76,4 @@ Valid `type` values: `BUG`, `FEATURE_REQUEST`, `IMPROVEMENT`, `QUESTION`, `PRAIS
 - `bun run preview`: preview build
 - `bun run test`: run tests
 - `bun run lint`: lint
+- `bun run check`: format & lint
