@@ -353,6 +353,7 @@ const ApiV1OrganizationIdProjectsProjectIdFeedbackFeedbackIdRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
@@ -362,7 +363,6 @@ export interface FileRoutesByFullPath {
   '/new-organization': typeof AuthenticatedNewOrganizationRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
-  '/': typeof AuthenticatedIndexRoute
   '/$organizationId/integrations': typeof AuthenticatedOrganizationIdIntegrationsRouteRouteWithChildren
   '/$organizationId/settings': typeof AuthenticatedOrganizationIdSettingsRouteRouteWithChildren
   '/account/settings': typeof AuthenticatedAccountSettingsRouteRouteWithChildren
@@ -507,6 +507,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/login'
     | '/reset-password'
     | '/signup'
@@ -516,7 +517,6 @@ export interface FileRouteTypes {
     | '/new-organization'
     | '/settings'
     | '/invite/$token'
-    | '/'
     | '/$organizationId/integrations'
     | '/$organizationId/settings'
     | '/account/settings'
@@ -694,7 +694,7 @@ declare module '@tanstack/react-router' {
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }

@@ -1,8 +1,8 @@
 {
   "version": "1.0",
   "generatorVersion": "unknown",
-  "generatedAt": "2026-01-25T23:29:34.987Z",
-  "outputPath": "/home/albin/Developer/useteak/Teak/src/generated/zod",
+  "generatedAt": "2026-01-26T22:45:26.022Z",
+  "outputPath": "/Users/abgn/Developer/demos/app-template/src/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",
     "schemas/enums/UserScalarFieldEnum.schema.ts",
