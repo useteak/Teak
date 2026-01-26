@@ -7,7 +7,6 @@ import {
   ThirdBracketIcon,
 } from '@hugeicons/core-free-icons'
 import type { IconSvgElement } from '@hugeicons/react'
-import type { BundledLanguage } from 'shiki'
 import { Button } from '@/components/ui/button'
 import { ApiEndpointHeader } from '@/components/api-endpoint-header'
 import { createSeoMeta } from '@/lib/seo'
@@ -28,7 +27,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const jsonBlock = (code: string) => [
     {
-      language: 'json' as BundledLanguage,
+      language: 'json',
       icon: ThirdBracketIcon as IconSvgElement,
       label: 'JSON',
       code,

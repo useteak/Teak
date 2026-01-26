@@ -11,7 +11,6 @@ import {
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import type { IconSvgElement } from '@hugeicons/react'
-import type { BundledLanguage } from 'shiki'
 import { Button } from '@/components/ui/button'
 import { config } from '@/config'
 import { createSeoMeta } from '@/lib/seo'
@@ -31,7 +30,7 @@ function RouteComponent() {
   const baseUrl = `${config.productUrl}/api/v1`
   const errorLanguages = useMemo<
     Array<{
-      language: BundledLanguage
+      language: string
       icon: IconSvgElement
       label: string
       code: string
@@ -55,7 +54,7 @@ function RouteComponent() {
   )
   const languages = useMemo<
     Array<{
-      language: BundledLanguage
+      language: string
       icon: IconSvgElement
       label: string
       code: string

@@ -81,14 +81,14 @@ function App() {
               </DropdownMenu>
             </>
           ) : (
-            <>
+            <div className="flex gap-3">
               <Button size="lg" variant="link" asChild>
                 <Link to="/login">Log in</Link>
               </Button>
-              <Button size="lg" asChild className="font-semibold">
+              <Button size="lg" asChild>
                 <Link to="/signup">Create an account</Link>
               </Button>
-            </>
+            </div>
           )}
         </div>
       </nav>

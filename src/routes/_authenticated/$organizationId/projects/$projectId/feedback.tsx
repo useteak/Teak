@@ -110,7 +110,7 @@ function RouteComponent() {
           ).length
 
           if (!feedbackCount) {
-            return <Card className="opacity-50 h-23.5" />
+            return <Card key={feedbackType} className="opacity-50 h-23.5" />
           }
 
           return (

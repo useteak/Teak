@@ -6,7 +6,6 @@ import {
   PythonIcon,
   Typescript01Icon,
 } from '@hugeicons/core-free-icons'
-import type { BundledLanguage } from 'shiki'
 import CodeBlock from '@/components/ui/code-block'
 import {
   getCurlIntegrationCode,
@@ -19,7 +18,7 @@ import {
 type IntegrationCodeBlockProps = {
   organizationId: string
   projectId: string
-  defaultLanguage?: BundledLanguage
+  defaultLanguage?: string
   hideComments?: boolean
   className?: string
 }
