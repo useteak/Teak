@@ -13,7 +13,7 @@ export function createSeoMeta(options: SeoOptions = {}) {
   const description = options.description ?? config.productDescription
   const image =
     options.image ??
-    `https://res.cloudinary.com/albin-groen/image/upload/f_auto,q_auto/v1769471118/opengraph_rbe4jc.webp`
+    `https://res.cloudinary.com/albin-groen/image/upload/w_auto,q_auto/v1769518624/banner_g1bpwu.webp`
 
   return [
     { title },
