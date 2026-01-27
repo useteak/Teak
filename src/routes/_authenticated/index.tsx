@@ -57,7 +57,17 @@ function App() {
       <nav className="flex items-center justify-between">
         <AppLogo imageClassName="h-6" href="/" />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          <Button size="lg" variant="link" asChild>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={config.sourceCodeUrl}
+            >
+              GitHub
+            </a>
+          </Button>
+
           <Button size="lg" variant="link" asChild>
             <Link to="/docs">Documentation</Link>
           </Button>
@@ -70,7 +80,7 @@ function App() {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="cursor-pointer rounded focus:outline-none focus:ring-0">
+                  <button className="cursor-pointer rounded focus:outline-none focus:ring-0 ml-4">
                     <Avatar>
                       <AvatarImage src={user.image ?? undefined} />
                       <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
@@ -81,7 +91,7 @@ function App() {
               </DropdownMenu>
             </>
           ) : (
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <Button size="lg" variant="link" asChild>
                 <Link to="/login">Log in</Link>
               </Button>
@@ -95,7 +105,7 @@ function App() {
 
       <header className="mt-16">
         <h1 className="text-5xl/tight font-medium text-balance font-serif">
-          Customer feedback experiences without the infrastructure
+          The Headless Feedback Platform
         </h1>
 
         <p className="mt-8 text-balance text-xl/relaxed text-muted-foreground-secondary">
