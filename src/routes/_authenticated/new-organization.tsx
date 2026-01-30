@@ -81,9 +81,6 @@ export const Route = createFileRoute('/_authenticated/new-organization')({
 })
 
 function RouteComponent() {
-  // Server state
-  const { user } = Route.useLoaderData()
-
   // URL state
   const navigate = useNavigate()
 

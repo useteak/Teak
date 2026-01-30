@@ -1,18 +1,10 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { DocsSidebar } from '@/components/docs-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { auth } from '@/lib/auth'
 import { createSeoMeta } from '@/lib/seo'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
 
 const getData = createServerFn().handler(async () => {
   const session = await auth.api.getSession({

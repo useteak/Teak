@@ -12,6 +12,7 @@
     "lint:fix": "eslint --fix",
     "format": "prettier",
     "check": "prettier --write . && eslint --fix",
+    "lint:ts": "tsc --noEmit",
     "knip": "knip"
   },
   "dependencies": {
