@@ -20,7 +20,6 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { createSeoMeta } from '@/lib/seo'
 import { Button } from '@/components/ui/button'
-import AppFooter from '@/components/app-footer'
 
 export const Route = createFileRoute('/_authenticated/account/settings')({
   component: RouteComponent,
@@ -56,8 +55,8 @@ function RouteComponent() {
           <Separator />
         </div>
 
-        <div className="flex items-start gap-16">
-          <SidebarMenu className="flex-1 max-w-64 sticky top-6">
+        <div className="flex flex-col xl:flex-row xl:items-start gap-8 xl:gap-16">
+          <SidebarMenu className="xl:flex-1 xl:max-w-64 xl:sticky xl:top-6">
             <SidebarMenuItem>
               <SidebarMenuButton
                 isActive={location.pathname.startsWith(

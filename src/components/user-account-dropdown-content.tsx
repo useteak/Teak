@@ -1,6 +1,6 @@
 import { LogoutIcon, Settings05Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
 import { authClient } from '@/lib/auth-client'
 
@@ -16,10 +16,10 @@ export function UserAccountDropdownContent({
   return (
     <DropdownMenuContent sideOffset={sideOffset} className="w-48">
       <DropdownMenuItem asChild>
-        <Link to="/account/settings/general">
+        <a href="/account/settings/general">
           <HugeiconsIcon icon={Settings05Icon} />
           Account settings
-        </Link>
+        </a>
       </DropdownMenuItem>
       <DropdownMenuItem
         variant="destructive"

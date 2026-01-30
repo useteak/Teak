@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { cn } from '@/utils/classnames'
 
 type AppLogoProps = {
   imageClassName?: string
@@ -33,7 +34,7 @@ export function AppLogo({
 
   if (withLink) {
     return (
-      <Link to={href} className={className}>
+      <Link to={href} className={cn('block', className)}>
         {renderImages()}
       </Link>
     )

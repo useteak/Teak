@@ -41,7 +41,7 @@ export function DocsNav({ currentPage, parentPage }: DocsNavProps) {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/docs">Documentation</Link>
+                <Link to="/docs">Docs</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -86,7 +86,7 @@ export function DocsNav({ currentPage, parentPage }: DocsNavProps) {
               <Link to="/login">Sign in</Link>
             </Button>
             <Button size="lg" asChild className="font-semibold">
-              <Link to="/signup">Get started</Link>
+              <Link to="/signup">Sign up</Link>
             </Button>
           </>
         )}

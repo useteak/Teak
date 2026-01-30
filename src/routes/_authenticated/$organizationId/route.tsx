@@ -3,7 +3,11 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import * as z from 'zod'
 import { AppSidebar } from '@/components/app-sidebar'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
 import { prisma } from '@/lib/database'
 import { auth } from '@/lib/auth'
 
@@ -58,6 +62,9 @@ function RouteComponent() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
+        <div className="pt-2 pl-2">
+          <SidebarTrigger />
+        </div>
         <Outlet />
       </SidebarInset>
     </SidebarProvider>

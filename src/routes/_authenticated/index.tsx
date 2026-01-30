@@ -55,21 +55,11 @@ function App() {
   return (
     <div className="flex flex-col gap-10 w-full max-w-4xl mx-auto p-8 xl:pt-12 xl:pb-32 px-8 xl:px-12 min-h-svh">
       <nav className="flex items-center justify-between">
-        <AppLogo imageClassName="h-6" href="/" />
+        <AppLogo imageClassName="h-5 xl:h-6" href="/" />
 
-        <div className="flex items-center">
+        <div className="flex items-center flex-1 justify-end">
           <Button size="lg" variant="link" asChild>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={config.sourceCodeUrl}
-            >
-              GitHub
-            </a>
-          </Button>
-
-          <Button size="lg" variant="link" asChild>
-            <Link to="/docs">Documentation</Link>
+            <Link to="/docs">Docs</Link>
           </Button>
 
           {user ? (
@@ -96,19 +86,19 @@ function App() {
                 <Link to="/login">Log in</Link>
               </Button>
               <Button size="lg" asChild>
-                <Link to="/signup">Create an account</Link>
+                <Link to="/signup">Sign up</Link>
               </Button>
             </div>
           )}
         </div>
       </nav>
 
-      <header className="mt-16">
-        <h1 className="text-5xl/tight font-medium text-balance font-serif">
+      <header className="mt-8 xl:mt-16">
+        <h1 className="text-4xl/snug xl:text-5xl/tight font-medium text-balance font-serif">
           The Headless Feedback Platform
         </h1>
 
-        <p className="mt-8 text-balance text-xl/relaxed text-muted-foreground-secondary">
+        <p className="mt-8 text-balance text-muted-foreground-secondary text-base/relaxed xl:text-xl/relaxed">
           Build your customer feedback experience without managing the
           infrastructure. We provide an API endpoint and a beautiful dashboard
           for you and your team.
@@ -170,11 +160,11 @@ function App() {
 
       <section className="space-y-12">
         <div className="space-y-5">
-          <h2 className="text-3xl font-medium font-serif">
+          <h2 className="text-2xl xl:text-3xl font-medium font-serif">
             Example integrations
           </h2>
 
-          <p className="text-muted-foreground text-balance leading-relaxed">
+          <p className="text-muted-foreground text-balance leading-relaxed text-sm xl:text-base">
             Here are some example feedback UI's you can build with{' '}
             {config.productName}. Don't lock yourself into a third-party
             interface. Use the {config.productName} API to build your own custom
@@ -202,14 +192,14 @@ function App() {
 
       <section className="flex flex-col items-center gap-12">
         <div className="flex flex-col items-center text-center gap-4">
-          <h2 className="text-3xl font-medium font-serif">
+          <h2 className="text-2xl xl:text-3xl font-medium font-serif">
             {config.productName} works where you do
           </h2>
-          <p className="text-muted-foreground text-balance leading-relaxed">
+          <p className="text-muted-foreground text-balance leading-relaxed text-sm xl:text-base">
             Forward feedback to the right people, in the right places.
           </p>
 
-          <p className="text-muted-foreground text-balance leading-relaxed">
+          <p className="text-muted-foreground text-balance leading-relaxed text-sm xl:text-base">
             {config.productName} integrates with tools like Linear and Slack,
             and provides a REST API for you to build your own integrations.
           </p>
@@ -253,10 +243,10 @@ function App() {
 
       <section className="space-y-8">
         <div className="space-y-6">
-          <h3 className="font-serif text-3xl">
+          <h3 className="font-serif text-2xl xl:text-3xl">
             A beautifully simple dashboard
           </h3>
-          <p className="text-lg/relaxed text-muted-foreground">
+          <p className="leading-relaxed text-muted-foreground xl:text-lg">
             Don't waste your time in complex overly complex customer feedback
             apps. Here, you get everything you need to know about what your
             customers are experiencing at a glance.
@@ -283,10 +273,10 @@ function App() {
 
           <div className="space-y-9">
             <div className="space-y-6">
-              <h3 className="font-serif text-3xl">
+              <h3 className="font-serif text-2xl xl:text-3xl">
                 {config.productName} loves Open Source
               </h3>
-              <p className="text-lg/relaxed text-muted-foreground">
+              <p className="leading-relaxed text-muted-foreground xl:text-lg">
                 We believe in building in the open, and thus, we've made Teak
                 open source. This means that you can go and read the source code
                 for {config.productName}, and see exactly what goes on under the

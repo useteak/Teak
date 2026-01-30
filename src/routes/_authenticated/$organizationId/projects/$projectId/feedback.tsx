@@ -102,7 +102,7 @@ function RouteComponent() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 xl:grid-cols-3 gap-3">
         {Object.values(FeedbackType).map((feedbackType) => {
           const icon = getFeedbackTypeIcon(feedbackType)
           const feedbackCount = feedback.filter(
@@ -110,7 +110,7 @@ function RouteComponent() {
           ).length
 
           if (!feedbackCount) {
-            return <Card key={feedbackType} className="opacity-50 h-23.5" />
+            return <Card key={feedbackType} className="opacity-50 min-h-23.5" />
           }
 
           return (
@@ -145,9 +145,12 @@ function RouteComponent() {
               : format(f.createdAt, 'EEE, MMM d'),
         ),
       ).map(([day, entries]) => (
-        <div key={day} className="flex items-start gap-8">
+        <div
+          key={day}
+          className="flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-8"
+        >
           <h2
-            className="text-sm text-muted-foreground w-24 text-right font-medium mt-1"
+            className="text-sm text-muted-foreground xl:w-24 xl:text-right font-medium xl:mt-1"
             suppressHydrationWarning
           >
             {day}
