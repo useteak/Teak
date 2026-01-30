@@ -112,7 +112,7 @@ function RouteComponent() {
   })
 
   return (
-    <div className="flex min-h-svh items-center justify-center">
+    <div className="flex min-h-svh items-center justify-center p-4">
       <Card size="sm" className="w-full max-w-md">
         <CardHeader>
           <CardTitle>New organization</CardTitle>

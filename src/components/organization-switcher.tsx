@@ -80,14 +80,14 @@ export default function OrganizationSwitcher() {
             })}
             <DropdownMenuSeparator />
             <DropdownMenuItem className="gap-2 p-2 cursor-pointer" asChild>
-              <Link to="/new-organization">
+              <a href="/new-organization">
                 <div className="bg-background flex size-6 items-center justify-center rounded-sm border">
                   <HugeiconsIcon icon={PlusSignIcon} className="size-4" />
                 </div>
                 <div className="text-muted-foreground font-medium">
                   Add organization
                 </div>
-              </Link>
+              </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
